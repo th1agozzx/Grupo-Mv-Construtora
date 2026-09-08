@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -60,6 +60,26 @@ html {
   overflow-x: hidden;
 }
 
+:focus-visible {
+  outline: 3px solid #ef4444;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -67,7 +87,7 @@ html {
   body {
     background-color: #e6e8ec;
     color: var(--color-foreground);
-    font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -80,4 +100,20 @@ html {
     background: oklch(0.635 0.27 27);
     color: #fff;
   }
+}
+
+/*
+  Compensa o header fixo (76px) na navegação por âncora.
+
+  Sem isso, clicar em "Localização" rola até o topo exato da seção — que fica
+  ATRÁS do header, escondendo o título. O usuário tem a impressão de que o clique
+  não funcionou ou levou ao lugar errado.
+
+  `scroll-margin-top` diz ao navegador para parar 96px antes, deixando o título
+  visível abaixo do header.
+*/
+[id]:target,
+section[id],
+main[id] {
+  scroll-margin-top: 96px;
 }

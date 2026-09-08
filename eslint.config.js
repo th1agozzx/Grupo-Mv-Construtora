@@ -37,4 +37,10 @@ export default tseslint.config(
     },
   },
   eslintPluginPrettier,
+  {
+    rules: {
+      // O repositório é editado no Windows e validado no Linux; aceite ambos.
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
+    },
+  },
 );

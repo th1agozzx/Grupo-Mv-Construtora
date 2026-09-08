@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Crawlers de IA liberados propositalmente, para que a MV Construtora possa ser
+# citada em respostas de IA (Gemini, AI Overviews, ChatGPT, Perplexity).
+# Google-Extended é o token que autoriza o uso do conteúdo no Gemini/AI Overviews.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://www.grupomvconstrutora.com.br/sitemap.xml
