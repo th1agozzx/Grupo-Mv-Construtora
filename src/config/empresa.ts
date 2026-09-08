@@ -10,22 +10,9 @@
 /**
  * URL canônica do site em produção.
  *
- * Alimenta canonical, og:url, sitemap e JSON-LD. Fica fixa de propósito: mesmo
- * no build de preview (GitHub Pages) o canonical deve apontar para a produção,
- * e o preview inteiro sai com noindex — ver scripts/build-pages.mjs.
+ * Alimenta canonical, og:url, sitemap e JSON-LD.
  */
 export const SITE_URL = "https://www.grupomvconstrutora.com.br";
-
-/**
- * true no build estático de preview (GitHub Pages).
- *
- * Usa o BASE_URL porque o Vite sempre o define, com o valor de `base` do
- * vite.config.ts: "/" na produção (Vercel) e "/site-Grupo-Mv-Construtora/" no
- * preview. Depender de uma env var VITE_* aqui já falhou silenciosamente — o
- * Vite não expõe `process.env.VITE_*` automaticamente, e o preview foi ao ar
- * sem o noindex. Este sinal não tem como divergir da configuração real.
- */
-export const E_PREVIEW = import.meta.env.BASE_URL !== "/";
 
 export const EMPRESA = {
   nome: "MV Construtora",

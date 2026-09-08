@@ -6,44 +6,19 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// ---------------------------------------------------------------------------
-// Dois alvos de build
-//
-//   npm run build        -> PRODUÇÃO na Vercel, com SSR, em www.grupomvconstrutora.com.br
-//   npm run build:pages  -> PREVIEW estático no GitHub Pages, sob /site-Grupo-Mv-Construtora/
-//
-// A diferença é só de variável de ambiente: BUILD_TARGET=static e BASE_PATH.
-//
-// O preview sai com noindex (ver src/routes/__root.tsx). Isso é proposital: se o
-// Google indexar a cópia do GitHub Pages, ela vira conteúdo duplicado e disputa
-// posição com a produção — o oposto do que queremos.
-// ---------------------------------------------------------------------------
-const estatico = process.env.BUILD_TARGET === "static";
-const basePath = estatico ? (process.env.BASE_PATH ?? "/site-Grupo-Mv-Construtora/") : "/";
-const routerBasepath = basePath === "/" ? "" : basePath.replace(/\/$/, "");
-
 export default defineConfig({
-  // Na Vercel queremos o nitro (SSR). No GitHub Pages não existe servidor,
-  // então o build vira prerender estático.
-  ...(estatico ? { nitro: false } : {}),
+  // Gera Vercel Functions para SSR e server functions em todos os builds de produção.
+  nitro: { preset: "vercel" },
   vite: {
-    base: basePath,
+    // A Vercel serve o aplicativo diretamente na raiz do domínio.
+    base: "/",
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
     router: {
-      basepath: routerBasepath,
+      basepath: "",
     },
-    ...(estatico
-      ? {
-          prerender: {
-            enabled: true,
-            crawlLinks: true,
-            failOnError: true,
-          },
-        }
-      : {}),
   },
 });

@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { E_PREVIEW } from "@/config/empresa";
 import { SITE_BASE_PATH } from "@/config/navegacao";
 
 import appCss from "../styles.css?url";
@@ -81,9 +80,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      // O preview do GitHub Pages nunca deve ser indexado: seria conteúdo
-      // duplicado disputando posição com a produção.
-      ...(E_PREVIEW ? [{ name: "robots", content: "noindex, nofollow" }] : []),
     ],
     links: [
       { rel: "stylesheet", href: appCss },

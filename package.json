@@ -10,8 +10,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "build:pages": "node scripts/build-pages.mjs"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
