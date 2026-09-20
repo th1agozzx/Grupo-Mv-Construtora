@@ -76,7 +76,7 @@ function PaginaMaquina() {
         }}
       />
 
-      <main id="conteudo" className="pt-[76px]">
+      <main id="conteudo" className="pt-20">
         {/* ABERTURA + GALERIA */}
         <section className="mx-auto max-w-7xl px-5 pb-16 pt-14 sm:px-8 lg:pt-20">
           <Breadcrumbs
@@ -89,7 +89,7 @@ function PaginaMaquina() {
           <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:items-start">
             <div>
               <SectionTitle as="h1" eyebrow={maquina.categoria} title={maquina.h1} />
-              <p className="mt-7 text-lg leading-8 text-zinc-700">{maquina.intro}</p>
+              <p className="mt-7 text-lg leading-8 text-concreto">{maquina.intro}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <CTAButton
                   href={waLink(
@@ -104,7 +104,7 @@ function PaginaMaquina() {
             </div>
 
             <div>
-              <div className="aspect-[4/3] overflow-hidden rounded-sm bg-zinc-900">
+              <div className="aspect-[4/3] overflow-hidden rounded-sm bg-grafite-alto">
                 <img
                   src={maquina.imgs[foto]}
                   alt={`${maquina.nome} da MV Construtora — foto ${foto + 1} de ${maquina.imgs.length}`}
@@ -123,10 +123,8 @@ function PaginaMaquina() {
                       onClick={() => setFoto(i)}
                       aria-label={`Ver foto ${i + 1} de ${maquina.nome}`}
                       aria-current={i === foto}
-                      className={`h-16 w-20 overflow-hidden rounded-sm border-2 transition-opacity ${
-                        i === foto
-                          ? "border-red-600"
-                          : "border-transparent opacity-60 hover:opacity-100"
+                      className={`h-16 w-20 overflow-hidden border-2 transition-opacity ${
+                        i === foto ? "border-mv" : "border-transparent opacity-60 hover:opacity-100"
                       }`}
                     >
                       <img src={img} alt="" loading="lazy" className="h-full w-full object-cover" />
@@ -139,15 +137,15 @@ function PaginaMaquina() {
         </section>
 
         {/* APLICAÇÕES */}
-        <section className="border-y border-zinc-300 bg-white/40 py-16 lg:py-20">
+        <section className="border-y border-borda bg-areia py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Para que serve {maquina.nome.toLowerCase()}
             </h2>
             <ul className="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
               {maquina.aplicacoes.map((item) => (
-                <li key={item} className="flex items-start gap-3 leading-7 text-zinc-700">
-                  <BadgeCheck size={20} className="mt-1 shrink-0 text-red-600" />
+                <li key={item} className="flex items-start gap-3 leading-7 text-concreto">
+                  <BadgeCheck size={20} className="mt-1 shrink-0 text-mv" />
                   {item}
                 </li>
               ))}
@@ -160,7 +158,7 @@ function PaginaMaquina() {
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Serviços que executamos com {maquina.nome.toLowerCase()}
           </h2>
-          <p className="mt-4 max-w-2xl leading-7 text-zinc-600">
+          <p className="mt-4 max-w-2xl leading-7 text-concreto">
             Este equipamento entra em {servicos.length}{" "}
             {servicos.length === 1 ? "frente de atuação" : "frentes de atuação"} da MV Construtora.
             Você pode contratar o serviço completo ou apenas a locação da máquina.
@@ -171,14 +169,14 @@ function PaginaMaquina() {
                 key={servico.slug}
                 to="/servicos/$slug"
                 params={{ slug: servico.slug }}
-                className="group border-t-2 border-zinc-950 pt-5"
+                className="group border-t-2 border-grafite pt-5"
               >
-                <servico.icon size={26} strokeWidth={1.6} className="text-red-500" />
-                <h3 className="mt-4 text-lg font-semibold group-hover:text-red-700">
+                <servico.icon size={26} strokeWidth={1.6} className="text-mv" />
+                <h3 className="mt-4 text-lg font-semibold group-hover:text-mv-escuro">
                   {servico.nome}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{servico.resumo}</p>
-                <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-red-600">
+                <p className="mt-2 text-sm leading-6 text-concreto">{servico.resumo}</p>
+                <span className="mt-3 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
                   Ver serviço <ArrowRight size={16} />
                 </span>
               </Link>
@@ -187,14 +185,14 @@ function PaginaMaquina() {
         </section>
 
         {/* FAQ DA MÁQUINA */}
-        <section className="border-y border-zinc-300 bg-white/40 py-16 lg:py-20">
+        <section className="border-y border-borda bg-areia py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Perguntas frequentes sobre {maquina.nome.toLowerCase()}
             </h2>
-            <div className="mt-10 border-t border-zinc-300">
+            <div className="mt-10 border-t border-borda">
               {maquina.faqs.map(([pergunta, resposta], i) => (
-                <div key={pergunta} className="border-b border-zinc-300">
+                <div key={pergunta} className="border-b border-borda">
                   <button
                     onClick={() => setAberta(aberta === i ? -1 : i)}
                     className="flex w-full items-center justify-between gap-6 py-6 text-left font-semibold"
@@ -203,13 +201,13 @@ function PaginaMaquina() {
                     <span>{pergunta}</span>
                     <ChevronDown
                       size={20}
-                      className={`shrink-0 transition-transform ${aberta === i ? "rotate-180 text-red-500" : ""}`}
+                      className={`shrink-0 transition-transform ${aberta === i ? "rotate-180 text-mv" : ""}`}
                     />
                   </button>
                   <div
                     className={`grid transition-all duration-300 ${aberta === i ? "grid-rows-[1fr] pb-6" : "grid-rows-[0fr]"}`}
                   >
-                    <p className="overflow-hidden pr-10 leading-7 text-zinc-600">{resposta}</p>
+                    <p className="overflow-hidden pr-10 leading-7 text-concreto">{resposta}</p>
                   </div>
                 </div>
               ))}
@@ -230,7 +228,7 @@ function PaginaMaquina() {
                 params={{ slug: outra.slug }}
                 className="group"
               >
-                <div className="aspect-[4/3] overflow-hidden rounded-sm bg-zinc-200">
+                <div className="aspect-[4/3] overflow-hidden rounded-sm bg-borda">
                   <img
                     src={outra.imgs[0]}
                     alt={`${outra.nome} da frota da MV Construtora`}
@@ -241,16 +239,16 @@ function PaginaMaquina() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold group-hover:text-red-700">
+                <h3 className="mt-4 text-lg font-semibold group-hover:text-mv-escuro">
                   {outra.nome}
                 </h3>
-                <p className="mt-1 text-sm leading-6 text-zinc-600">{outra.resumo}</p>
+                <p className="mt-1 text-sm leading-6 text-concreto">{outra.resumo}</p>
               </Link>
             ))}
           </div>
           <Link
             to="/frota"
-            className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-700"
+            className="mt-10 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
           >
             Ver a frota completa <ArrowRight size={16} />
           </Link>

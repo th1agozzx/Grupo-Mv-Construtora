@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
-
-import { VIEWPORT_REVEAL } from "./animacoes";
-import { useReveal } from "@/hooks/use-reduced-motion";
+import { Revelar } from "./Revelar";
+import { revealLateral } from "./animacoes";
 
 export function SectionTitle({
   eyebrow,
@@ -15,24 +13,21 @@ export function SectionTitle({
   /** Nas páginas de serviço o título da seção de abertura é o H1 da página. */
   as?: "h1" | "h2";
 }) {
-  const reveal = useReveal();
-
   return (
-    <motion.div
-      variants={reveal}
-      initial="hidden"
-      whileInView="show"
-      viewport={VIEWPORT_REVEAL}
-      className="max-w-3xl"
-    >
-      <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-red-600">
-        <span className="h-px w-8 bg-red-600" /> {eyebrow}
+    <Revelar className="max-w-3xl" variantes={revealLateral}>
+      {/* Em fundo claro o rótulo usa o Vermelho Escuro: o Vermelho MV puro não
+          alcança 4,5:1 sobre o areia. A régua ao lado é elemento gráfico e pode
+          manter o vermelho da marca. */}
+      <p
+        className={`mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] ${light ? "text-mv-claro" : "text-mv-escuro"}`}
+      >
+        <span className={`h-px w-8 ${light ? "bg-mv-claro" : "bg-mv"}`} /> {eyebrow}
       </p>
       <Tag
-        className={`text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${light ? "text-white" : "text-zinc-950"}`}
+        className={`text-[32px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[40px] lg:text-[48px] ${light ? "text-white" : "text-grafite"}`}
       >
         {title}
       </Tag>
-    </motion.div>
+    </Revelar>
   );
 }

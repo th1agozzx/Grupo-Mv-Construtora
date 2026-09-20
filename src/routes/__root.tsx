@@ -19,7 +19,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h1 className="text-7xl font-semibold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Página não encontrada</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           A página que você procura não existe ou foi movida.
@@ -83,6 +83,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      // Montserrat é a tipografia definida no manual da marca. `display=swap`
+      // para o texto aparecer na fonte do sistema enquanto a Web Font carrega —
+      // sem isso o conteúdo some por alguns instantes em conexão ruim.
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+      },
       { rel: "icon", type: "image/png", href: `${SITE_BASE_PATH}favicon.png` },
       { rel: "icon", type: "image/x-icon", href: `${SITE_BASE_PATH}favicon.ico` },
       { rel: "apple-touch-icon", href: `${SITE_BASE_PATH}apple-touch-icon.png` },

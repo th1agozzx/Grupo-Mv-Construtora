@@ -43,7 +43,7 @@ function PoliticaPrivacidade() {
         }}
       />
 
-      <main id="conteudo" className="pt-[76px]">
+      <main id="conteudo" className="pt-20">
         <section className="mx-auto max-w-3xl px-5 pb-20 pt-14 sm:px-8 lg:pt-20">
           <Breadcrumbs
             itens={[{ rotulo: "Início", para: "/" }, { rotulo: "Política de Privacidade" }]}
@@ -51,13 +51,13 @@ function PoliticaPrivacidade() {
           <div className="mt-8">
             <SectionTitle as="h1" eyebrow="LGPD" title="Política de Privacidade" />
           </div>
-          <p className="mt-6 text-sm text-zinc-500">
+          <p className="mt-6 text-sm text-concreto">
             Última atualização: <time dateTime="2026-09-02">{ATUALIZADO_EM}</time>
           </p>
 
-          <div className="mt-10 space-y-8 leading-7 text-zinc-700">
+          <div className="mt-10 space-y-8 leading-7 text-concreto">
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">1. Quem é o controlador</h2>
+              <h2 className="text-xl font-semibold text-grafite">1. Quem é o controlador</h2>
               <p className="mt-3">
                 {EMPRESA.nome}, inscrita no CNPJ {EMPRESA.cnpj}, com sede em {EMPRESA.endereco}, é a
                 controladora dos dados pessoais tratados por meio deste site.
@@ -65,13 +65,13 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">2. Quais dados coletamos</h2>
+              <h2 className="text-xl font-semibold text-grafite">2. Quais dados coletamos</h2>
               <p className="mt-3">
                 O formulário do site <strong>não envia dados para nenhum servidor nosso</strong>.
                 Ele apenas monta uma mensagem com o que você digitou e abre o WhatsApp da empresa —
                 o envio é seu, pelo seu próprio aplicativo. Os campos são:
               </p>
-              <ul className="mt-3 list-disc space-y-1 pl-5 marker:text-red-600">
+              <ul className="mt-3 list-disc space-y-1 pl-5 marker:text-mv">
                 <li>Nome (obrigatório)</li>
                 <li>Descrição da necessidade (obrigatório)</li>
                 <li>Serviço e cidade da obra (opcionais)</li>
@@ -90,7 +90,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">3. Para que usamos</h2>
+              <h2 className="text-xl font-semibold text-grafite">3. Para que usamos</h2>
               <p className="mt-3">
                 Os dados são usados exclusivamente para responder à sua solicitação de orçamento ou
                 de informação e para o contato comercial decorrente dela. Não vendemos, alugamos nem
@@ -99,7 +99,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">4. Base legal</h2>
+              <h2 className="text-xl font-semibold text-grafite">4. Base legal</h2>
               <p className="mt-3">
                 O tratamento se apoia no artigo 7º, inciso V, da Lei 13.709/2018 (LGPD) — execução
                 de procedimentos preliminares relacionados a contrato do qual você é parte, a seu
@@ -109,12 +109,12 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">5. Com quem compartilhamos</h2>
+              <h2 className="text-xl font-semibold text-grafite">5. Com quem compartilhamos</h2>
               <p className="mt-3">
                 Utilizamos operadores que tratam dados em nosso nome, estritamente para viabilizar o
                 funcionamento do site:
               </p>
-              <ul className="mt-3 list-disc space-y-2 pl-5 marker:text-red-600">
+              <ul className="mt-3 list-disc space-y-2 pl-5 marker:text-mv">
                 <li>
                   <strong>WhatsApp / Meta</strong> — canal por onde a sua mensagem chega até nós.
                 </li>
@@ -137,7 +137,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">6. Por quanto tempo guardamos</h2>
+              <h2 className="text-xl font-semibold text-grafite">6. Por quanto tempo guardamos</h2>
               <p className="mt-3">
                 Mantemos os dados pelo tempo necessário ao atendimento da solicitação e ao
                 relacionamento comercial decorrente, ou até que você solicite a exclusão,
@@ -146,7 +146,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">7. Seus direitos</h2>
+              <h2 className="text-xl font-semibold text-grafite">7. Seus direitos</h2>
               <p className="mt-3">
                 A LGPD garante a você o direito de confirmar a existência de tratamento, acessar,
                 corrigir, anonimizar, bloquear, eliminar e portar seus dados, além de revogar o
@@ -156,7 +156,7 @@ function PoliticaPrivacidade() {
                 Para exercer qualquer desses direitos, escreva para{" "}
                 <a
                   href={`mailto:${EMPRESA.email}`}
-                  className="font-semibold text-zinc-950 underline decoration-red-600 underline-offset-4"
+                  className="font-semibold text-grafite underline decoration-mv underline-offset-4"
                 >
                   {EMPRESA.email}
                 </a>
@@ -165,7 +165,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">8. Cookies</h2>
+              <h2 className="text-xl font-semibold text-grafite">8. Cookies</h2>
               <p className="mt-3">
                 Este site não utiliza cookies próprios de rastreamento publicitário. Serviços
                 incorporados de terceiros, como o mapa do Google e o player de vídeo, podem gravar
@@ -175,7 +175,7 @@ function PoliticaPrivacidade() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-zinc-950">9. Alterações</h2>
+              <h2 className="text-xl font-semibold text-grafite">9. Alterações</h2>
               <p className="mt-3">
                 Esta política pode ser atualizada. A data da última revisão é sempre indicada no
                 topo da página.

@@ -72,15 +72,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   // navegador não consegue rolar. Confirmado em teste: scrollY seguia 0 com o
   // alvo a 29.929px de distância.
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f5f4f0] text-zinc-950">
+    <div className="min-h-screen overflow-x-hidden bg-white text-grafite">
       <a
         href="#conteudo"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-zinc-950"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-grafite"
       >
         Pular para o conteúdo
       </a>
       <motion.div
-        className="fixed left-0 right-0 top-0 z-[70] h-0.5 origin-left bg-red-500"
+        className="fixed left-0 right-0 top-0 z-[90] h-0.5 origin-left bg-mv"
         style={{ scaleX }}
       />
       <Header />

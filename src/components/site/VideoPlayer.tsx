@@ -47,8 +47,8 @@ export function VideoPlayer({ video, ativo }: { video: VideoItem; ativo: boolean
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <span className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent" />
-        <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-red-600 text-white shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-20 sm:w-20">
+        <span className="absolute inset-0 bg-gradient-to-t from-grafite/70 via-transparent to-transparent" />
+        <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-mv text-white shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-20 sm:w-20">
           <Play size={28} strokeWidth={2.4} className="ml-1" fill="currentColor" />
         </span>
         <span className="absolute inset-x-0 bottom-0 p-5 text-left text-sm font-semibold text-white sm:p-7 sm:text-base">

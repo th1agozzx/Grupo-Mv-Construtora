@@ -4,12 +4,44 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Paleta e tipografia da identidade visual da MV Construtora.
+
+  Os nomes vêm do manual da marca, não da escala do Tailwind: `bg-mv` é o
+  Vermelho MV, `text-concreto` é o Cinza Concreto. Usar nome de marca em vez de
+  `red-600`/`zinc-600` evita que o site vá se afastando da identidade a cada
+  ajuste pontual — se o vermelho mudar, muda num lugar só.
+
+  Estilo institucional: canto reto (--radius: 0), superfície branca, texto de
+  apoio em cinza e o vermelho reservado para ação e destaque.
+*/
 @theme inline {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --font-sans: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Vermelho MV — força, movimento, construção. Cor de ação. */
+  --color-mv: #e11b22;
+  /* Vermelho escuro — solidez, confiança. Estados hover/active. */
+  --color-mv-escuro: #a3131a;
+  /*
+    Vermelho clareado, só para TEXTO sobre o grafite. O Vermelho MV puro sobre
+    fundo escuro fica em 3,3:1 e reprova no WCAG AA para texto pequeno; este
+    tom passa de 5:1 mantendo a leitura da marca.
+  */
+  --color-mv-claro: #ff5a60;
+  /* Grafite — superfícies escuras (header, rodapé, seções de contraste). */
+  --color-grafite: #23262b;
+  --color-grafite-alto: #1a1d21;
+  /* Cinza concreto — estrutura, suporte. Texto de apoio. */
+  --color-concreto: #6f7378;
+  /* Fundo alternado entre seções claras. */
+  --color-areia: #f5f5f6;
+  /* Linhas e divisores. */
+  --color-borda: #e2e4e7;
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: var(--radius);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -32,36 +64,37 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.93 0.004 260);
-  --foreground: oklch(0.15 0.005 260);
-  --card: oklch(0.98 0.003 260);
-  --card-foreground: oklch(0.15 0.005 260);
-  --popover: oklch(0.98 0.003 260);
-  --popover-foreground: oklch(0.15 0.005 260);
-  --primary: oklch(0.635 0.27 27);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.92 0.004 260);
-  --secondary-foreground: oklch(0.15 0.005 260);
-  --muted: oklch(0.92 0.004 260);
-  --muted-foreground: oklch(0.45 0.01 260);
-  --accent: oklch(0.635 0.27 27);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.635 0.27 27);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.86 0.005 260);
-  --input: oklch(0.86 0.005 260);
-  --ring: oklch(0.635 0.27 27);
+  /* Canto reto em tudo, inclusive nos componentes shadcn. */
+  --radius: 0rem;
+  --background: #ffffff;
+  --foreground: #23262b;
+  --card: #ffffff;
+  --card-foreground: #23262b;
+  --popover: #ffffff;
+  --popover-foreground: #23262b;
+  --primary: #e11b22;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f6;
+  --secondary-foreground: #23262b;
+  --muted: #f5f5f6;
+  --muted-foreground: #6f7378;
+  --accent: #f5f5f6;
+  --accent-foreground: #23262b;
+  --destructive: #e11b22;
+  --destructive-foreground: #ffffff;
+  --border: #e2e4e7;
+  --input: #e2e4e7;
+  --ring: #e11b22;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 76px;
+  scroll-padding-top: 80px;
   overflow-x: hidden;
 }
 
 :focus-visible {
-  outline: 3px solid #ef4444;
+  outline: 3px solid #e11b22;
   outline-offset: 2px;
 }
 
@@ -85,9 +118,9 @@ html {
     border-color: var(--color-border);
   }
   body {
-    background-color: #e6e8ec;
+    background-color: #ffffff;
     color: var(--color-foreground);
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -97,23 +130,44 @@ html {
     max-width: 100%;
   }
   ::selection {
-    background: oklch(0.635 0.27 27);
+    background: #e11b22;
     color: #fff;
   }
 }
 
 /*
-  Compensa o header fixo (76px) na navegação por âncora.
+  Ken Burns do hero: aproximação lenta e contínua da foto de fundo.
+
+  É CSS puro de propósito — entra no primeiro paint, sem esperar o React, e a
+  regra global de `prefers-reduced-motion` já desliga junto com o resto.
+*/
+@keyframes mv-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+.hero-kenburns {
+  animation: mv-kenburns 12s ease-out forwards;
+  transform-origin: center 60%;
+  will-change: transform;
+}
+
+/*
+  Compensa o header fixo (80px) na navegação por âncora.
 
   Sem isso, clicar em "Localização" rola até o topo exato da seção — que fica
   ATRÁS do header, escondendo o título. O usuário tem a impressão de que o clique
   não funcionou ou levou ao lugar errado.
 
-  `scroll-margin-top` diz ao navegador para parar 96px antes, deixando o título
+  `scroll-margin-top` diz ao navegador para parar antes, deixando o título
   visível abaixo do header.
 */
 [id]:target,
 section[id],
 main[id] {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 100px;
 }

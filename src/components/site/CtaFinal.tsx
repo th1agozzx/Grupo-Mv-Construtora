@@ -14,9 +14,9 @@ export function CtaFinal({ servico }: { servico?: string }) {
     : "Olá! Gostaria de solicitar um orçamento à MV Construtora.";
 
   return (
-    <section className="bg-red-600 py-20 text-white lg:py-24">
+    <section className="bg-mv py-20 text-white lg:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <h2 className="max-w-3xl text-3xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-4xl lg:text-5xl">
+        <h2 className="max-w-3xl text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[38px] lg:text-[44px]">
           {servico
             ? `Precisa de ${servico.toLowerCase()} no Maranhão, Piauí ou Ceará?`
             : "Sua obra precisa avançar rápido?"}

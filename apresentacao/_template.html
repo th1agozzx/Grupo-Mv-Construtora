@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MV Construtora — Apresentação Institucional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --vermelho: #e11b22;
+    --vermelho-escuro: #a01218;
+    --cinza: #16202f;
+    --texto: #2b3442;
+    --suave: #667085;
+    --linha: #dfe3e8;
+    --claro: #f4f5f7;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #9aa0a6;
+    font-family: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--texto);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- Barra de ferramentas (só na tela) ---------- */
+  .barra {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--cinza);
+    color: #fff;
+    font-size: 13px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  }
+  .barra strong { font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: 12px; }
+  .barra .dica { color: rgba(255,255,255,.62); margin-left: auto; font-size: 12px; }
+  .barra button {
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 6px;
+  }
+  .barra button:hover { background: rgba(255,255,255,.18); }
+  .barra button.primario { background: var(--vermelho); border-color: var(--vermelho); }
+  .barra button.primario:hover { background: var(--vermelho-escuro); }
+  .barra button.ativo { background: #2e7d32; border-color: #2e7d32; }
+
+  #doc { padding: 68px 0 40px; }
+
+  /* ---------- Página A4 paisagem ---------- */
+  .pagina {
+    position: relative;
+    width: 297mm;
+    height: 210mm;
+    margin: 0 auto 18px;
+    background: #fff;
+    overflow: hidden;
+    padding: 15mm 18mm;
+    box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    display: flex;
+    flex-direction: column;
+  }
+  .pagina.escura { background: var(--cinza); color: #fff; }
+
+  /* Cantos diagonais da identidade */
+  .canto-vermelho, .canto-cinza {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 120mm; height: 42mm;
+    pointer-events: none;
+  }
+  .canto-cinza { background: var(--cinza); clip-path: polygon(0 100%, 56% 100%, 0 12%); }
+  .canto-vermelho { background: var(--vermelho); clip-path: polygon(0 100%, 34% 100%, 0 46%); }
+  .pagina.escura .canto-cinza { background: #0d1522; }
+
+  .marca-agua {
+    position: absolute;
+    right: -14mm; top: -14mm;
+    width: 110mm; height: 110mm;
+    background: var(--claro);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    pointer-events: none;
+  }
+  .pagina.escura .marca-agua { background: rgba(255,255,255,.05); }
+
+  .conteudo { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+
+  /* ---------- Tipografia ---------- */
+  .olho {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--vermelho);
+    border-left: 3px solid var(--vermelho);
+    padding-left: 10px;
+  }
+  h1 { font-size: 40px; line-height: 1.1; font-weight: 800; margin: 12px 0 0; letter-spacing: -.02em; }
+  h2 { font-size: 30px; line-height: 1.15; font-weight: 800; margin: 10px 0 0; letter-spacing: -.02em; }
+  h3 { font-size: 15px; font-weight: 700; margin: 0 0 4px; }
+  p  { margin: 0; line-height: 1.6; }
+  .sub { color: var(--suave); font-size: 13.5px; margin-top: 10px; max-width: 165mm; }
+  .pagina.escura .sub { color: rgba(255,255,255,.72); }
+
+  .rodape {
+    margin-top: auto;
+    padding-top: 8mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--suave);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .pagina.escura .rodape { color: rgba(255,255,255,.55); }
+  .rodape .traco { flex: 1; height: 1px; background: var(--linha); margin: 0 14px; }
+  .pagina.escura .rodape .traco { background: rgba(255,255,255,.18); }
+
+  /* ---------- Capa ---------- */
+  .capa { padding: 0; }
+  .capa-grade { display: grid; grid-template-columns: 1.08fr .92fr; height: 100%; }
+  .capa-texto { padding: 20mm 14mm 14mm 18mm; display: flex; flex-direction: column; }
+  .capa-foto { position: relative; overflow: hidden; }
+  .capa-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .logo-capa { width: 92mm; height: auto; display: block; }
+  .tagline { margin-top: 12mm; font-size: 14px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: var(--suave); }
+  .tagline b { display: block; margin-top: 6px; font-size: 26px; font-weight: 800; letter-spacing: .06em; color: var(--cinza); }
+  .capa-frentes { margin-top: 10mm; display: flex; flex-wrap: wrap; gap: 7px; max-width: 118mm; }
+  .frente {
+    font-size: 11px; font-weight: 600;
+    border: 1px solid var(--linha);
+    border-left: 3px solid var(--vermelho);
+    padding: 6px 11px;
+    background: #fff;
+  }
+  .capa-contato { margin-top: auto; font-size: 12px; line-height: 1.9; }
+  .capa-contato b { color: var(--cinza); }
+
+  /* ---------- Blocos ---------- */
+  .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin-top: 6mm; }
+  .numero { border-top: 3px solid var(--vermelho); padding-top: 8px; }
+  .numero span { display: block; font-size: 32px; font-weight: 800; color: var(--cinza); line-height: 1; letter-spacing: -.02em; }
+  .numero small { display: block; margin-top: 5px; font-size: 11px; color: var(--suave); line-height: 1.4; }
+
+  .duas-colunas { display: grid; grid-template-columns: 1.15fr .85fr; gap: 11mm; margin-top: 6mm; }
+  .texto-corrido { font-size: 12.5px; }
+  .texto-corrido p + p { margin-top: 9px; }
+  .texto-corrido h3 { margin-top: 14px; color: var(--cinza); font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; }
+  .texto-corrido h3:first-child { margin-top: 0; }
+
+  .cartao-lateral { background: var(--claro); border-left: 4px solid var(--vermelho); padding: 8mm; }
+  .cartao-lateral h3 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--cinza); }
+  .cartao-lateral ul { margin: 8px 0 0; padding-left: 16px; font-size: 12px; line-height: 1.85; }
+  .cartao-lateral li::marker { color: var(--vermelho); }
+
+  .grade-servicos { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 9mm; margin-top: 7mm; flex: 1; align-content: space-evenly; }
+  .servico { display: flex; gap: 10px; align-items: flex-start; }
+  .servico .n { font-size: 11px; font-weight: 800; color: var(--vermelho); min-width: 20px; padding-top: 2px; }
+  .servico p { font-size: 11.5px; color: var(--suave); }
+
+  .grade-frota { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin-top: 7mm; }
+  .maquina { border: 1px solid var(--linha); border-top: 3px solid var(--vermelho); padding: 6mm; }
+  .maquina small { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--vermelho); }
+  .maquina h3 { margin: 6px 0 5px; font-size: 14px; }
+  .maquina p { font-size: 11.5px; color: var(--suave); }
+
+  .faixa-foto { margin-top: auto; height: 46mm; overflow: hidden; }
+  .faixa-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .grade-regioes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9mm; margin-top: 8mm; }
+  .faixa-destaque { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; padding-top: 7mm; border-top: 1px solid var(--linha); }
+  .faixa-destaque b { display: block; font-size: 22px; font-weight: 800; color: var(--cinza); letter-spacing: -.02em; }
+  .faixa-destaque small { display: block; margin-top: 3px; font-size: 11px; color: var(--suave); line-height: 1.45; }
+  .regiao .uf { font-size: 10px; font-weight: 700; letter-spacing: .18em; color: var(--vermelho); text-transform: uppercase; }
+  .regiao h3 { font-size: 20px; font-weight: 800; color: var(--cinza); margin: 2px 0 0; }
+  .regiao .rotulo { margin-top: 9px; font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+  .regiao .lista { font-size: 11.5px; line-height: 1.7; margin-top: 3px; }
+  .regiao .sede { display: inline-block; margin-top: 8px; font-size: 9.5px; font-weight: 700; background: var(--vermelho); color: #fff; padding: 3px 9px; letter-spacing: .1em; text-transform: uppercase; }
+
+  .grade-etapas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm 6mm; margin-top: 8mm; flex: 1; align-content: space-evenly; }
+  .etapa { border-left: 3px solid var(--vermelho); padding-left: 10px; }
+  .etapa span { font-size: 11px; font-weight: 800; color: var(--vermelho); }
+  .etapa h3 { margin: 3px 0 4px; font-size: 13.5px; }
+  .etapa p { font-size: 11.5px; color: var(--suave); }
+
+  .pilares { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5mm; margin-top: auto; padding-top: 7mm; border-top: 1px solid var(--linha); }
+  .pilar b { display: block; font-size: 12.5px; color: var(--cinza); letter-spacing: .04em; text-transform: uppercase; }
+  .pilar small { display: block; margin-top: 3px; font-size: 10.5px; color: var(--suave); line-height: 1.45; }
+
+  /* ---------- Contracapa ---------- */
+  .contato-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 14mm; margin-top: 8mm; align-items: start; flex: 1; }
+  .contato-item { padding: 4.5mm 0; border-bottom: 1px solid var(--linha); }
+  .contato-item small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--vermelho); }
+  .contato-item b { display: block; margin-top: 5px; font-size: 17px; font-weight: 700; color: var(--cinza); }
+  .contato-item span { display: block; margin-top: 3px; font-size: 12px; color: var(--suave); }
+  .logo-fim { width: 78mm; height: auto; display: block; }
+  .assinatura { margin-top: 8mm; font-size: 12.5px; line-height: 1.8; color: var(--suave); }
+  .assinatura b { color: var(--cinza); }
+
+  /* ---------- Impressão ---------- */
+  @page { size: A4 landscape; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .barra { display: none !important; }
+    #doc { padding: 0; }
+    .pagina {
+      margin: 0;
+      box-shadow: none;
+      break-after: page;
+      page-break-after: always;
+    }
+    .pagina:last-child { break-after: auto; page-break-after: auto; }
+  }
+
+  [contenteditable="true"]:focus { outline: none; }
+  body.editando .pagina { cursor: text; box-shadow: 0 0 0 2px var(--vermelho), 0 10px 30px rgba(0,0,0,.28); }
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <strong>Apresentação MV Construtora</strong>
+  <button id="btn-editar" type="button">Editar texto</button>
+  <button id="btn-restaurar" type="button">Restaurar original</button>
+  <button id="btn-imprimir" class="primario" type="button">Imprimir / Salvar em PDF</button>
+  <span class="dica">Ative a edição, ajuste o texto e imprima em A4 paisagem com “Gráficos de plano de fundo” ligado.</span>
+</div>
+
+<div id="doc">
+
+  <!-- ============ 1. CAPA ============ -->
+  <section class="pagina capa">
+    <div class="capa-grade">
+      <div class="capa-texto">
+        <img class="logo-capa" src="__LOGO__" alt="MV Construtora" />
+        <div class="tagline">Mais que obras,<b>Construímos o futuro</b></div>
+        <p class="sub" style="margin-top:8mm">
+          Terraplenagem, infraestrutura, obras civis e locação de máquinas pesadas.
+          Base em Pindaré-Mirim (MA), atuação no Maranhão, Piauí e Ceará desde 2011.
+        </p>
+        <div class="capa-frentes">
+          <span class="frente">Terraplenagem</span>
+          <span class="frente">Infraestrutura viária</span>
+          <span class="frente">Obras civis</span>
+          <span class="frente">Drenagem</span>
+          <span class="frente">Locação de máquinas</span>
+          <span class="frente">Transportes</span>
+        </div>
+        <div class="capa-contato">
+          <b>(98) 99236-8928</b> · atendimento@grupomvconstrutora.com.br<br />
+          www.grupomvconstrutora.com.br · @grupoconstrutoramv<br />
+          Rod. Pitombeira, s/n — Pindaré-Mirim/MA · CNPJ 14.299.029/0001-20
+        </div>
+      </div>
+      <div class="capa-foto"><img src="__FOTO_CAPA__" alt="Escavadeira da MV Construtora em operação" /></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. QUEM SOMOS ============ -->
+  <section class="pagina">
+    <div class="marca-agua"></div>
+    <div class="conteudo">
+      <span class="olho">Quem somos</span>
+      <h2>Construção que nasce da<br />experiência de campo.</h2>
+      <p class="sub">
+        De Pindaré-Mirim para obras no Maranhão, no Piauí e no Ceará, a MV Construtora une
+        experiência de campo, planejamento e relações de confiança.
+      </p>
+
+      <div class="duas-colunas">
+        <div class="texto-corrido">
+          <h3>Nossa história</h3>
+          <p>
+            A MV Construtora nasceu da determinação e da visão empreendedora de
+            <b>Alan Robson Leite Pereira</b>, que fundou a empresa em 14 de setembro de 2011,
+            em Pindaré-Mirim, no Maranhão. Corretor de imóveis por formação e empreendedor por
+            vocação, ele construiu a empresa sobre honestidade, dedicação e compromisso.
+          </p>
+          <h3>A origem do nome</h3>
+          <p>
+            O nome veio do maior patrimônio da sua vida: a família. A união das iniciais dos
+            filhos <b>M</b>iguel e <b>V</b>inícius deu origem à MV Construtora — cada obra carrega
+            os mesmos valores cultivados dentro de casa: responsabilidade, confiança, respeito e
+            compromisso com o futuro.
+          </p>
+          <h3>Nossa trajetória</h3>
+          <p>
+            A empresa começou na construção de edifícios e residências e, acompanhando o mercado
+            e investindo em pessoas, equipamentos e tecnologia, especializou-se em terraplenagem
+            e infraestrutura. Hoje opera com frota própria, equipe especializada e atuação em
+            três estados do Nordeste.
+          </p>
+          <p>
+            Mais do que executar obras, a MV Construtora constrói relacionamentos duradouros e
+            contribui para o crescimento da infraestrutura das comunidades onde atua.
+          </p>
+        </div>
+
+        <div class="cartao-lateral">
+          <h3>Serviços em que somos referência</h3>
+          <ul>
+            <li>Terraplenagem</li>
+            <li>Construção e recuperação de estradas vicinais</li>
+            <li>Escavação, corte e aterro</li>
+            <li>Regularização e nivelamento de terrenos</li>
+            <li>Preparação de solo para plantio</li>
+            <li>Limpeza e conformação de áreas</li>
+            <li>Movimentação de terra para obras públicas e privadas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="numeros">
+        <div class="numero"><span>2011</span><small>ano de fundação, em Pindaré-Mirim (MA)</small></div>
+        <div class="numero"><span>+11 anos</span><small>de atuação em terraplenagem e infraestrutura</small></div>
+        <div class="numero"><span>3 estados</span><small>Maranhão, Piauí e Ceará</small></div>
+      </div>
+
+      <div class="rodape"><span>MV Construtora</span><span class="traco"></span><span>02</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SERVIÇOS ============ -->
+  <section class="pagina">
+    <div class="marca-agua"></div>
+    <div class="conteudo">
+      <span class="olho">O que fazemos</span>
+      <h2>Dez frentes de serviço,<br />uma única equipe responsável.</h2>
+
+      <div class="grade-servicos">
+__SERVICOS__
+      </div>
+
+      <div class="rodape"><span>Serviços</span><span class="traco"></span><span>03</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FROTA ============ -->
+  <section class="pagina">
+    <div class="marca-agua"></div>
+    <div class="conteudo">
+      <span class="olho">Frota própria</span>
+      <h2>Máquina certa para<br />cada etapa da obra.</h2>
+      <p class="sub">
+        Locação com ou sem operador, com mobilização e desmobilização por conta da MV Construtora.
+      </p>
+
+      <div class="grade-frota">
+__FROTA__
+      </div>
+
+      <div class="faixa-foto"><img src="__FOTO_FROTA__" alt="Frota de máquinas da MV Construtora" /></div>
+
+      <div class="rodape"><span>Frota</span><span class="traco"></span><span>04</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. ÁREA DE ATUAÇÃO ============ -->
+  <section class="pagina">
+    <div class="marca-agua"></div>
+    <div class="conteudo">
+      <span class="olho">Área de atuação</span>
+      <h2>Maranhão, Piauí e Ceará.</h2>
+      <p class="sub">
+        Base operacional em Pindaré-Mirim (MA), com mobilização de equipe e máquina para obras
+        nos três estados.
+      </p>
+
+      <div class="grade-regioes">
+__REGIOES__
+      </div>
+
+      <div class="faixa-destaque">
+        <div><b>3 estados</b><small>Maranhão, Piauí e Ceará</small></div>
+        <div><b>47 cidades</b><small>atendidas a partir da base em Pindaré-Mirim (MA)</small></div>
+        <div><b>Mobilização inclusa</b><small>transporte das máquinas em caminhão prancha, previsto no orçamento</small></div>
+      </div>
+
+      <div class="rodape"><span>Área de atuação</span><span class="traco"></span><span>05</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. COMO TRABALHAMOS ============ -->
+  <section class="pagina">
+    <div class="marca-agua"></div>
+    <div class="conteudo">
+      <span class="olho">Como trabalhamos</span>
+      <h2>Do primeiro contato<br />à entrega da área.</h2>
+
+      <div class="grade-etapas">
+        <div class="etapa"><span>01</span><h3>Contato</h3><p>Você descreve a obra, o prazo e a localização. Respondemos por WhatsApp no horário comercial.</p></div>
+        <div class="etapa"><span>02</span><h3>Visita técnica</h3><p>Conferimos solo, desníveis, volumes, acesso e como a água se comporta no local.</p></div>
+        <div class="etapa"><span>03</span><h3>Proposta com escopo</h3><p>Orçamento detalhado: serviço, máquinas previstas, prazo e o que está incluído.</p></div>
+        <div class="etapa"><span>04</span><h3>Mobilização</h3><p>Transporte das máquinas em caminhão prancha e montagem da frente de trabalho.</p></div>
+        <div class="etapa"><span>05</span><h3>Execução acompanhada</h3><p>Trabalho por frentes, com acompanhamento de níveis, material e condições do terreno.</p></div>
+        <div class="etapa"><span>06</span><h3>Entrega</h3><p>Área conferida e liberada para a próxima etapa prevista no escopo.</p></div>
+      </div>
+
+      <div class="pilares">
+        <div class="pilar"><b>Força</b><small>para realizar</small></div>
+        <div class="pilar"><b>Confiança</b><small>em cada entrega</small></div>
+        <div class="pilar"><b>Estrutura</b><small>para crescer</small></div>
+        <div class="pilar"><b>Precisão</b><small>em cada detalhe</small></div>
+        <div class="pilar"><b>Infraestrutura</b><small>por um Brasil mais forte</small></div>
+      </div>
+
+      <div class="rodape"><span>Como trabalhamos</span><span class="traco"></span><span>06</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. CONTATO ============ -->
+  <section class="pagina">
+    <div class="conteudo">
+      <span class="olho">Fale com a gente</span>
+      <h2>Vamos tirar sua obra do papel.</h2>
+
+      <div class="contato-grade">
+        <div>
+          <div class="contato-item">
+            <small>WhatsApp e telefone</small>
+            <b>(98) 99236-8928</b>
+            <span>Seg a Sex · 07h às 18h</span>
+          </div>
+          <div class="contato-item">
+            <small>E-mail</small>
+            <b>atendimento@grupomvconstrutora.com.br</b>
+          </div>
+          <div class="contato-item">
+            <small>Site e redes</small>
+            <b>www.grupomvconstrutora.com.br</b>
+            <span>Instagram @grupoconstrutoramv · YouTube @GrupoMVConstrutora</span>
+          </div>
+          <div class="contato-item" style="border-bottom:0">
+            <small>Endereço</small>
+            <b>Rod. Pitombeira, s/n — Pitombeira</b>
+            <span>Pindaré-Mirim — MA · CEP 65370-000</span>
+          </div>
+        </div>
+
+        <div>
+          <img class="logo-fim" src="__LOGO__" alt="MV Construtora" />
+          <div class="assinatura">
+            <b>A R LEITE PEREIRA LTDA</b><br />
+            CNPJ 14.299.029/0001-20<br /><br />
+            <b>MV Construtora</b> — movendo a terra, construindo o futuro e deixando um legado de
+            confiança, excelência e compromisso em cada projeto.
+          </div>
+        </div>
+      </div>
+
+      <div class="rodape"><span>Contato</span><span class="traco"></span><span>07</span></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var doc = document.getElementById("doc");
+    var btnEditar = document.getElementById("btn-editar");
+    var btnRestaurar = document.getElementById("btn-restaurar");
+    var btnImprimir = document.getElementById("btn-imprimir");
+    var CHAVE = "mv-apresentacao-v1";
+    var original = doc.innerHTML;
+
+    // Reaplica as edições feitas antes neste mesmo navegador.
+    try {
+      var salvo = localStorage.getItem(CHAVE);
+      if (salvo) doc.innerHTML = salvo;
+    } catch (e) {}
+
+    function salvar() {
+      try { localStorage.setItem(CHAVE, doc.innerHTML); } catch (e) {}
+    }
+
+    function alternarEdicao() {
+      var ligado = doc.isContentEditable;
+      doc.contentEditable = ligado ? "false" : "true";
+      document.body.classList.toggle("editando", !ligado);
+      btnEditar.classList.toggle("ativo", !ligado);
+      btnEditar.textContent = ligado ? "Editar texto" : "Edição ligada — clique para travar";
+      if (ligado) salvar();
+    }
+
+    btnEditar.addEventListener("click", alternarEdicao);
+    doc.addEventListener("input", salvar);
+
+    btnRestaurar.addEventListener("click", function () {
+      if (!confirm("Descartar as alterações e voltar ao texto original?")) return;
+      doc.innerHTML = original;
+      try { localStorage.removeItem(CHAVE); } catch (e) {}
+    });
+
+    // Trava a edição antes de imprimir para o contorno vermelho não sair no PDF.
+    btnImprimir.addEventListener("click", function () {
+      if (doc.isContentEditable) alternarEdicao();
+      window.print();
+    });
+  })();
+</script>
+</body>
+</html>

@@ -39,8 +39,8 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[80] border-b border-white/10 bg-zinc-950/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8">
+    <header className="fixed inset-x-0 top-0 z-[80] border-b border-borda bg-white">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
         <a
           href={naHome ? "#inicio" : SITE_BASE_PATH}
           aria-label="MV Construtora - início"
@@ -55,12 +55,12 @@ export function Header() {
             className="h-11 w-auto sm:h-12"
           />
         </a>
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
+        <nav className="hidden items-center gap-9 lg:flex" aria-label="Navegação principal">
           {MENU_PRINCIPAL.map((item) => (
             <a
               key={item.href}
               href={href(item.href)}
-              className="text-sm font-medium text-white/70 transition-colors hover:text-white"
+              className="text-[13px] font-medium uppercase tracking-[0.1em] text-concreto transition-colors hover:text-mv"
             >
               {item.rotulo}
             </a>
@@ -72,7 +72,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMenuOpen((aberto) => !aberto)}
-          className="grid h-12 w-12 touch-manipulation place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 active:bg-white/15 lg:hidden"
+          className="grid h-12 w-12 touch-manipulation place-items-center border border-borda text-grafite transition-colors hover:border-grafite active:bg-areia lg:hidden"
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           aria-expanded={menuOpen}
           aria-controls={menuId}
@@ -89,15 +89,15 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute inset-x-0 top-full h-[calc(100dvh-76px)] overflow-y-auto overscroll-contain border-t border-white/10 bg-zinc-950 px-5 pt-5 shadow-2xl shadow-black/50 [padding-bottom:max(1.5rem,env(safe-area-inset-bottom))] lg:hidden"
+            className="absolute inset-x-0 top-full h-[calc(100dvh-80px)] overflow-y-auto overscroll-contain border-t border-borda bg-white px-5 pt-5 [padding-bottom:max(1.5rem,env(safe-area-inset-bottom))] lg:hidden"
           >
             <div className="mx-auto max-w-2xl">
-              <div className="mb-2 flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.22em] text-white/45">
+              <div className="mb-3 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.24em] text-concreto">
                 <span>Navegue pelo site</span>
                 <span>{String(MENU_COMPLETO.length).padStart(2, "0")} itens</span>
               </div>
 
-              <div className="border-t border-white/10">
+              <div className="border-t border-borda">
                 {MENU_COMPLETO.map((item, indice) => {
                   const eContato = item.href === "#contato";
 
@@ -108,13 +108,13 @@ export function Header() {
                       onClick={() => setMenuOpen(false)}
                       className={
                         eContato
-                          ? "mt-4 flex min-h-14 touch-manipulation items-center justify-between rounded-sm bg-red-600 px-5 py-4 text-base font-bold text-white shadow-lg shadow-red-950/25 transition-colors active:bg-red-700"
-                          : "group flex min-h-14 touch-manipulation items-center gap-4 border-b border-white/10 py-3 text-lg font-semibold text-white transition-colors active:bg-white/5"
+                          ? "mt-5 flex min-h-14 touch-manipulation items-center justify-between bg-mv px-5 py-4 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors active:bg-mv-escuro"
+                          : "group flex min-h-14 touch-manipulation items-center gap-4 border-b border-borda py-3 text-base font-medium text-grafite transition-colors active:bg-areia"
                       }
                     >
                       <span className="flex items-center gap-4">
                         {!eContato && (
-                          <span className="w-5 text-[10px] font-bold tabular-nums tracking-wider text-red-400/80">
+                          <span className="w-5 text-[10px] font-semibold tabular-nums tracking-wider text-mv">
                             {String(indice + 1).padStart(2, "0")}
                           </span>
                         )}
@@ -123,7 +123,7 @@ export function Header() {
                       <ArrowUpRight
                         aria-hidden="true"
                         size={18}
-                        className="shrink-0 text-white/45 transition-transform group-active:translate-x-0.5 group-active:-translate-y-0.5"
+                        className="shrink-0 text-concreto transition-transform group-active:translate-x-0.5 group-active:-translate-y-0.5"
                       />
                     </a>
                   );

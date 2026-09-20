@@ -51,7 +51,7 @@ export function ConteudoMarkdown({ conteudo }: { conteudo: string }) {
       const itens: string[] = [];
       while (linhas[indice]?.trim().startsWith("- ")) itens.push(linhas[indice++].trim().slice(2));
       blocos.push(
-        <ul key={indice} className="mt-5 list-disc space-y-2 pl-6 leading-7 text-zinc-700">
+        <ul key={indice} className="mt-5 list-disc space-y-2 pl-6 leading-7 text-concreto">
           {itens.map((item) => (
             <li key={item} dangerouslySetInnerHTML={{ __html: formatarLinha(item) }} />
           ))}
@@ -78,7 +78,7 @@ export function ConteudoMarkdown({ conteudo }: { conteudo: string }) {
       blocos.push(
         <div key={indice} className="mt-6 overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-zinc-950 text-white">
+            <thead className="bg-grafite text-white">
               <tr>
                 {cabecalho.map((celula) => (
                   <th key={celula} className="px-4 py-3 font-semibold">
@@ -89,7 +89,7 @@ export function ConteudoMarkdown({ conteudo }: { conteudo: string }) {
             </thead>
             <tbody>
               {corpo.map((linhaTabela, i) => (
-                <tr key={i} className="border-b border-zinc-300">
+                <tr key={i} className="border-b border-borda">
                   {linhaTabela.map((celula, j) => (
                     <td
                       key={j}
@@ -117,11 +117,17 @@ export function ConteudoMarkdown({ conteudo }: { conteudo: string }) {
     blocos.push(
       <p
         key={indice}
-        className="mt-5 leading-8 text-zinc-700"
+        className="mt-5 leading-8 text-concreto"
         dangerouslySetInnerHTML={{ __html: formatarLinha(paragrafo.join(" ")) }}
       />,
     );
   }
 
-  return <div>{blocos}</div>;
+  // Os links dentro do texto do post precisam de marcação própria: sem isso
+  // herdam a cor do parágrafo e ficam indistinguíveis do texto corrido.
+  return (
+    <div className="[&_a]:font-medium [&_a]:text-mv [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-mv-escuro [&_strong]:text-grafite">
+      {blocos}
+    </div>
+  );
 }

@@ -46,7 +46,7 @@ function ServicosIndex() {
         }}
       />
 
-      <main id="conteudo" className="pt-[76px]">
+      <main id="conteudo" className="pt-20">
         <section className="mx-auto max-w-7xl px-5 pb-16 pt-14 sm:px-8 lg:pb-20 lg:pt-20">
           <Breadcrumbs itens={[{ rotulo: "Início", para: "/" }, { rotulo: "Serviços" }]} />
           <div className="mt-8">
@@ -56,37 +56,37 @@ function ServicosIndex() {
               title="Serviços de terraplenagem, obras e locação de máquinas no Nordeste."
             />
           </div>
-          <p className="mt-7 max-w-2xl leading-7 text-zinc-600">
+          <p className="mt-8 max-w-2xl leading-7 text-concreto">
             A MV Construtora atua em dez frentes complementares, da preparação do terreno à entrega
             da obra. Com base em Pindaré-Mirim, mobilizamos máquinas, equipamentos e equipes para
             obras públicas e privadas no Maranhão, Piauí e Ceará.
           </p>
         </section>
 
-        <section className="border-t border-zinc-300">
+        <section className="border-t border-borda">
           <div className="mx-auto grid max-w-7xl px-5 sm:px-8 lg:grid-cols-2">
             {SERVICOS.map((servico, i) => (
               <Link
                 key={servico.slug}
                 to="/servicos/$slug"
                 params={{ slug: servico.slug }}
-                className="group border-b border-zinc-300 py-10 lg:odd:border-r lg:odd:pr-10 lg:even:pl-10"
+                className="group border-b border-borda py-10 lg:odd:border-r lg:odd:pr-10 lg:even:pl-10"
               >
                 <div className="mb-8 flex items-center justify-between">
                   <servico.icon
-                    className="text-red-500 transition-transform duration-300 group-hover:-translate-y-1"
+                    className="text-mv transition-transform duration-300 group-hover:-translate-y-1"
                     size={31}
                     strokeWidth={1.6}
                   />
-                  <span className="font-mono text-xs text-zinc-400">
+                  <span className="font-mono text-xs text-concreto">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <h2 className="text-2xl font-semibold tracking-tight group-hover:text-red-700">
+                <h2 className="text-2xl font-semibold tracking-tight group-hover:text-mv-escuro">
                   {servico.nome}
                 </h2>
-                <p className="mt-4 max-w-md leading-7 text-zinc-600">{servico.resumo}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-red-600">
+                <p className="mt-4 max-w-md leading-7 text-concreto">{servico.resumo}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
                   Ver detalhes <ArrowRight size={16} />
                 </span>
               </Link>

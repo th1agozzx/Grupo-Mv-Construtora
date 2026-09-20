@@ -53,7 +53,7 @@ function Post() {
           ),
         }}
       />
-      <main id="conteudo" className="pt-[76px]">
+      <main id="conteudo" className="pt-20">
         <article className="mx-auto max-w-3xl px-5 pb-20 pt-14 sm:px-8 lg:pt-20">
           <Breadcrumbs
             itens={[
@@ -62,14 +62,14 @@ function Post() {
               { rotulo: post.titulo },
             ]}
           />
-          <p className="mt-10 text-sm font-semibold uppercase tracking-[.18em] text-red-600">
+          <p className="mt-10 text-sm font-semibold uppercase tracking-[.18em] text-mv-escuro">
             Guia de obra
           </p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-.04em] sm:text-5xl">
             {post.titulo}
           </h1>
-          <p className="mt-6 text-xl leading-8 text-zinc-700">{post.descricao}</p>
-          <p className="mt-5 text-sm text-zinc-500">
+          <p className="mt-6 text-xl leading-8 text-concreto">{post.descricao}</p>
+          <p className="mt-5 text-sm text-concreto">
             Publicado em {data.format(new Date(`${post.publicadoEm}T12:00:00`))} · Atualizado em{" "}
             {data.format(new Date(`${post.atualizadoEm}T12:00:00`))}
           </p>
@@ -85,7 +85,7 @@ function Post() {
           />
           <ConteudoMarkdown conteudo={post.conteudo} />
           {relacionados.length > 0 && (
-            <aside className="mt-14 border-t-2 border-zinc-950 pt-7">
+            <aside className="mt-14 border-t-2 border-grafite pt-7">
               <h2 className="text-2xl font-semibold">Servicos relacionados</h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {relacionados.map((servico) => (
@@ -93,10 +93,10 @@ function Post() {
                     key={servico.slug}
                     to="/servicos/$slug"
                     params={{ slug: servico.slug }}
-                    className="group border border-zinc-300 p-5 hover:border-red-600"
+                    className="group border border-borda p-5 hover:border-mv"
                   >
-                    <h3 className="font-semibold group-hover:text-red-700">{servico.nome}</h3>
-                    <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-red-600">
+                    <h3 className="font-semibold group-hover:text-mv-escuro">{servico.nome}</h3>
+                    <span className="mt-3 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
                       Ver servico <ArrowRight size={16} />
                     </span>
                   </Link>

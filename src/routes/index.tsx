@@ -1,22 +1,28 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { SERVICOS, DESTAQUES } from "@/data/servicos";
-import { REGIOES, ESTADOS_TEXTO, cidadesDoEstado } from "@/data/regioes";
+import { REGIOES, ESTADOS_TEXTO, CIDADES_ATENDIDAS, cidadesDoEstado } from "@/data/regioes";
 import { VIDEOS } from "@/data/videos";
 import { CATEGORIAS_FROTA, FROTA } from "@/data/frota";
+import { CATEGORIAS_OBRA, OBRAS } from "@/data/obras";
 import { organizacaoSchema, websiteSchema, faqSchema, videosSchema, SITE_URL } from "@/lib/schema";
 import { CTAButton } from "@/components/site/CTAButton";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { VideoPlayer } from "@/components/site/VideoPlayer";
-import { VIEWPORT_REVEAL } from "@/components/site/animacoes";
-import { useReveal } from "@/hooks/use-reduced-motion";
+import { VIEWPORT_REVEAL, revealEscala } from "@/components/site/animacoes";
+import { Revelar, RevelarGrade } from "@/components/site/Revelar";
+import { Contador } from "@/components/site/Contador";
+import { Carrossel } from "@/components/site/Carrossel";
+import { Lightbox } from "@/components/site/Lightbox";
+import { useAnimacaoEntrada, useReveal } from "@/hooks/use-reduced-motion";
 import { EMPRESA, MAPS_EMBED_URL, MAPS_OPEN_URL, telLink, waLink } from "@/config/empresa";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
   BadgeCheck,
+  Maximize2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -153,12 +159,31 @@ const diferenciaisImages: { src: string; alt: string }[] = [
 ];
 
 // Classes compartilhadas dos campos do formulário.
-const rotuloForm = "mb-2 block text-xs font-bold uppercase tracking-[.18em] text-zinc-600";
-const erroForm = "mt-2 text-xs font-medium text-red-600";
+const rotuloForm = "mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-concreto";
+const erroForm = "mt-2 text-xs font-medium text-mv-escuro";
 const campoForm = (temErro: boolean) =>
-  `w-full border-2 bg-transparent p-3 text-base outline-none transition-colors placeholder:text-zinc-400 ${
-    temErro ? "border-red-500" : "border-zinc-200 focus:border-red-500"
+  `w-full border bg-transparent px-4 py-3 text-[15px] outline-none transition-colors placeholder:text-concreto/70 ${
+    temErro ? "border-mv" : "border-borda focus:border-mv"
   }`;
+
+// Números da empresa. Só entra aqui o que é verificável: data de fundação no
+// CNPJ e a área de atuação declarada em src/data/regioes.ts. Nada de estimativa
+// de obras entregues ou de metros cúbicos enquanto o cliente não confirmar.
+const NUMEROS: { valor: number; prefixo?: string; rotulo: string; separador?: boolean }[] = [
+  { valor: 2011, rotulo: "Ano de fundação", separador: false },
+  { valor: 11, prefixo: "+", rotulo: "Anos de atuação" },
+  { valor: REGIOES.length, rotulo: "Estados atendidos" },
+  { valor: CIDADES_ATENDIDAS.length, rotulo: "Cidades na área de cobertura" },
+];
+
+// Pilares da marca, conforme o manual de identidade visual da MV Construtora.
+const PILARES: [string, string][] = [
+  ["Força", "para realizar"],
+  ["Confiança", "em cada entrega"],
+  ["Estrutura", "para crescer"],
+  ["Precisão", "em cada detalhe"],
+  ["Infraestrutura", "por um Brasil mais forte"],
+];
 
 const faqs: [string, string][] = [
   [
@@ -212,6 +237,123 @@ const contactSchema = z.object({
     .max(1000, "Mensagem muito longa"),
 });
 type ContactForm = z.infer<typeof contactSchema>;
+/**
+ * Vitrine de obras entregues, com filtro por tipo de serviço.
+ *
+ * O conteúdo vem de src/data/obras.ts — ver o aviso de material provisório lá.
+ */
+function ObrasRealizadas() {
+  const [categoria, setCategoria] = useState<(typeof CATEGORIAS_OBRA)[number]>("Todas");
+  const [aberta, setAberta] = useState<number | null>(null);
+
+  const lista = useMemo(
+    () => (categoria === "Todas" ? OBRAS : OBRAS.filter((obra) => obra.categoria === categoria)),
+    [categoria],
+  );
+
+  // O lightbox navega dentro da lista filtrada — o que o usuário vê é o que ele
+  // percorre com as setas.
+  const fotos = useMemo(
+    () => lista.map((obra) => ({ src: obra.imagem, alt: obra.alt, legenda: obra.titulo })),
+    [lista],
+  );
+
+  return (
+    <section id="obras" className="border-t border-borda bg-areia py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+          <SectionTitle eyebrow="Obras realizadas" title="O resultado fica no chão." />
+          <Revelar atraso={0.1} className="max-w-md">
+            <p className="leading-7 text-concreto">
+              Terraplenagem, estradas e obras civis executadas com frota própria e equipe da casa,
+              do primeiro movimento de terra até a entrega da área.
+            </p>
+          </Revelar>
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-2">
+          {CATEGORIAS_OBRA.map((item) => {
+            const ativa = categoria === item;
+            return (
+              <button
+                key={item}
+                onClick={() => setCategoria(item)}
+                aria-pressed={ativa}
+                className={`border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                  ativa
+                    ? "border-mv bg-mv text-white"
+                    : "border-borda bg-white text-concreto hover:border-grafite hover:text-grafite"
+                }`}
+              >
+                {item}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-10">
+          <Carrossel rotulo="Obras realizadas" className="-ml-6">
+            {lista.map((obra, i) => (
+              <div
+                key={obra.titulo}
+                className="min-w-0 flex-[0_0_88%] pl-6 sm:flex-[0_0_52%] lg:flex-[0_0_33%] xl:flex-[0_0_26%]"
+              >
+                <button
+                  type="button"
+                  onClick={() => setAberta(i)}
+                  className="group block w-full border border-borda bg-white text-left transition-colors hover:border-mv"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={obra.imagem}
+                      alt={obra.alt}
+                      width={1400}
+                      height={1050}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                    />
+                    {/* Véu que revela o "ampliar" no hover, como nas galerias de obra. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 flex items-end bg-grafite/0 p-5 opacity-0 transition-all duration-300 group-hover:bg-grafite/45 group-hover:opacity-100"
+                    >
+                      <span className="inline-flex items-center gap-2 bg-mv px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
+                        <Maximize2 size={14} /> Ampliar
+                      </span>
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
+                        {obra.categoria}
+                      </span>
+                      <span className="font-mono text-xs text-concreto">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h3 className="mt-3 text-base font-semibold leading-6 text-grafite">
+                      {obra.titulo}
+                    </h3>
+                    <p className="mt-2 text-sm text-concreto">{obra.local}</p>
+                  </div>
+                </button>
+              </div>
+            ))}
+          </Carrossel>
+        </div>
+      </div>
+
+      <Lightbox
+        fotos={fotos}
+        indice={aberta}
+        aoFechar={() => setAberta(null)}
+        aoTrocar={setAberta}
+      />
+    </section>
+  );
+}
+
 function VideoSlideshow() {
   const [index, setIndex] = useState(0);
 
@@ -219,13 +361,13 @@ function VideoSlideshow() {
   const prev = useCallback(() => setIndex((i) => (i - 1 + VIDEOS.length) % VIDEOS.length), []);
 
   return (
-    <section id="galeria-videos" className="bg-[#f5f4f0] py-24 sm:py-28 lg:py-32">
+    <section id="galeria-videos" className="bg-areia py-24 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionTitle eyebrow="Nossos Trabalhos" title="Equipamentos em ação." />
       </div>
 
       <div className="relative mx-auto mt-12 max-w-7xl px-5 sm:px-8">
-        <div className="relative h-[260px] w-full overflow-hidden rounded-sm bg-zinc-900 sm:h-[420px] lg:h-[460px]">
+        <div className="relative h-[260px] w-full overflow-hidden rounded-sm bg-grafite-alto sm:h-[420px] lg:h-[460px]">
           <VideoPlayer key={index} video={VIDEOS[index]} ativo />
 
           <button
@@ -249,7 +391,7 @@ function VideoSlideshow() {
         <div className="mt-6 flex items-center justify-center gap-1">
           {VIDEOS.map((video, i) => (
             <button
-              key={video.src}
+              key={video.youtubeId || video.src}
               onClick={() => setIndex(i)}
               aria-label={`Ir para o vídeo ${i + 1}: ${video.titulo}`}
               aria-current={i === index}
@@ -257,7 +399,7 @@ function VideoSlideshow() {
             >
               <span
                 className={`block h-2 rounded-full transition-all ${
-                  i === index ? "w-6 bg-red-600" : "w-2 bg-zinc-400"
+                  i === index ? "w-6 bg-mv" : "w-2 bg-concreto"
                 }`}
               />
             </button>
@@ -265,6 +407,37 @@ function VideoSlideshow() {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Foto que desliza um pouco mais devagar que a página.
+ *
+ * Só transform — nada de opacidade — então o SSR continua entregando a imagem
+ * visível. Quem pediu menos movimento recebe a foto parada.
+ */
+function FotoComParallax({ src, alt }: { src: string; alt: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduzirMovimento = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+
+  return (
+    <div ref={ref} className="overflow-hidden lg:sticky lg:top-28 lg:self-start">
+      <motion.img
+        src={src}
+        alt={alt}
+        width={1600}
+        height={1067}
+        loading="lazy"
+        decoding="async"
+        style={reduzirMovimento ? undefined : { y }}
+        className="aspect-[4/3] w-full scale-110 object-cover"
+      />
+    </div>
   );
 }
 
@@ -296,7 +469,7 @@ function HeroBackgroundSlideshow() {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="hero-kenburns absolute inset-0 h-full w-full object-cover"
         />
       </picture>
       {index !== 0 && (
@@ -313,8 +486,8 @@ function HeroBackgroundSlideshow() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 h-full w-full object-cover"
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="hero-kenburns absolute inset-0 h-full w-full object-cover"
           />
         </AnimatePresence>
       )}
@@ -382,7 +555,7 @@ function DiferenciaisSlideshow() {
         </div>
       )}
 
-      <div className="absolute bottom-0 right-0 w-[90%] bg-red-600 p-6 text-white">
+      <div className="absolute bottom-0 right-0 w-[90%] bg-mv p-6 text-white">
         <p className="text-2xl font-semibold leading-tight tracking-tight sm:text-2xl">
           Seu cronograma é o nosso compromisso.
         </p>
@@ -392,6 +565,7 @@ function DiferenciaisSlideshow() {
 }
 
 function Index() {
+  const { animar: animarEntrada } = useAnimacaoEntrada();
   const reveal = useReveal();
   const [openFaq, setOpenFaq] = useState(0);
   const [ativa, setAtiva] = useState<(typeof CATEGORIAS_FROTA)[number]>("Todos");
@@ -455,11 +629,11 @@ function Index() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(videosSchema(VIDEOS)) }}
       />
 
-      <main id="conteudo">
+      <main id="conteudo" className="pt-20">
         {/* HERO */}
         <section
           id="inicio"
-          className="relative flex min-h-screen min-h-[100dvh] items-end overflow-hidden bg-zinc-950"
+          className="relative flex min-h-[calc(100svh-5rem)] items-end overflow-hidden bg-grafite"
         >
           {/* A imagem ocupa 100% da largura e passa por baixo do header translúcido. */}
           <HeroBackgroundSlideshow />
@@ -474,41 +648,34 @@ function Index() {
           */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/75 to-zinc-950/25 lg:hidden"
+            className="absolute inset-0 bg-gradient-to-t from-grafite via-grafite/75 to-grafite/25 lg:hidden"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 hidden bg-gradient-to-r from-zinc-950 via-zinc-950/75 to-zinc-950/15 lg:block"
+            className="absolute inset-0 hidden bg-gradient-to-r from-grafite via-grafite/75 to-grafite/15 lg:block"
           />
           {/* Fecha a emenda com a faixa escura da seção seguinte. */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-zinc-950 to-transparent lg:block"
+            className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-grafite to-transparent lg:block"
           />
 
-          <motion.div
-            aria-hidden="true"
-            className="absolute right-[8%] top-[18%] h-40 w-40 rounded-full bg-red-600/20 blur-3xl"
-            animate={{ y: [0, -25, 0], scale: [1, 1.2, 1] }}
-            transition={{ duration: 7, repeat: Infinity }}
-          />
-
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-28 sm:px-8 sm:pb-12 sm:pt-32 lg:pb-[clamp(2rem,5vh,5rem)] lg:pt-[clamp(6rem,13vh,9.375rem)]">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-12 pt-16 sm:px-8 sm:pb-14 sm:pt-20 lg:pb-[clamp(2.5rem,6vh,5rem)] lg:pt-[clamp(4rem,10vh,7rem)]">
             <motion.div
-              initial="hidden"
+              initial={animarEntrada ? "hidden" : false}
               animate="show"
-              variants={{ show: { transition: { staggerChildren: 0.16 } } }}
+              variants={{ show: { transition: { staggerChildren: 0.14 } } }}
               className="max-w-5xl"
             >
               <motion.div
                 variants={reveal}
-                className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-red-400 lg:mb-[clamp(1rem,2.5vh,1.75rem)]"
+                className="mb-4 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-mv-claro lg:mb-[clamp(1rem,2.5vh,1.75rem)]"
               >
-                <span className="h-px w-10 bg-red-500" /> Pindaré-Mirim · Maranhão · Desde 2011
+                <span className="h-px w-10 bg-mv" /> Pindaré-Mirim · Maranhão · Desde 2011
               </motion.div>
               <motion.h1
                 variants={reveal}
-                className="max-w-5xl text-4xl font-semibold leading-[112%] tracking-[-0.055em] text-white [text-shadow:0_2px_18px_rgb(0_0_0_/_0.65)] sm:text-5xl lg:text-[clamp(3.5rem,7vh,4.375rem)] lg:leading-[1.05]"
+                className="max-w-5xl text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-white [text-shadow:0_2px_18px_rgb(0_0_0_/_0.6)] sm:text-5xl lg:text-[clamp(3.25rem,6.5vh,4.25rem)]"
               >
                 Terraplenagem e Locação de Máquinas Pesadas no{" "}
                 <span className="text-white/80">Maranhão, Piauí e Ceará</span>
@@ -527,25 +694,47 @@ function Index() {
                 pesadas no Maranhão, Piauí e Ceará, com segurança, produtividade e compromisso do
                 primeiro movimento de terra até a entrega.
               </motion.p>
-              <motion.div variants={reveal} className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row">
+              <motion.div
+                variants={reveal}
+                className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row"
+              >
                 <CTAButton href="#contato">Solicitar orçamento</CTAButton>
-                <CTAButton href="#servicos">Conhecer soluções</CTAButton>
+                <CTAButton href="#servicos" variante="clara">
+                  Conhecer soluções
+                </CTAButton>
               </motion.div>
             </motion.div>
+
+            {/* Convite a rolar: linha que pulsa, no fim do hero. */}
+            <motion.a
+              href="#servicos"
+              aria-label="Ver os serviços"
+              className="mt-10 hidden items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/70 transition-colors hover:text-white lg:inline-flex"
+              initial={animarEntrada ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+            >
+              <motion.span
+                aria-hidden="true"
+                className="block h-10 w-px bg-white/40"
+                style={{ originY: 0 }}
+                animate={animarEntrada ? { scaleY: [0.3, 1, 0.3] } : undefined}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              Role para ver
+            </motion.a>
           </div>
         </section>
 
         {/* FAIXA DE DESTAQUES — resume as frentes de atuação logo abaixo do hero */}
-        <section aria-label="Frentes de atuação" className="border-y border-zinc-800 bg-zinc-950">
+        <section aria-label="Frentes de atuação" className="border-b border-borda bg-white">
           <div className="mx-auto max-w-7xl px-5 py-6 sm:px-8">
-            <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center text-sm font-semibold text-white/75 sm:text-base">
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-center text-xs font-medium uppercase tracking-[0.16em] text-concreto">
               {DESTAQUES.map((item, i) => (
-                <li key={item} className="flex items-center gap-4">
+                <li key={item} className="flex items-center gap-6">
                   <span>{item}</span>
                   {i < DESTAQUES.length - 1 && (
-                    <span aria-hidden="true" className="text-red-500">
-                      •
-                    </span>
+                    <span aria-hidden="true" className="h-3 w-px bg-borda" />
                   )}
                 </li>
               ))}
@@ -553,26 +742,48 @@ function Index() {
           </div>
         </section>
 
+        {/* NÚMEROS — só dados verificáveis (fundação, estados e cidades atendidas). */}
+        <section aria-label="A empresa em números" className="border-b border-borda bg-white">
+          <RevelarGrade
+            intervalo={0.1}
+            className="mx-auto grid max-w-7xl grid-cols-2 gap-x-8 gap-y-10 px-5 py-16 sm:px-8 lg:grid-cols-4"
+          >
+            {NUMEROS.map((numero, i) => (
+              <Revelar filho key={numero.rotulo} atraso={i * 0.08}>
+                <p className="text-4xl font-semibold tracking-tight text-grafite sm:text-5xl">
+                  <Contador
+                    valor={numero.valor}
+                    prefixo={numero.prefixo}
+                    separador={numero.separador}
+                  />
+                </p>
+                <p className="mt-3 border-t border-mv pt-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-concreto">
+                  {numero.rotulo}
+                </p>
+              </Revelar>
+            ))}
+          </RevelarGrade>
+        </section>
+
         {/* SLIDE DE VÍDEOS — logo após o Hero */}
         <VideoSlideshow />
 
         {/* GALERIA DE FROTA COM FILTROS + LIGHTBOX */}
-        <section id="frota" className="bg-zinc-950 py-24 text-white lg:py-32">
+        <section id="frota" className="bg-areia py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
               <SectionTitle
                 eyebrow="Nossa frota"
                 title="A máquina certa, no lugar certo, no tempo certo."
-                light
               />
               <div className="max-w-md">
-                <p className="leading-7 text-white/65">
+                <p className="leading-7 text-concreto">
                   Frota própria e revisada, com operador treinado. Cada equipamento tem uma página
                   com as aplicações dele e os serviços em que entra.
                 </p>
                 <Link
                   to="/frota"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-red-400 hover:text-red-300"
+                  className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
                 >
                   Ver a frota completa <MoveUpRight size={16} />
                 </Link>
@@ -588,10 +799,10 @@ function Index() {
                     key={cat}
                     onClick={() => setAtiva(cat)}
                     aria-pressed={active}
-                    className={`rounded-full border px-5 py-2 text-sm font-semibold transition-all ${
+                    className={`border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                       active
-                        ? "border-red-600 bg-red-700 text-white"
-                        : "border-white/30 bg-white/10 text-white/90 hover:border-white/50 hover:text-white"
+                        ? "border-mv bg-mv text-white"
+                        : "border-borda bg-white text-concreto hover:border-grafite hover:text-grafite"
                     }`}
                   >
                     {cat}
@@ -607,20 +818,20 @@ function Index() {
                   <motion.div
                     layout
                     key={item.slug}
-                    // Sem opacity no `initial`: os 6 cards são renderizados no SSR e
-                    // ficariam invisíveis até o JS hidratar. O fade continua na saída,
-                    // que só acontece quando o usuário troca o filtro — aí o JS já rodou.
-                    initial={{ y: 20 }}
-                    animate={{ y: 0 }}
+                    // O fade só entra depois que o React monta (`animarEntrada`).
+                    // No servidor os 6 cards precisam sair visíveis: com opacity
+                    // no HTML, quem espera a hidratação vê a seção vazia.
+                    initial={animarEntrada ? { opacity: 0, y: 20 } : false}
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ duration: 0.35 }}
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Link
                       to="/frota/$slug"
                       params={{ slug: item.slug }}
-                      className="group relative block overflow-hidden rounded-sm bg-zinc-900 text-left focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-zinc-950"
+                      className="group block h-full border border-borda bg-white text-left transition-colors hover:border-mv"
                     >
-                      <div className="aspect-[4/3] overflow-hidden">
+                      <div className="relative aspect-[4/3] overflow-hidden">
                         <img
                           src={item.imgs[0]}
                           alt={`${item.nome} da frota da MV Construtora em operação`}
@@ -628,22 +839,25 @@ function Index() {
                           height={1200}
                           loading="lazy"
                           decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-grafite/0 transition-colors duration-300 group-hover:bg-grafite/20"
                         />
                         {item.imgs.length > 1 && (
-                          <span className="absolute right-3 top-3 z-10 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur">
+                          <span className="absolute right-3 top-3 z-10 bg-black/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white backdrop-blur">
                             {item.imgs.length} fotos
                           </span>
                         )}
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent opacity-90" />
-                      <div className="absolute inset-x-0 bottom-0 p-5">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-red-400">
+                      <div className="p-6">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
                           {item.categoria}
                         </span>
-                        <h3 className="mt-1 text-lg font-semibold">{item.nome}</h3>
-                        <p className="mt-1 text-sm leading-6 text-white/65">{item.resumo}</p>
-                        <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-red-400">
+                        <h3 className="mt-2 text-lg font-semibold text-grafite">{item.nome}</h3>
+                        <p className="mt-2 text-sm leading-6 text-concreto">{item.resumo}</p>
+                        <span className="mt-4 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
                           Ver equipamento <MoveUpRight size={16} />
                         </span>
                       </div>
@@ -663,93 +877,82 @@ function Index() {
               title="Estrutura completa para obras que não podem parar."
             />
             <div className="max-w-md">
-              <p className="leading-7 text-zinc-600">
+              <p className="leading-7 text-concreto">
                 Dez frentes de atuação e um único parceiro para mobilizar máquinas, equipes e gestão
-                em obras públicas e privadas no Maranhão.
+                em obras públicas e privadas no Maranhão, no Piauí e no Ceará.
               </p>
               <Link
                 to="/servicos"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-red-700 hover:text-red-800"
+                className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
               >
                 Ver todos os serviços em detalhe <MoveUpRight size={16} />
               </Link>
             </div>
           </div>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={VIEWPORT_REVEAL}
-            variants={{ show: { transition: { staggerChildren: 0.13 } } }}
-            className="mt-16 grid border-t border-zinc-300 lg:grid-cols-3"
+          <RevelarGrade
+            intervalo={0.09}
+            className="mt-16 grid border-t border-borda lg:grid-cols-3"
           >
             {SERVICOS.map((service, i) => (
-              <motion.article
-                variants={reveal}
+              <Revelar
+                filho
+                as="article"
                 key={service.slug}
-                className="group border-b border-zinc-300 py-9 lg:border-r lg:px-8 lg:first:pl-0"
+                className="group border-b border-borda py-9 lg:border-r lg:px-8 lg:first:pl-0"
               >
                 <div className="mb-12 flex items-center justify-between">
                   <service.icon
-                    className="text-red-500 transition-transform duration-300 group-hover:-translate-y-1"
+                    className="text-mv transition-transform duration-300 group-hover:-translate-y-1"
                     size={31}
                     strokeWidth={1.6}
                   />
-                  <span className="font-mono text-xs text-zinc-400">
+                  <span className="font-mono text-xs text-concreto">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
                 <h3 className="text-2xl font-semibold tracking-tight">{service.nome}</h3>
-                <p className="mt-4 max-w-sm leading-7 text-zinc-600">{service.resumo}</p>
+                <p className="mt-4 max-w-sm leading-7 text-concreto">{service.resumo}</p>
                 <Link
                   to="/servicos/$slug"
                   params={{ slug: service.slug }}
-                  className="mt-7 inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-red-600"
+                  className="mt-7 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-grafite transition-colors hover:text-mv"
                 >
                   Ver detalhes <MoveUpRight size={16} />
                 </Link>
-              </motion.article>
+              </Revelar>
             ))}
-          </motion.div>
+          </RevelarGrade>
         </section>
 
+        <ObrasRealizadas />
+
         {/* SOBRE */}
-        <section
-          id="quem-somos"
-          className="relative isolate overflow-hidden py-20 text-white sm:py-24 lg:py-32"
-        >
-          <img
-            src={alaneasmaquinas1}
-            alt=""
-            aria-hidden="true"
-            width={1600}
-            height={1067}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 -z-20 h-full w-full object-cover"
-          />
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/20" />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-gradient-to-r from-zinc-950/80 via-zinc-950/65 to-zinc-950/35"
-          />
+        <section id="quem-somos" className="border-t border-borda py-20 sm:py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="max-w-3xl border-l-2 border-red-500 pl-5 sm:pl-7">
+            <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
+              {/* A foto deixou de ser fundo escuro atrás do texto e virou coluna própria:
+                  a leitura fica em preto no branco e a imagem aparece inteira. */}
+              <FotoComParallax
+                src={alaneasmaquinas1}
+                alt="Equipe e máquinas da MV Construtora em obra no Maranhão"
+              />
               <div>
                 <SectionTitle
                   eyebrow="Quem somos"
                   title="Construção que nasce da experiência de campo."
-                  light
                 />
-                <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80">
-                  De Pindaré-Mirim para obras em todo o Maranhão, a MV Construtora une
+                <p className="mt-8 max-w-2xl text-lg leading-8 text-concreto">
+                  De Pindaré-Mirim para obras no Maranhão, no Piauí e no Ceará, a MV Construtora une
                   experiência de campo, planejamento e relações de confiança.
                 </p>
-                <div className="mt-10 max-w-3xl space-y-0 leading-7 text-white/80 [&>h3]:mt-5 [&>h3]:border-l-2 [&>h3]:border-red-500 [&>h3]:bg-zinc-950/75 [&>h3]:px-5 [&>h3]:py-4 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-white [&>p]:bg-zinc-950/75 [&>p]:px-5 [&>p]:pb-5 [&>p]:text-sm [&>ul]:bg-zinc-950/75 [&>ul]:px-5 [&>ul]:pb-5 [&>ul]:pt-1 [&>ul]:text-sm">
-                  <h3 className="text-xl font-semibold text-white">Nossa história</h3>
+                <div className="mt-10 max-w-2xl leading-7 text-concreto [&>h3]:mt-9 [&>h3]:text-[13px] [&>h3]:font-semibold [&>h3]:uppercase [&>h3]:tracking-[0.18em] [&>h3]:text-mv-escuro [&>p]:mt-3 [&>p]:text-[15px] [&>ul]:mt-3 [&>ul]:text-[15px]">
+                  <h3>Nossa história</h3>
                   <p>
                     A MV Construtora nasceu do sonho, da determinação e da visão empreendedora de{" "}
-                    <strong className="font-semibold text-white">Alan Robson Leite Pereira</strong>,
-                    que fundou a empresa em{" "}
+                    <strong className="font-semibold text-grafite">
+                      Alan Robson Leite Pereira
+                    </strong>
+                    , que fundou a empresa em{" "}
                     <time dateTime="2011-09-14">14 de setembro de 2011</time>, em Pindaré-Mirim, no
                     Maranhão.
                   </p>
@@ -761,18 +964,18 @@ function Index() {
                     Ângelo e Alan Vinícius.
                   </p>
 
-                  <h3 className="pt-2 text-xl font-semibold text-white">A origem do nome</h3>
+                  <h3>A origem do nome</h3>
                   <p>
                     Foi justamente do maior patrimônio de sua vida — sua família — que surgiu o nome
                     da empresa. A união das iniciais de seus filhos,{" "}
-                    <strong className="font-semibold text-white">M</strong>iguel e{" "}
-                    <strong className="font-semibold text-white">V</strong>inícius, deu origem à MV
-                    Construtora, simbolizando que cada obra carrega os mesmos valores cultivados
+                    <strong className="font-semibold text-grafite">M</strong>iguel e{" "}
+                    <strong className="font-semibold text-grafite">V</strong>inícius, deu origem à
+                    MV Construtora, simbolizando que cada obra carrega os mesmos valores cultivados
                     dentro de casa: responsabilidade, confiança, respeito e compromisso com o
                     futuro.
                   </p>
 
-                  <h3 className="pt-2 text-xl font-semibold text-white">Nossa trajetória</h3>
+                  <h3>Nossa trajetória</h3>
                   <p>
                     Ao longo de sua trajetória, a empresa atuou na construção de edifícios e
                     residências, adquirindo sólida experiência no setor da construção civil. Com o
@@ -787,10 +990,8 @@ function Index() {
                     o crescimento da infraestrutura do estado.
                   </p>
 
-                  <h3 className="pt-2 text-xl font-semibold text-white">
-                    Serviços em que somos referência
-                  </h3>
-                  <ul className="list-disc space-y-2 pl-5 marker:text-red-500">
+                  <h3>Serviços em que somos referência</h3>
+                  <ul className="list-disc space-y-2 pl-5 marker:text-mv">
                     <li>Terraplenagem</li>
                     <li>Construção e recuperação de estradas vicinais</li>
                     <li>Escavação, corte e aterro</li>
@@ -805,7 +1006,7 @@ function Index() {
                     respeito aos prazos estabelecidos, buscando sempre superar as expectativas de
                     clientes e parceiros.
                   </p>
-                  <p className="font-medium text-white">
+                  <p className="font-medium text-grafite">
                     MV Construtora — movendo a terra, construindo o futuro e deixando um legado de
                     confiança, excelência e compromisso em cada projeto.
                   </p>
@@ -818,17 +1019,19 @@ function Index() {
                 aferível: obras entregues, máquinas próprias, m³ movimentados.
                 Ao acrescentar o terceiro número, voltar o grid para grid-cols-3.
               */}
-                <div className="mt-8 grid grid-cols-2 gap-6 border-t border-white/20 pt-7">
+                <div className="mt-10 grid grid-cols-2 gap-6 border-t border-borda pt-8">
                   {[
                     ["+11", "anos de atuação"],
                     //["+50", "obras entregues"],
                     ["100%", "compromisso com prazos"],
                   ].map(([value, label]) => (
                     <div key={label}>
-                      <p className="text-3xl font-semibold tracking-tight text-red-500 sm:text-6xl">
+                      <p className="text-4xl font-semibold tracking-tight text-grafite sm:text-6xl">
                         {value}
                       </p>
-                      <p className="mt-1 text-sm leading-5 text-white/60">{label}</p>
+                      <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-mv-escuro">
+                        {label}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -848,7 +1051,7 @@ function Index() {
               eyebrow="Por que escolher a MV"
               title="Execução confiável, sem improviso."
             />
-            <p className="mt-7 max-w-lg leading-7 text-zinc-600">
+            <p className="mt-8 max-w-lg leading-7 text-concreto">
               Combinamos experiência de campo, manutenção preventiva e gestão próxima para reduzir
               riscos e entregar previsibilidade.
             </p>
@@ -872,11 +1075,11 @@ function Index() {
               ].map(([Icon, title, text]) => {
                 const FeatureIcon = Icon as typeof ShieldCheck;
                 return (
-                  <div key={title as string} className="flex gap-5 border-t border-zinc-300 pt-7">
-                    <FeatureIcon className="mt-1 shrink-0 text-red-500" />
+                  <div key={title as string} className="flex gap-5 border-t border-borda pt-7">
+                    <FeatureIcon className="mt-1 shrink-0 text-mv" />
                     <div>
                       <h3 className="font-semibold">{title as string}</h3>
-                      <p className="mt-2 text-sm leading-6 text-zinc-600">{text as string}</p>
+                      <p className="mt-2 text-sm leading-6 text-concreto">{text as string}</p>
                     </div>
                   </div>
                 );
@@ -885,21 +1088,37 @@ function Index() {
           </div>
         </section>
 
+        {/* PILARES DA MARCA — definidos no manual de identidade visual. */}
+        <section aria-label="Nossos pilares" className="border-y border-borda bg-areia">
+          <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-concreto">
+              Nossos pilares
+            </p>
+            <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+              {PILARES.map(([titulo, complemento]) => (
+                <li key={titulo} className="border-t-2 border-mv pt-5">
+                  <p className="text-[15px] font-semibold uppercase tracking-[0.06em] text-grafite">
+                    {titulo}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-6 text-concreto">{complemento}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* DEPOIMENTO */}
-        <section className="bg-red-600 py-24 text-white lg:py-28">
+        <section className="bg-mv py-24 text-white lg:py-28">
           <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
             <Quote className="mx-auto mb-8" size={40} strokeWidth={1.4} />
-            <motion.blockquote
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              viewport={VIEWPORT_REVEAL}
-              className="text-3xl font-semibold leading-tight tracking-[-0.035em] sm:text-5xl"
+            <Revelar
+              as="blockquote"
+              className="text-[26px] font-medium leading-[1.25] tracking-[-0.01em] sm:text-[38px]"
             >
               “A MV entende a urgência, mobiliza a equipe rapidamente e mantem a obra avançando sem
               surpresas.”
-            </motion.blockquote>
-            <p className="mt-8 text-sm font-bold uppercase tracking-[.16em]">
+            </Revelar>
+            <p className="mt-10 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85">
               ALAN ROBSON <br />
               CEO
             </p>
@@ -916,19 +1135,22 @@ function Index() {
             eyebrow="Área de atuação"
             title={`Terraplenagem e locação de máquinas no ${ESTADOS_TEXTO}.`}
           />
-          <p className="mt-7 max-w-2xl leading-7 text-zinc-600">
+          <p className="mt-8 max-w-2xl leading-7 text-concreto">
             Com base em {EMPRESA.cidade}, no Vale do Pindaré, a MV Construtora mobiliza máquinas,
             equipamentos e equipes para obras urbanas, rurais, industriais e comerciais — de
             pequenas cidades do interior às capitais, para clientes públicos e privados.
           </p>
 
           <div className="mt-12 space-y-10">
-            {REGIOES.map((regiao) => (
-              <div key={regiao.uf} className="border-t border-zinc-300 pt-7">
-                <h3 className="text-xl font-semibold tracking-tight">
+            {REGIOES.map((regiao, indice) => (
+              <div key={regiao.uf} className="border-t border-borda pt-7">
+                <span className="font-mono text-xs text-concreto">
+                  {String(indice + 1).padStart(2, "0")}.
+                </span>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight">
                   {regiao.estado}
                   {regiao.sede && (
-                    <span className="ml-3 rounded-full bg-red-600 px-3 py-1 align-middle text-[10px] font-bold uppercase tracking-[0.18em] text-white">
+                    <span className="ml-3 bg-mv px-3 py-1 align-middle text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
                       Sede
                     </span>
                   )}
@@ -937,7 +1159,7 @@ function Index() {
                   {cidadesDoEstado(regiao).map((cidade) => (
                     <li
                       key={`${regiao.uf}-${cidade}`}
-                      className="rounded-full border border-zinc-300 bg-white/60 px-4 py-2 text-sm text-zinc-700"
+                      className="border border-borda px-4 py-2 text-[13px] text-concreto"
                     >
                       Terraplenagem em {cidade} - {regiao.uf}
                     </li>
@@ -947,11 +1169,11 @@ function Index() {
             ))}
           </div>
 
-          <p className="mt-9 text-sm text-zinc-600">
+          <p className="mt-9 text-sm text-concreto">
             Não encontrou sua cidade? Atendemos {ESTADOS_TEXTO} —{" "}
             <a
               href="#contato"
-              className="font-semibold text-zinc-950 underline decoration-red-600 underline-offset-4"
+              className="font-semibold text-grafite underline decoration-mv underline-offset-4"
             >
               consulte a mobilização para a sua obra
             </a>
@@ -959,26 +1181,26 @@ function Index() {
           </p>
         </section>
 
-        <section id="faq" className="border-y border-zinc-300 bg-white/20 py-24 lg:py-32">
+        <section id="faq" className="border-y border-borda bg-areia py-24 lg:py-32">
           <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[.75fr_1.25fr]">
             <div>
               <SectionTitle
                 eyebrow="Dúvidas frequentes"
                 title="Informação clara antes de começar."
               />
-              <p className="mt-7 text-zinc-600">
+              <p className="mt-7 text-concreto">
                 Ainda tem dúvidas?{" "}
                 <a
                   href="#contato"
-                  className="font-semibold text-zinc-950 underline decoration-red-600 underline-offset-4"
+                  className="font-semibold text-grafite underline decoration-mv underline-offset-4"
                 >
                   Fale com nosso time e tire suas dúvidas.
                 </a>
               </p>
             </div>
-            <div className="border-t border-zinc-300">
+            <div className="border-t border-borda">
               {faqs.map(([question, answer], i) => (
-                <div key={question} className="border-b border-zinc-300">
+                <div key={question} className="border-b border-borda">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
                     className="flex w-full items-center justify-between gap-6 py-6 text-left font-semibold"
@@ -986,14 +1208,14 @@ function Index() {
                   >
                     <span>{question}</span>
                     <ChevronDown
-                      className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180 text-red-500" : ""}`}
+                      className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180 text-mv" : ""}`}
                       size={20}
                     />
                   </button>
                   <div
                     className={`grid transition-all duration-300 ${openFaq === i ? "grid-rows-[1fr] pb-6" : "grid-rows-[0fr]"}`}
                   >
-                    <p className="overflow-hidden pr-10 leading-7 text-zinc-600">{answer}</p>
+                    <p className="overflow-hidden pr-10 leading-7 text-concreto">{answer}</p>
                   </div>
                 </div>
               ))}
@@ -1005,7 +1227,7 @@ function Index() {
         <section id="localizacao" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
           <SectionTitle eyebrow="Onde estamos" title="Visite nossa base ou fale conosco." />
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-            <div className="relative overflow-hidden rounded-sm border border-zinc-300 shadow-sm">
+            <div className="relative overflow-hidden border border-borda">
               <iframe
                 title="Mapa da MV Construtora"
                 src={MAPS_EMBED_URL}
@@ -1014,24 +1236,24 @@ function Index() {
                 className="h-[420px] w-full lg:h-[520px]"
               />
             </div>
-            <div className="flex flex-col justify-between gap-8 bg-zinc-950 p-8 text-white sm:p-10">
+            <div className="flex flex-col justify-between gap-8 border border-borda bg-areia p-8 sm:p-10">
               <div>
-                <p className="mb-5 text-xs font-bold uppercase tracking-[0.24em] text-red-400">
+                <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.28em] text-mv-escuro">
                   Endereço
                 </p>
                 <div className="flex items-start gap-4">
-                  <MapPin className="mt-1 shrink-0 text-red-500" size={22} />
-                  <p className="text-lg leading-7">{EMPRESA.endereco}</p>
+                  <MapPin className="mt-1 shrink-0 text-mv" size={22} />
+                  <p className="text-lg leading-7 text-grafite">{EMPRESA.endereco}</p>
                 </div>
-                <div className="mt-8 space-y-4 border-t border-white/10 pt-8 text-sm text-white/70">
+                <div className="mt-8 space-y-4 border-t border-borda pt-8 text-sm text-concreto">
                   <a
                     href={telLink}
-                    className="flex items-center gap-3 transition-colors hover:text-white"
+                    className="flex items-center gap-3 transition-colors hover:text-grafite"
                   >
-                    <Phone size={16} className="text-red-400" /> {EMPRESA.whatsappExibicao}
+                    <Phone size={16} className="text-mv" /> {EMPRESA.whatsappExibicao}
                   </a>
                   <p className="flex items-center gap-3">
-                    <Clock3 size={16} className="text-red-400" /> {EMPRESA.horario}
+                    <Clock3 size={16} className="text-mv" /> {EMPRESA.horario}
                   </p>
                 </div>
               </div>
@@ -1043,37 +1265,28 @@ function Index() {
         </section>
 
         {/* CONTATO — o formulário monta a mensagem e abre o WhatsApp */}
-        <section
-          id="contato"
-          className="relative overflow-hidden bg-zinc-950 py-24 text-white lg:py-32"
-        >
-          <motion.div
-            aria-hidden="true"
-            className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-red-600/15 blur-[90px]"
-            animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 6, repeat: Infinity }}
-          />
+        <section id="contato" className="border-t border-borda bg-areia py-24 lg:py-32">
           <div className="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-start">
             <div>
-              <p className="mb-6 text-xs font-bold uppercase tracking-[.24em] text-red-400">
-                Vamos tirar seu projeto do papel
+              <p className="mb-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-mv-escuro">
+                <span className="h-px w-8 bg-mv" /> Vamos tirar seu projeto do papel
               </p>
-              <h2 className="max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.04em] sm:text-5xl lg:text-6xl">
+              <h2 className="max-w-2xl text-[32px] font-semibold leading-[1.12] tracking-[-0.02em] sm:text-[40px] lg:text-[48px]">
                 Peça seu orçamento agora pelo WhatsApp.
               </h2>
-              <p className="mt-6 max-w-md leading-7 text-white/70">
+              <p className="mt-6 max-w-md leading-7 text-concreto">
                 Preencha os campos e a conversa abre já com tudo preenchido — você só aperta enviar.
                 Respondemos de segunda a sexta, das 07h às 18h.
               </p>
 
-              <ul className="mt-8 space-y-3 text-sm text-white/70">
+              <ul className="mt-8 space-y-3 text-sm text-concreto">
                 {[
                   "Resposta direto no WhatsApp, sem esperar e-mail",
                   "Visita técnica para avaliar o local e o volume",
                   "Proposta com escopo, prazo e equipamentos definidos",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <BadgeCheck size={18} className="mt-0.5 shrink-0 text-red-400" />
+                    <BadgeCheck size={18} className="mt-0.5 shrink-0 text-mv" />
                     {item}
                   </li>
                 ))}
@@ -1091,7 +1304,7 @@ function Index() {
                 </CTAButton>
                 <a
                   href={telLink}
-                  className="inline-flex items-center justify-center gap-2 rounded-[0.4em] border-[3px] border-white/25 px-[1.3em] py-[0.6em] font-bold text-white transition-colors hover:border-white/50"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap border border-grafite px-8 py-4 text-[13px] font-semibold uppercase leading-none tracking-[0.12em] text-grafite transition-colors hover:bg-grafite hover:text-white"
                 >
                   <Phone size={18} /> {EMPRESA.whatsappExibicao}
                 </a>
@@ -1101,11 +1314,11 @@ function Index() {
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="space-y-5 bg-white p-6 text-zinc-950 sm:p-8"
+              className="space-y-5 border border-borda bg-white p-6 text-grafite sm:p-8"
             >
               <div>
                 <label htmlFor="nome" className={rotuloForm}>
-                  Nome <span className="text-red-600">*</span>
+                  Nome <span className="text-mv">*</span>
                 </label>
                 <input
                   id="nome"
@@ -1158,7 +1371,7 @@ function Index() {
 
               <div>
                 <label htmlFor="mensagem" className={rotuloForm}>
-                  O que você precisa <span className="text-red-600">*</span>
+                  O que você precisa <span className="text-mv">*</span>
                 </label>
                 <textarea
                   id="mensagem"
@@ -1176,7 +1389,7 @@ function Index() {
               </div>
 
               <details className="text-sm">
-                <summary className="cursor-pointer font-semibold text-zinc-600 hover:text-zinc-950">
+                <summary className="cursor-pointer font-semibold text-concreto hover:text-grafite">
                   Prefere que a gente retorne por telefone ou e-mail?
                 </summary>
                 <div className="mt-4 grid gap-5 sm:grid-cols-2">
@@ -1234,10 +1447,10 @@ function Index() {
                 )}
               </div>
 
-              <p className="text-center text-[11px] leading-5 text-zinc-500">
+              <p className="text-center text-[11px] leading-5 text-concreto">
                 Ao enviar, seus dados vão direto para o nosso WhatsApp — não passam por nenhum
                 servidor nosso.{" "}
-                <Link to="/politica-de-privacidade" className="underline hover:text-zinc-700">
+                <Link to="/politica-de-privacidade" className="underline hover:text-concreto">
                   Política de Privacidade
                 </Link>
                 .

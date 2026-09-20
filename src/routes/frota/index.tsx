@@ -54,7 +54,7 @@ function FrotaIndex() {
         }}
       />
 
-      <main id="conteudo" className="pt-[76px]">
+      <main id="conteudo" className="pt-20">
         <section className="mx-auto max-w-7xl px-5 pb-14 pt-14 sm:px-8 lg:pt-20">
           <Breadcrumbs itens={[{ rotulo: "Início", para: "/" }, { rotulo: "Frota" }]} />
           <div className="mt-8">
@@ -64,14 +64,14 @@ function FrotaIndex() {
               title="Máquinas pesadas próprias, revisadas e com operador."
             />
           </div>
-          <p className="mt-7 max-w-2xl leading-7 text-zinc-600">
+          <p className="mt-8 max-w-2xl leading-7 text-concreto">
             A frota própria é o que permite mobilizar rápido e não depender de terceiros para
             manutenção. Conheça cada equipamento, para que ele serve e em quais serviços da MV
             Construtora ele entra.
           </p>
         </section>
 
-        <section className="bg-zinc-950 py-16 text-white lg:py-20">
+        <section className="border-t border-borda bg-areia py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="flex flex-wrap gap-2">
               {CATEGORIAS_FROTA.map((cat) => {
@@ -81,10 +81,10 @@ function FrotaIndex() {
                     key={cat}
                     onClick={() => setAtiva(cat)}
                     aria-pressed={selecionada}
-                    className={`rounded-full border px-5 py-2 text-sm font-semibold transition-all ${
+                    className={`border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                       selecionada
-                        ? "border-red-600 bg-red-700 text-white"
-                        : "border-white/30 bg-white/10 text-white/90 hover:border-white/50 hover:text-white"
+                        ? "border-mv bg-mv text-white"
+                        : "border-borda bg-white text-concreto hover:border-grafite hover:text-grafite"
                     }`}
                   >
                     {cat}
@@ -99,7 +99,7 @@ function FrotaIndex() {
                   key={maquina.slug}
                   to="/frota/$slug"
                   params={{ slug: maquina.slug }}
-                  className="group overflow-hidden rounded-sm bg-zinc-900 transition-transform hover:-translate-y-1"
+                  className="group overflow-hidden border border-borda bg-white transition-colors hover:border-mv"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
@@ -109,16 +109,16 @@ function FrotaIndex() {
                       height={1200}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
                   <div className="p-5">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-red-400">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
                       {maquina.categoria}
                     </span>
-                    <h2 className="mt-1 text-lg font-semibold">{maquina.nome}</h2>
-                    <p className="mt-2 text-sm leading-6 text-white/65">{maquina.resumo}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-red-400">
+                    <h2 className="mt-2 text-lg font-semibold text-grafite">{maquina.nome}</h2>
+                    <p className="mt-2 text-sm leading-6 text-concreto">{maquina.resumo}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
                       Ver equipamento <ArrowRight size={16} />
                     </span>
                   </div>

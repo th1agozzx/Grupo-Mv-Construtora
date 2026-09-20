@@ -12,45 +12,74 @@
  *
  * Os três valores abaixo resolvem juntos:
  *   - `amount: 0`      dispara assim que qualquer pixel entra
- *   - `margin`         dispara ANTES de entrar, com folga de 25% da altura da tela
- *   - duração curta    (ver `reveal`) para o fade terminar antes de ser notado
+ *   - `margin`         dispara ANTES de entrar, com folga de 15% da altura da tela
+ *   - duração curta    para o fade terminar antes de ser notado
  *
- * O efeito prático é que a animação acontece enquanto a seção ainda está fora da
- * vista. Quando o usuário chega, o conteúdo já está lá.
+ * A folga é menor do que era (25%) porque agora existe fade: com folga grande
+ * demais a animação terminava fora da tela e o usuário não via nada acontecer.
  */
 export const VIEWPORT_REVEAL = {
   once: true,
   amount: 0,
-  margin: "0px 0px 25% 0px",
+  margin: "0px 0px 15% 0px",
 } as const;
 
+export const EASE_SAIDA = [0.22, 1, 0.36, 1] as const;
+
 /**
- * Entrada por deslocamento, SEM fade.
+ * Entrada padrão: sobe e aparece.
  *
- * A opacidade foi removida de propósito. O framer serializa o estado `hidden`
- * como style inline no SSR — o HTML chegava com 31 elementos em `opacity: 0`.
- * Enquanto o JS não hidratava, esses 31 blocos ficavam **invisíveis**. Num
- * aparelho modesto em 4G isso são segundos de tela branca, e foi exatamente o
- * que os usuários relataram no celular.
- *
- * Sem opacidade, o pior caso vira "conteúdo 24px abaixo da posição final" —
- * imperceptível. Com JS, o deslize acontece normalmente. A animação virou
- * decoração de verdade: se falhar, não leva o conteúdo junto.
+ * ⚠️ O fade só pode existir porque NENHUM componente monta com
+ * `initial="oculto"` no servidor — ver `useAnimacaoEntrada`. O framer serializa
+ * o estado inicial como style inline, e numa passagem anterior isso deixou 31
+ * blocos em `opacity: 0` no HTML do SSR: sem JS hidratado, seções invisíveis no
+ * celular. A regra é: no servidor o conteúdo nasce visível; a animação entra
+ * depois que o React monta.
  */
 export const reveal = {
-  hidden: { y: 24 },
-  show: { y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: EASE_SAIDA },
+  },
+};
+
+/** Entrada de cartão/imagem: acompanha um leve afastamento de escala. */
+export const revealEscala = {
+  hidden: { opacity: 0, y: 24, scale: 0.97 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.65, ease: EASE_SAIDA },
+  },
+};
+
+/** Entrada lateral, para blocos de texto ao lado de foto. */
+export const revealLateral = {
+  hidden: { opacity: 0, x: -28 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: EASE_SAIDA },
+  },
 };
 
 /**
  * Variante para quem pediu menos movimento no sistema.
  *
- * O site usa animação de entrada em quase toda seção, slideshow automático a
- * cada 5s e blobs em loop infinito. Para quem tem sensibilidade vestibular isso
- * é desconfortável — e `prefers-reduced-motion` é justamente o pedido explícito
- * de desligar. O conteúdo aparece na hora, sem deslocamento.
+ * O site usa animação de entrada em quase toda seção, carrossel e slideshow
+ * automático. Para quem tem sensibilidade vestibular isso é desconfortável —
+ * e `prefers-reduced-motion` é o pedido explícito de desligar. O conteúdo
+ * aparece na hora, sem deslocamento e sem fade.
  */
 export const revealSemMovimento = {
-  hidden: { y: 0 },
-  show: { y: 0, transition: { duration: 0 } },
+  hidden: { opacity: 1, x: 0, y: 0, scale: 1 },
+  show: { opacity: 1, x: 0, y: 0, scale: 1, transition: { duration: 0 } },
 };
+
+/** Cascata dos filhos de uma grade. */
+export const cascata = (atraso = 0.08) => ({
+  show: { transition: { staggerChildren: atraso } },
+});

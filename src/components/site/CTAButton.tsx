@@ -10,20 +10,21 @@ import type { ReactNode } from "react";
  */
 type Variante = "primaria" | "escura" | "clara";
 
+/** Nomes das variantes seguem o manual: vermelho de ação, grafite e contorno claro. */
+
 const VARIANTES: Record<Variante, string> = {
   // Vermelho sobre fundo claro — padrão do site.
-  primaria:
-    "border-black bg-red-600 text-white shadow-[0.1em_0.1em_0px_#000] hover:shadow-[0.15em_0.15em_0px_#000] active:shadow-[0.05em_0.05em_0px_#000]",
-  // Preto com borda branca — para usar sobre o vermelho.
-  escura:
-    "border-white bg-zinc-950 text-white shadow-[0.1em_0.1em_0px_#fff] hover:shadow-[0.15em_0.15em_0px_#fff] active:shadow-[0.05em_0.05em_0px_#fff]",
-  // Branco com texto vermelho — para usar sobre o vermelho.
-  clara:
-    "border-white bg-white text-red-700 shadow-[0.1em_0.1em_0px_#7f1d1d] hover:shadow-[0.15em_0.15em_0px_#7f1d1d] active:shadow-[0.05em_0.05em_0px_#7f1d1d]",
+  primaria: "border-mv bg-mv text-white hover:border-mv-escuro hover:bg-mv-escuro",
+  // Grafite — sobre o vermelho ou sobre foto clara.
+  escura: "border-grafite bg-grafite text-white hover:border-grafite-alto hover:bg-grafite-alto",
+  // Contorno claro — sobre fundo escuro ou vermelho.
+  clara: "border-white bg-transparent text-white hover:bg-white hover:text-grafite",
 };
 
+// Retângulo reto, sem sombra e sem deslocamento: o peso vem da cor e do espaço
+// em volta, não do relevo. É o que sustenta a leitura institucional.
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-[0.4em] border-[3px] px-[1.3em] py-[0.6em] font-black transition-all duration-150 hover:-translate-x-[0.05em] hover:-translate-y-[0.05em] active:translate-x-[0.05em] active:translate-y-[0.05em] disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap border px-8 py-4 text-center text-[13px] font-semibold uppercase leading-none tracking-[0.12em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60";
 
 type CTAButtonProps = {
   children: ReactNode;

@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Instagram, Youtube } from "lucide-react";
 
-import logomvbanner from "@/assets/otimizadas/logomvbanner.webp";
+import logomv from "@/assets/otimizadas/logomv.webp";
 import { EMPRESA, waLink } from "@/config/empresa";
 import { MENU_COMPLETO, hrefAbsoluto } from "@/config/navegacao";
 import { SERVICOS } from "@/data/servicos";
@@ -12,32 +12,34 @@ export function Footer() {
   const href = (h: string) => hrefAbsoluto(h, naHome);
 
   return (
-    <footer className="bg-zinc-950 text-white/55">
-      <div className="mx-auto grid max-w-7xl gap-10 border-t border-white/10 px-5 py-14 sm:px-8 md:grid-cols-4">
+    <footer className="border-t border-borda bg-areia text-concreto">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-4">
         <div>
           <img
-            src={logomvbanner}
+            src={logomv}
             alt="MV Construtora"
-            width={640}
-            height={200}
+            width={320}
+            height={100}
             loading="lazy"
             decoding="async"
-            className="h-25 w-auto"
+            className="h-14 w-auto"
           />
           <p className="mt-6 max-w-sm text-sm leading-6">
             Terraplenagem, obras civis, infraestrutura viária, drenagem e locação de máquinas
-            pesadas em todo o Maranhão, com produtividade e confiança desde 2011.
+            pesadas no Maranhão, no Piauí e no Ceará, com produtividade e confiança desde 2011.
           </p>
         </div>
 
         <div>
-          <p className="mb-5 text-xs font-bold uppercase tracking-[.2em] text-white">Serviços</p>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-grafite">
+            Serviços
+          </p>
           {SERVICOS.map((servico) => (
             <Link
               key={servico.slug}
               to="/servicos/$slug"
               params={{ slug: servico.slug }}
-              className="mb-3 block text-sm hover:text-red-400"
+              className="mb-3 block text-sm hover:text-mv"
             >
               {servico.nome}
             </Link>
@@ -45,34 +47,34 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="mb-5 text-xs font-bold uppercase tracking-[.2em] text-white">Navegação</p>
-          <Link to="/servicos" className="mb-3 block text-sm hover:text-red-400">
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-grafite">
+            Navegação
+          </p>
+          <Link to="/servicos" className="mb-3 block text-sm hover:text-mv">
             Todos os serviços
           </Link>
-          <Link to="/frota" className="mb-3 block text-sm hover:text-red-400">
+          <Link to="/frota" className="mb-3 block text-sm hover:text-mv">
             Frota completa
           </Link>
           {MENU_COMPLETO.map((item) => (
-            <a
-              key={item.href}
-              href={href(item.href)}
-              className="mb-3 block text-sm hover:text-red-400"
-            >
+            <a key={item.href} href={href(item.href)} className="mb-3 block text-sm hover:text-mv">
               {item.rotulo}
             </a>
           ))}
         </div>
 
         <div>
-          <p className="mb-5 text-xs font-bold uppercase tracking-[.2em] text-white">Contato</p>
-          <a href={`mailto:${EMPRESA.email}`} className="mb-3 block text-sm hover:text-red-400">
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-grafite">
+            Contato
+          </p>
+          <a href={`mailto:${EMPRESA.email}`} className="mb-3 block text-sm hover:text-mv">
             {EMPRESA.email}
           </a>
           <a
             href={waLink("Olá! Vim pelo site.")}
             target="_blank"
             rel="noreferrer"
-            className="mb-3 block text-sm hover:text-red-400"
+            className="mb-3 block text-sm hover:text-mv"
           >
             WhatsApp: {EMPRESA.whatsappExibicao}
           </a>
@@ -81,7 +83,7 @@ export function Footer() {
             target="_blank"
             rel="me noopener noreferrer"
             aria-label={`${EMPRESA.instagramHandle} — Instagram da MV Construtora`}
-            className="mb-3 flex items-center gap-2 text-sm hover:text-red-400"
+            className="mb-3 flex items-center gap-2 text-sm hover:text-mv"
           >
             <Instagram size={16} /> {EMPRESA.instagramHandle}
           </a>
@@ -90,7 +92,7 @@ export function Footer() {
             target="_blank"
             rel="me noopener noreferrer"
             aria-label="YouTube — canal da MV Construtora"
-            className="mb-3 flex items-center gap-2 text-sm hover:text-red-400"
+            className="mb-3 flex items-center gap-2 text-sm hover:text-mv"
           >
             <Youtube size={16} /> YouTube
           </a>
@@ -99,9 +101,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 border-t border-white/10 px-5 py-6 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 border-t border-borda px-5 py-6 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p>© {new Date().getFullYear()} MV Construtora. Todos os direitos reservados.</p>
-        <Link to="/politica-de-privacidade" className="hover:text-white">
+        <Link to="/politica-de-privacidade" className="hover:text-grafite">
           Política de privacidade
         </Link>
       </div>
