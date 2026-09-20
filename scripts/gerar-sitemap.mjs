@@ -35,9 +35,10 @@ const xmlUrl = (caminho, lastmod, changefreq, priority) => `  <url>
     <priority>${priority}</priority>
   </url>`;
 
-const [servicos, frota, posts] = await Promise.all([
+const [servicos, frota, obras, posts] = await Promise.all([
   lerSlugs("src/data/servicos.ts"),
   lerSlugs("src/data/frota.ts"),
+  lerSlugs("src/data/obras.ts"),
   lerPosts(),
 ]);
 
@@ -47,6 +48,8 @@ const urls = [
   ...servicos.map((slug) => xmlUrl(`/servicos/${slug}`, hoje, "monthly", "0.8")),
   xmlUrl("/frota", hoje, "monthly", "0.9"),
   ...frota.map((slug) => xmlUrl(`/frota/${slug}`, hoje, "monthly", "0.8")),
+  xmlUrl("/obras", hoje, "monthly", "0.9"),
+  ...obras.map((slug) => xmlUrl(`/obras/${slug}`, hoje, "monthly", "0.8")),
   xmlUrl("/blog", hoje, "weekly", "0.8"),
   ...posts.map((post) => xmlUrl(`/blog/${post.slug}`, post.atualizadoEm, "monthly", "0.7")),
   xmlUrl("/politica-de-privacidade", hoje, "yearly", "0.3"),

@@ -16,7 +16,7 @@ export const SITE_BASE_PATH = import.meta.env.BASE_URL;
 export const MENU_COMPLETO: ItemMenu[] = [
   { rotulo: "Blog", href: "/blog" },
   { rotulo: "Serviços", href: "#servicos" },
-  { rotulo: "Obras", href: "#obras" },
+  { rotulo: "Obras", href: "/obras" },
   { rotulo: "Frota", href: "#frota" },
   { rotulo: "Quem somos", href: "#quem-somos" },
   { rotulo: "Diferenciais", href: "#diferenciais" },
@@ -28,7 +28,7 @@ export const MENU_COMPLETO: ItemMenu[] = [
 
 /** Recorte do header desktop, que tem espaço limitado. */
 export const MENU_PRINCIPAL: ItemMenu[] = MENU_COMPLETO.filter((item) =>
-  ["/blog", "#servicos", "#obras", "#frota", "#quem-somos", "#contato"].includes(item.href),
+  ["/blog", "#servicos", "/obras", "#frota", "#quem-somos", "#contato"].includes(item.href),
 );
 
 /**

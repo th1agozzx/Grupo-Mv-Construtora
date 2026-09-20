@@ -295,49 +295,49 @@ function ObrasRealizadas() {
           <Carrossel rotulo="Obras realizadas" className="-ml-6">
             {lista.map((obra, i) => (
               <div
-                key={obra.titulo}
+                key={obra.slug}
                 className="min-w-0 flex-[0_0_88%] pl-6 sm:flex-[0_0_52%] lg:flex-[0_0_33%] xl:flex-[0_0_26%]"
               >
-                <button
-                  type="button"
-                  onClick={() => setAberta(i)}
-                  className="group block w-full border border-borda bg-white text-left transition-colors hover:border-mv"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={obra.imagem}
-                      alt={obra.alt}
-                      width={1400}
-                      height={1050}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
-                    />
-                    {/* Véu que revela o "ampliar" no hover, como nas galerias de obra. */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-0 flex items-end bg-grafite/0 p-5 opacity-0 transition-all duration-300 group-hover:bg-grafite/45 group-hover:opacity-100"
-                    >
-                      <span className="inline-flex items-center gap-2 bg-mv px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
-                        <Maximize2 size={14} /> Ampliar
-                      </span>
-                    </span>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
-                        {obra.categoria}
-                      </span>
-                      <span className="font-mono text-xs text-concreto">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                <article className="border border-borda bg-white transition-colors hover:border-mv">
+                  <Link
+                    to="/obras/$slug"
+                    params={{ slug: obra.slug }}
+                    className="group block w-full text-left"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={obra.imagens[0]}
+                        alt={obra.alt}
+                        width={1400}
+                        height={1050}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                      />
                     </div>
-                    <h3 className="mt-3 text-base font-semibold leading-6 text-grafite">
-                      {obra.titulo}
-                    </h3>
-                    <p className="mt-2 text-sm text-concreto">{obra.local}</p>
-                  </div>
-                </button>
+                    <div className="p-6 pb-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
+                          {obra.categoria}
+                        </span>
+                        <span className="font-mono text-xs text-concreto">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                      <h3 className="mt-3 text-base font-semibold leading-6 text-grafite">
+                        {obra.titulo}
+                      </h3>
+                      {obra.local && <p className="mt-2 text-sm text-concreto">{obra.local}</p>}
+                    </div>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setAberta(i)}
+                    className="mx-6 mb-6 inline-flex items-center gap-2 border-b border-mv pb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:border-grafite hover:text-grafite"
+                  >
+                    <Maximize2 size={14} /> Ampliar
+                  </button>
+                </article>
               </div>
             ))}
           </Carrossel>

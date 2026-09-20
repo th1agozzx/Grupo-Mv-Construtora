@@ -233,3 +233,23 @@ export const maquinaSchema = (maquina: {
   areaServed: REGIOES.map((r) => ({ "@type": "State", name: r.estado })),
   url: `${SITE_URL}/frota/${maquina.slug}`,
 });
+
+/** Página individual de obra, sem ficha técnica até o cliente confirmar os dados. */
+export const obraSchema = (obra: {
+  slug: string;
+  titulo: string;
+  resumo: string;
+  imagens: string[];
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": `${SITE_URL}/obras/${obra.slug}#obra`,
+  name: obra.titulo,
+  description: obra.resumo,
+  image: obra.imagens.map((imagem) =>
+    imagem.startsWith("http") ? imagem : `${SITE_URL}${imagem}`,
+  ),
+  mainEntityOfPage: `${SITE_URL}/obras/${obra.slug}`,
+  publisher: { "@id": `${SITE_URL}/#organizacao` },
+  inLanguage: "pt-BR",
+});
