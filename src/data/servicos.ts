@@ -1,4 +1,4 @@
-// Fonte única das categorias de serviço da MV Construtora.
+// Fonte única das categorias de serviço do Grupo MV Construtora.
 // Usada pela home, pelo JSON-LD (src/lib/schema.ts) e, futuramente, pelas
 // páginas individuais de serviço. Alterar aqui reflete em todos os lugares.
 //
@@ -66,7 +66,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Preparação de áreas para construção",
     ],
     intro:
-      "Terraplenagem é o conjunto de serviços que transforma um terreno bruto em uma base pronta para construir: escavação, corte e aterro, nivelamento e compactação do solo. A MV Construtora executa esse trabalho no Maranhão desde 2011, com frota própria de escavadeiras, motoniveladoras e rolos compactadores. Atendemos desde o preparo de lotes urbanos até plataformas industriais e grandes movimentações de terra.",
+      "Terraplenagem é o conjunto de serviços que transforma um terreno bruto em uma base pronta para construir: escavação, corte e aterro, nivelamento e compactação do solo. O Grupo MV Construtora executa esse trabalho no Maranhão desde 2011, com frota própria de escavadeiras, motoniveladoras e rolos compactadores. Atendemos desde o preparo de lotes urbanos até plataformas industriais e grandes movimentações de terra.",
     faqs: [
       [
         "Quanto custa a terraplenagem por hora no Maranhão?",
@@ -102,7 +102,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Base e sub-base",
     ],
     intro:
-      "Infraestrutura viária é a abertura, a recuperação e a manutenção de estradas — no Maranhão, principalmente estradas vicinais que ligam povoados, áreas produtivas e rodovias estaduais. O trabalho envolve patrolamento, cascalhamento, compactação e preparo de subleito, base e sub-base. A MV Construtora atende prefeituras, produtores rurais e empreendimentos privados em todo o estado.",
+      "Infraestrutura viária é a abertura, a recuperação e a manutenção de estradas — no Maranhão, principalmente estradas vicinais que ligam povoados, áreas produtivas e rodovias estaduais. O trabalho envolve patrolamento, cascalhamento, compactação e preparo de subleito, base e sub-base. O Grupo MV Construtora atende prefeituras, produtores rurais e empreendimentos privados em todo o estado.",
     faqs: [
       [
         "O que é patrolamento?",
@@ -137,10 +137,10 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Serviços complementares",
     ],
     intro:
-      "Obras civis reúnem a construção e a reforma de edificações, galpões e estruturas comerciais e industriais, incluindo fundações, pisos, pavimentações, muros e calçadas. A MV Construtora começou justamente na construção civil, em 2011, antes de se especializar em terraplenagem e infraestrutura. Essa origem permite entregar a obra do movimento de terra à estrutura acabada, com um único responsável.",
+      "Obras civis reúnem a construção e a reforma de edificações, galpões e estruturas comerciais e industriais, incluindo fundações, pisos, pavimentações, muros e calçadas. O Grupo MV Construtora começou justamente na construção civil, em 2011, antes de se especializar em terraplenagem e infraestrutura. Essa origem permite entregar a obra do movimento de terra à estrutura acabada, com um único responsável.",
     faqs: [
       [
-        "A MV Construtora faz a obra do início ao fim?",
+        "O Grupo MV Construtora faz a obra do início ao fim?",
         "Sim. Como executamos terraplenagem, drenagem e obras civis, conseguimos assumir desde a preparação do terreno até a entrega da edificação, sem repassar etapas a terceiros — o que reduz o risco de atraso na transição entre fases.",
       ],
       [
@@ -205,7 +205,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Preparação de áreas para empreendimentos",
     ],
     intro:
-      "Preparação e limpeza de áreas é a primeira etapa de qualquer empreendimento: retirar vegetação, tocos, entulho e construções existentes para liberar o terreno. Inclui limpeza mecanizada, destocamento, demolições e a carga e o transporte dos resíduos. A MV Construtora executa esse serviço com escavadeiras, pás carregadeiras e caminhões basculantes próprios.",
+      "Preparação e limpeza de áreas é a primeira etapa de qualquer empreendimento: retirar vegetação, tocos, entulho e construções existentes para liberar o terreno. Inclui limpeza mecanizada, destocamento, demolições e a carga e o transporte dos resíduos. O Grupo MV Construtora executa esse serviço com escavadeiras, pás carregadeiras e caminhões basculantes próprios.",
     faqs: [
       [
         "O que é destocamento?",
@@ -240,7 +240,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Com ou sem operador",
     ],
     intro:
-      "A MV Construtora aluga máquinas pesadas com frota própria e revisada: escavadeiras hidráulicas, motoniveladoras (patrol), pás carregadeiras, rolos compactadores, caminhões-pipa e caminhões basculantes. A locação pode ser com ou sem operador, conforme a contratação. Como a frota é própria, a mobilização é mais rápida e a manutenção não depende de terceiros.",
+      "O Grupo MV Construtora aluga máquinas pesadas com frota própria e revisada: escavadeiras hidráulicas, motoniveladoras (patrol), pás carregadeiras, rolos compactadores, caminhões-pipa e caminhões basculantes. A locação pode ser com ou sem operador, conforme a contratação. Como a frota é própria, a mobilização é mais rápida e a manutenção não depende de terceiros.",
     faqs: [
       [
         "A locação inclui operador?",
@@ -271,7 +271,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Apoio logístico",
     ],
     intro:
-      "Máquina pesada não se desloca sozinha até a obra: precisa de caminhão prancha, planejamento de rota e equipe para carga e descarga. A MV Construtora executa a mobilização e a desmobilização de equipamentos pesados no Maranhão, com prancha própria. O serviço atende tanto as nossas obras quanto empresas que precisam movimentar máquinas entre canteiros.",
+      "Máquina pesada não se desloca sozinha até a obra: precisa de caminhão prancha, planejamento de rota e equipe para carga e descarga. O Grupo MV Construtora executa a mobilização e a desmobilização de equipamentos pesados no Maranhão, com prancha própria. O serviço atende tanto as nossas obras quanto empresas que precisam movimentar máquinas entre canteiros.",
     faqs: [
       [
         "Vocês transportam máquinas de terceiros?",
@@ -338,10 +338,10 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Planejamento e controle de cronograma",
     ],
     intro:
-      "Grandes obras — terminais, rodovias, loteamentos e plantas industriais — precisam de frota, equipe e gestão que acompanhem o ritmo do cronograma. A MV Construtora fornece máquinas, equipamentos e mão de obra operacional para empreendimentos públicos e privados, e também assume o planejamento e a administração da obra, com controle de custos, qualidade e prazo.",
+      "Grandes obras — terminais, rodovias, loteamentos e plantas industriais — precisam de frota, equipe e gestão que acompanhem o ritmo do cronograma. O Grupo MV Construtora fornece máquinas, equipamentos e mão de obra operacional para empreendimentos públicos e privados, e também assume o planejamento e a administração da obra, com controle de custos, qualidade e prazo.",
     faqs: [
       [
-        "A MV Construtora faz a gestão completa da obra?",
+        "O Grupo MV Construtora faz a gestão completa da obra?",
         "Sim. Assumimos planejamento, equipes, equipamentos, acompanhamento técnico e controle de custos, qualidade e cronograma, conforme a necessidade do projeto.",
       ],
       [
@@ -372,7 +372,7 @@ const SERVICOS_BASE: Omit<Servico, "contexto" | "erros" | "etapas">[] = [
       "Preparação de terrenos para plantio",
     ],
     intro:
-      "A produção rural depende de infraestrutura: estrada interna que não atola, açude que segura água na estiagem e terreno nivelado para o plantio. A MV Construtora atende propriedades rurais no Maranhão com abertura e recuperação de estradas internas, construção de açudes e reservatórios, limpeza e nivelamento de áreas e abertura de valas. É um serviço executado com a mesma frota das obras de infraestrutura.",
+      "A produção rural depende de infraestrutura: estrada interna que não atola, açude que segura água na estiagem e terreno nivelado para o plantio. O Grupo MV Construtora atende propriedades rurais no Maranhão com abertura e recuperação de estradas internas, construção de açudes e reservatórios, limpeza e nivelamento de áreas e abertura de valas. É um serviço executado com a mesma frota das obras de infraestrutura.",
     faqs: [
       [
         "Quanto custa construir um açude?",
@@ -823,4 +823,4 @@ export const DESTAQUES = [
   "Movimentação de Terra",
 ];
 
-// A área de atuação (Maranhão, Piauí e Ceará) vive em src/data/regioes.ts.
+// A área de atuação (Maranhão, Pará, Piauí e Ceará) vive em src/data/regioes.ts.

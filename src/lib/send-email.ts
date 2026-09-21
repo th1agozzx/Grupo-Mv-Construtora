@@ -31,7 +31,7 @@ export const sendEmail = createServerFn({
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     return await resend.emails.send({
-      from: "MV Construtora <mvconstrutoraeimobiliaria@outlook.com>",
+      from: "Grupo MV Construtora <mvconstrutoraeimobiliaria@outlook.com>",
 
       to: ["mvconstrutoraeimobiliaria@outlook.com"],
 
@@ -48,7 +48,7 @@ export const sendEmail = createServerFn({
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="color-scheme" content="light" />
 <meta name="supported-color-schemes" content="light" />
-<title>Novo Lead - MV Construtora</title>
+<title>Novo Lead - Grupo MV Construtora</title>
 <!--[if mso]>
 <noscript>
 <xml>
@@ -95,7 +95,7 @@ td,th,div,p,a,h1,h2,h3 {font-family:Arial, Helvetica, sans-serif;}
 </head>
 <body class="mv-bg-body" style="margin:0; padding:0; background-color:#f0f1f3; font-family:'Segoe UI', Arial, Helvetica, sans-serif;">
 <div style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-size:1px; line-height:1px; color:#f0f1f3; opacity:0;">
-Novo lead recebido pelo site &nbsp;&#8226;&nbsp; ${data.nome} solicitou contato com a MV Construtora&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌
+Novo lead recebido pelo site &nbsp;&#8226;&nbsp; ${data.nome} solicitou contato com o Grupo MV Construtora&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌
 </div>
 
 <center class="mv-wrapper" style="width:100%; background-color:#f0f1f3;">
@@ -125,7 +125,7 @@ Novo lead recebido pelo site &nbsp;&#8226;&nbsp; ${data.nome} solicitou contato 
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td align="left" valign="middle">
-                  <img src="https://grupomvconstrutora.com.br/assets/logomv.png" alt="MV Construtora" width="150" style="display:block; width:150px; max-width:150px; height:auto; border:0;" />
+                  <img src="https://grupomvconstrutora.com.br/assets/logomv.png" alt="Grupo MV Construtora" width="150" style="display:block; width:150px; max-width:150px; height:auto; border:0;" />
                 </td>
                 <td align="right" valign="middle">
                   <span style="display:inline-block; background-color:#dc2626; color:#ffffff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:7px 14px; border-radius:100px; font-family:'Segoe UI', Arial, Helvetica, sans-serif;">
@@ -152,7 +152,7 @@ Novo lead recebido pelo site &nbsp;&#8226;&nbsp; ${data.nome} solicitou contato 
               Voc&ecirc; recebeu um novo contato
             </h1>
             <p style="margin:0; font-size:15px; line-height:24px; color:#6b7280;">
-              Os dados abaixo foram enviados automaticamente pelo formul&aacute;rio de contato do site da MV Construtora. Responda o quanto antes para n&atilde;o perder a oportunidade.
+              Os dados abaixo foram enviados automaticamente pelo formul&aacute;rio de contato do site do Grupo MV Construtora. Responda o quanto antes para n&atilde;o perder a oportunidade.
             </p>
           </td>
         </tr>
@@ -291,7 +291,7 @@ ${data.mensagem}
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#111111; border-radius:20px; overflow:hidden;">
         <tr>
           <td class="mv-footer-pad" style="padding:40px 40px 30px; text-align:center;">
-            <img src="https://grupomvconstrutora.com.br/assets/logomv.png" alt="MV Construtora" width="130" style="display:block; width:130px; max-width:130px; height:auto; border:0; margin:0 auto 18px;" />
+            <img src="https://grupomvconstrutora.com.br/assets/logomv.png" alt="Grupo MV Construtora" width="130" style="display:block; width:130px; max-width:130px; height:auto; border:0; margin:0 auto 18px;" />
             <p style="margin:0 0 26px; font-size:13px; letter-spacing:0.6px; color:#9ca3af; font-family:'Segoe UI', Arial, Helvetica, sans-serif;">
               Loca&ccedil;&otilde;es &nbsp;&#8226;&nbsp; Transportes &nbsp;&#8226;&nbsp; Terraplanagem &nbsp;&#8226;&nbsp; Gest&atilde;o de Obras
             </p>
@@ -317,7 +317,7 @@ ${data.mensagem}
                     Constru&iacute;mos com solidez. Entregamos com confian&ccedil;a.
                   </p>
                   <p style="margin:0; font-size:11.5px; color:#6b7280; font-family:'Segoe UI', Arial, Helvetica, sans-serif;">
-                    Mensagem gerada automaticamente pelo formul&aacute;rio do site da MV Construtora.
+                    Mensagem gerada automaticamente pelo formul&aacute;rio do site do Grupo MV Construtora.
                   </p>
                 </td>
               </tr>

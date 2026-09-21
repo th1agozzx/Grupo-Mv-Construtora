@@ -3,7 +3,7 @@ titulo: Quanto tempo leva para terraplanar um terreno?
 descricao: Os fatores que definem o prazo de uma terraplenagem e por que estimativa por telefone costuma errar.
 publicadoEm: 2026-09-07
 atualizadoEm: 2026-09-07
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, drenagem, locacao-de-maquinas
 ---
 

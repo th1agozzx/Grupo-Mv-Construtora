@@ -1,6 +1,6 @@
-// Área de atuação da MV Construtora: Maranhão, Piauí e Ceará.
+// Área de atuação do Grupo MV Construtora: Maranhão, Pará, Piauí e Ceará.
 //
-// A base fica em Pindaré-Mirim (MA), e a atuação se estende aos dois estados
+// A base fica em Pindaré-Mirim (MA), e a atuação se estende aos três estados
 // vizinhos. A lista de cada estado combina três níveis de propósito:
 //
 //   1. capital        — busca de maior volume
@@ -15,6 +15,10 @@
 // máquina. Listar cidade não atendida gera lead ruim, desgasta o comercial e,
 // se o cliente reclamar, vira sinal negativo de qualidade para o Google.
 // Lista definida pelo cliente em 04/09/2026: Maranhão, Ceará e Piauí.
+// Pará incluído pelo cliente em 21/09/2026. As cidades do Pará seguiram o mesmo
+// critério dos outros estados (capital, polos, cidades menores) e priorizam o
+// sudeste paraense, vizinho da base — VALIDAR com o cliente antes de tratar a
+// lista como definitiva.
 
 export type Regiao = {
   estado: string;
@@ -51,6 +55,30 @@ export const REGIOES: Regiao[] = [
     ],
   },
   {
+    estado: "Pará",
+    uf: "PA",
+    capital: "Belém",
+    polos: [
+      "Ananindeua",
+      "Marabá",
+      "Parauapebas",
+      "Santarém",
+      "Castanhal",
+      "Paragominas",
+      "Redenção",
+    ],
+    cidades: [
+      "Dom Eliseu",
+      "Ulianópolis",
+      "Rondon do Pará",
+      "Tailândia",
+      "Tucuruí",
+      "Canaã dos Carajás",
+      "Jacundá",
+      "Itupiranga",
+    ],
+  },
+  {
     estado: "Piauí",
     uf: "PI",
     capital: "Teresina",
@@ -71,16 +99,7 @@ export const REGIOES: Regiao[] = [
     uf: "CE",
     capital: "Fortaleza",
     polos: ["Sobral", "Juazeiro do Norte", "Crato", "Caucaia", "Maracanaú"],
-    cidades: [
-      "Crateús",
-      "Iguatu",
-      "Quixadá",
-      "Tianguá",
-      "Itapipoca",
-      "Camocim",
-      "Tauá",
-      "Russas",
-    ],
+    cidades: ["Crateús", "Iguatu", "Quixadá", "Tianguá", "Itapipoca", "Camocim", "Tauá", "Russas"],
   },
 ];
 
@@ -92,14 +111,14 @@ export const CIDADES_ATENDIDAS: { cidade: string; estado: string }[] = REGIOES.f
   cidadesDoEstado(r).map((cidade) => ({ cidade, estado: r.estado })),
 );
 
-/** "Maranhão, Piauí e Ceará" — para usar no meio de frases. */
+/** "Maranhão, Pará, Piauí e Ceará" — para usar no meio de frases. */
 export const ESTADOS_TEXTO = REGIOES.map((r) => r.estado).reduce(
   (acc, estado, i, arr) =>
     i === 0 ? estado : i === arr.length - 1 ? `${acc} e ${estado}` : `${acc}, ${estado}`,
   "",
 );
 
-/** "MA, PI e CE" — versão curta. */
+/** "MA, PA, PI e CE" — versão curta. */
 export const UFS_TEXTO = REGIOES.map((r) => r.uf).reduce(
   (acc, uf, i, arr) => (i === 0 ? uf : i === arr.length - 1 ? `${acc} e ${uf}` : `${acc}, ${uf}`),
   "",

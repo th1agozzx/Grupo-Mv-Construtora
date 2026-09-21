@@ -24,14 +24,14 @@ export const Route = createFileRoute("/frota/$slug")({
     const url = `${SITE_URL}/frota/${maquina.slug}`;
     return {
       meta: [
-        { title: `${maquina.h1} | MV Construtora` },
+        { title: `${maquina.h1} | Grupo MV Construtora` },
         { name: "description", content: maquina.intro.slice(0, 158) },
-        { property: "og:title", content: `${maquina.h1} | MV Construtora` },
+        { property: "og:title", content: `${maquina.h1} | Grupo MV Construtora` },
         { property: "og:description", content: maquina.resumo },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "pt_BR" },
-        { property: "og:site_name", content: "MV Construtora" },
+        { property: "og:site_name", content: "Grupo MV Construtora" },
         { name: "geo.region", content: "BR-MA" },
         { name: "geo.placename", content: "Pindaré-Mirim" },
       ],
@@ -93,7 +93,7 @@ function PaginaMaquina() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <CTAButton
                   href={waLink(
-                    `Olá! Gostaria de um orçamento de locação de ${maquina.nome.toLowerCase()} com a MV Construtora.`,
+                    `Olá! Gostaria de um orçamento de locação de ${maquina.nome.toLowerCase()} com o Grupo MV Construtora.`,
                   )}
                   target="_blank"
                   rel="noreferrer"
@@ -107,7 +107,7 @@ function PaginaMaquina() {
               <div className="aspect-[4/3] overflow-hidden rounded-sm bg-grafite-alto">
                 <img
                   src={maquina.imgs[foto]}
-                  alt={`${maquina.nome} da MV Construtora — foto ${foto + 1} de ${maquina.imgs.length}`}
+                  alt={`${maquina.nome} do Grupo MV Construtora — foto ${foto + 1} de ${maquina.imgs.length}`}
                   width={1600}
                   height={1200}
                   loading="lazy"
@@ -160,8 +160,8 @@ function PaginaMaquina() {
           </h2>
           <p className="mt-4 max-w-2xl leading-7 text-concreto">
             Este equipamento entra em {servicos.length}{" "}
-            {servicos.length === 1 ? "frente de atuação" : "frentes de atuação"} da MV Construtora.
-            Você pode contratar o serviço completo ou apenas a locação da máquina.
+            {servicos.length === 1 ? "frente de atuação" : "frentes de atuação"} do Grupo MV
+            Construtora. Você pode contratar o serviço completo ou apenas a locação da máquina.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {servicos.map((servico) => (
@@ -231,7 +231,7 @@ function PaginaMaquina() {
                 <div className="aspect-[4/3] overflow-hidden rounded-sm bg-borda">
                   <img
                     src={outra.imgs[0]}
-                    alt={`${outra.nome} da frota da MV Construtora`}
+                    alt={`${outra.nome} da frota do Grupo MV Construtora`}
                     width={1600}
                     height={1200}
                     loading="lazy"

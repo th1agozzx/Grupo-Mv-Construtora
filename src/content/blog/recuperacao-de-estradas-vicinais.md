@@ -3,7 +3,7 @@ titulo: "Recuperação de estradas vicinais: como funciona"
 descricao: Patrolamento, cascalhamento, compactação e drenagem — o que cada etapa resolve e por que estrada recuperada sem drenagem não dura.
 publicadoEm: 2026-09-10
 atualizadoEm: 2026-09-10
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: infraestrutura-viaria, drenagem, servicos-rurais
 ---
 

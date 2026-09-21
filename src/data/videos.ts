@@ -43,7 +43,7 @@ export const VIDEOS: VideoItem[] = [
     poster: fotodosmaquinarios,
     titulo: "Grupo MV Construtora | Força, precisão e resultado em cada obra",
     descricao:
-      "Apresentação da MV Construtora: frota própria de máquinas pesadas e equipes atuando em obras de terraplenagem e infraestrutura no Maranhão.",
+      "Apresentação do Grupo MV Construtora: frota própria de máquinas pesadas e equipes atuando em obras de terraplenagem e infraestrutura no Maranhão.",
     publicadoEm: "2026-09-02",
     duracao: "PT12S",
   },
@@ -53,7 +53,7 @@ export const VIDEOS: VideoItem[] = [
     poster: fotodas3escavadeiras,
     titulo: "Máquinas em ação | Grupo MV Construtora - Maranhão - Brasil",
     descricao:
-      "Escavadeiras hidráulicas da MV Construtora em operação de movimentação de terra em obra no Maranhão.",
+      "Escavadeiras hidráulicas do Grupo MV Construtora em operação de movimentação de terra em obra no Maranhão.",
     publicadoEm: "2026-09-02",
     duracao: "PT15S",
   },
@@ -63,7 +63,7 @@ export const VIDEOS: VideoItem[] = [
     poster: escavadeira1,
     titulo: "Máquinas em ação | Grupo MV Construtora",
     descricao:
-      "Maquinário pesado da frota própria da MV Construtora trabalhando em canteiro de obra de terraplenagem.",
+      "Maquinário pesado da frota própria do Grupo MV Construtora trabalhando em canteiro de obra de terraplenagem.",
     publicadoEm: "2026-09-02",
     duracao: "PT17S",
   },

@@ -41,6 +41,11 @@ const REGIOES = [
     cidades: ["Pindaré-Mirim", "Santa Inês", "Monção", "Tufilândia", "Igarapé do Meio", "Alto Alegre do Pindaré", "Santa Luzia", "Bom Jardim", "Zé Doca", "Vitória do Mearim", "Chapadinha"],
   },
   {
+    estado: "Pará", uf: "PA", capital: "Belém",
+    polos: ["Ananindeua", "Marabá", "Parauapebas", "Santarém", "Castanhal", "Paragominas", "Redenção"],
+    cidades: ["Dom Eliseu", "Ulianópolis", "Rondon do Pará", "Tailândia", "Tucuruí", "Canaã dos Carajás", "Jacundá", "Itupiranga"],
+  },
+  {
     estado: "Piauí", uf: "PI", capital: "Teresina",
     polos: ["Parnaíba", "Picos", "Floriano", "Piripiri", "Campo Maior"],
     cidades: ["Barras", "Oeiras", "União", "Altos", "Esperantina", "José de Freitas", "Uruçuí", "Bom Jesus"],

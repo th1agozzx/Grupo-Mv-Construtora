@@ -3,7 +3,7 @@ titulo: Qual máquina usar em cada etapa da terraplenagem
 descricao: Entenda a função de escavadeira, pá-carregadeira, motoniveladora, rolo e pipa, e por que a ordem em que elas entram muda o resultado da obra.
 publicadoEm: 2026-09-05
 atualizadoEm: 2026-09-05
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, locacao-de-maquinas, infraestrutura-viaria
 ---
 

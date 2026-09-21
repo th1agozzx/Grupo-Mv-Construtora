@@ -19,7 +19,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const url = `${SITE_URL}/blog/${post.slug}`;
     return {
       meta: [
-        { title: `${post.titulo} | MV Construtora` },
+        { title: `${post.titulo} | Grupo MV Construtora` },
         { name: "description", content: post.descricao },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
@@ -75,7 +75,7 @@ function Post() {
           </p>
           <img
             src={post.imagem}
-            alt="Maquinas da MV Construtora em operacao"
+            alt="Maquinas do Grupo MV Construtora em operacao"
             width={1600}
             height={1067}
             loading="eager"

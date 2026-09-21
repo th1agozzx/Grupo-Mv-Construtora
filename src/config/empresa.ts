@@ -1,4 +1,4 @@
-// Fonte única dos dados de contato e identidade da MV Construtora.
+// Fonte única dos dados de contato e identidade do Grupo MV Construtora.
 //
 // Estes valores aparecem no header, no rodapé, na seção de localização, no
 // e-mail do formulário e no JSON-LD. Antes estavam espalhados e já haviam
@@ -15,7 +15,7 @@
 export const SITE_URL = "https://www.grupomvconstrutora.com.br";
 
 export const EMPRESA = {
-  nome: "MV Construtora",
+  nome: "Grupo MV Construtora",
   razaoSocial: "A R LEITE PEREIRA LTDA",
   cnpj: "14.299.029/0001-20",
   // ATENÇÃO: o telefone do cartão CNPJ — (98) 9197-2921 — é o de cadastro na

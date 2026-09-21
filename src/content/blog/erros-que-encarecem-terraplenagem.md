@@ -3,7 +3,7 @@ titulo: Erros que encarecem uma obra de terraplenagem
 descricao: Sete decisões de planejamento que geram retrabalho, mobilização extra e perda de material — e como evitá-las antes de a máquina entrar.
 publicadoEm: 2026-09-12
 atualizadoEm: 2026-09-12
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, drenagem, limpeza-de-areas
 ---
 

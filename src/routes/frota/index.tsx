@@ -14,17 +14,17 @@ const URL_PAGINA = `${SITE_URL}/frota`;
 export const Route = createFileRoute("/frota/")({
   head: () => ({
     meta: [
-      { title: "Frota de Máquinas Pesadas | MV Construtora — MA, PI e CE" },
+      { title: "Frota de Máquinas Pesadas | Grupo MV Construtora" },
       {
         name: "description",
         content:
-          "Frota própria da MV Construtora, atuando no Maranhão, Piauí e Ceará: escavadeiras hidráulicas, pá-carregadeira, motoniveladora (patrol), rolo compactador, caminhão-pipa e caminhão prancha, com ou sem operador.",
+          "Frota própria do Grupo MV Construtora, atuando no Maranhão, Pará, Piauí e Ceará: escavadeiras hidráulicas, pá-carregadeira, motoniveladora (patrol), rolo compactador, caminhão-pipa e caminhão prancha, com ou sem operador.",
       },
-      { property: "og:title", content: "Frota de Máquinas Pesadas | MV Construtora" },
+      { property: "og:title", content: "Frota de Máquinas Pesadas | Grupo MV Construtora" },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:site_name", content: "MV Construtora" },
+      { property: "og:site_name", content: "Grupo MV Construtora" },
       { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [{ rel: "canonical", href: URL_PAGINA }],
@@ -66,7 +66,7 @@ function FrotaIndex() {
           </div>
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
             A frota própria é o que permite mobilizar rápido e não depender de terceiros para
-            manutenção. Conheça cada equipamento, para que ele serve e em quais serviços da MV
+            manutenção. Conheça cada equipamento, para que ele serve e em quais serviços do Grupo MV
             Construtora ele entra.
           </p>
         </section>
@@ -104,7 +104,7 @@ function FrotaIndex() {
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
                       src={maquina.imgs[0]}
-                      alt={`${maquina.nome} da frota da MV Construtora em operação`}
+                      alt={`${maquina.nome} da frota do Grupo MV Construtora em operação`}
                       width={1600}
                       height={1200}
                       loading="lazy"

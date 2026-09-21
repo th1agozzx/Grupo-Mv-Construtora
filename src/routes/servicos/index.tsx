@@ -13,17 +13,17 @@ const URL_PAGINA = `${SITE_URL}/servicos`;
 export const Route = createFileRoute("/servicos/")({
   head: () => ({
     meta: [
-      { title: "Serviços | MV Construtora — Terraplenagem e Obras em MA, PI e CE" },
+      { title: "Serviços de Terraplenagem e Obras | Grupo MV Construtora" },
       {
         name: "description",
         content:
-          "As 10 frentes de atuação da MV Construtora no Maranhão, Piauí e Ceará: terraplenagem, infraestrutura viária, obras civis, drenagem, limpeza de áreas, locação de máquinas, transporte, Munck, apoio a grandes obras e serviços rurais.",
+          "As 10 frentes de atuação do Grupo MV Construtora no Maranhão, Pará, Piauí e Ceará: terraplenagem, infraestrutura viária, obras civis, drenagem, limpeza de áreas, locação de máquinas, transporte, Munck, apoio a grandes obras e serviços rurais.",
       },
-      { property: "og:title", content: "Serviços da MV Construtora — MA, PI e CE" },
+      { property: "og:title", content: "Serviços do Grupo MV Construtora — MA, PA, PI e CE" },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:site_name", content: "MV Construtora" },
+      { property: "og:site_name", content: "Grupo MV Construtora" },
       { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [{ rel: "canonical", href: URL_PAGINA }],
@@ -53,13 +53,13 @@ function ServicosIndex() {
             <SectionTitle
               as="h1"
               eyebrow="O que fazemos"
-              title="Serviços de terraplenagem, obras e locação de máquinas no Nordeste."
+              title="Serviços de terraplenagem, obras e locação de máquinas no Norte e Nordeste."
             />
           </div>
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
-            A MV Construtora atua em dez frentes complementares, da preparação do terreno à entrega
-            da obra. Com base em Pindaré-Mirim, mobilizamos máquinas, equipamentos e equipes para
-            obras públicas e privadas no Maranhão, Piauí e Ceará.
+            O Grupo MV Construtora atua em dez frentes complementares, da preparação do terreno à
+            entrega da obra. Com base em Pindaré-Mirim, mobilizamos máquinas, equipamentos e equipes
+            para obras públicas e privadas no Maranhão, Pará, Piauí e Ceará.
           </p>
         </section>
 

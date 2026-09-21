@@ -3,7 +3,7 @@ titulo: Quanto custa terraplenagem por hora no Maranhão?
 descricao: Entenda o que compõe o orçamento de terraplenagem no Maranhão e quais informações reduzem retrabalho antes de mobilizar máquinas.
 publicadoEm: 2026-09-03
 atualizadoEm: 2026-09-03
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, locacao-de-maquinas, transporte-de-maquinas
 ---
 
@@ -100,6 +100,6 @@ Também encarece tentar resolver a água no fim. Se a drenagem é adiada, pode s
 
 ## Próximo passo: transformar dúvida em escopo
 
-O melhor orçamento não é o que promete um número rápido sem informação; é o que mostra o que será feito e em que condições. Na MV Construtora, a conversa começa pela necessidade, pelo local e pelo prazo da obra. Com isso, é possível avaliar a frente, os equipamentos e a mobilização adequados para o Maranhão.
+O melhor orçamento não é o que promete um número rápido sem informação; é o que mostra o que será feito e em que condições. No Grupo MV Construtora, a conversa começa pela necessidade, pelo local e pelo prazo da obra. Com isso, é possível avaliar a frente, os equipamentos e a mobilização adequados para o Maranhão.
 
 Se você precisa preparar terreno, recuperar acesso, abrir uma vala ou mobilizar máquinas, fale com a equipe e descreva sua obra. Um escopo claro é a forma mais direta de reduzir surpresa antes de a primeira máquina entrar no canteiro.

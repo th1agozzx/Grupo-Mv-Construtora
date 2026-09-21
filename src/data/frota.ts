@@ -1,4 +1,4 @@
-// Fonte única da frota da MV Construtora.
+// Fonte única da frota do Grupo MV Construtora.
 //
 // Cada máquina declara em `servicos` os slugs dos serviços em que atua. As
 // páginas de serviço fazem a busca inversa a partir daqui — assim existe uma
@@ -48,7 +48,7 @@ const FROTA_BASE: Maquina[] = [
     categoria: "Escavação",
     resumo: "Versátil para valas, remoção de terra, carregamento e serviços urbanos.",
     intro:
-      "A escavadeira hidráulica é a máquina mais versátil de um canteiro: escava, carrega, remove entulho, abre valas de drenagem e faz demolição. A MV Construtora opera escavadeiras próprias no Maranhão, com operadores treinados, tanto nas obras que executa quanto em locação para terceiros.",
+      "A escavadeira hidráulica é a máquina mais versátil de um canteiro: escava, carrega, remove entulho, abre valas de drenagem e faz demolição. O Grupo MV Construtora opera escavadeiras próprias no Maranhão, com operadores treinados, tanto nas obras que executa quanto em locação para terceiros.",
     aplicacoes: [
       "Escavação e movimentação de terra",
       "Abertura de valas para drenagem e redes",
@@ -89,7 +89,7 @@ const FROTA_BASE: Maquina[] = [
     categoria: "Carregamento",
     resumo: "Carregamento ágil de agregados e movimentação de grandes volumes.",
     intro:
-      "A pá-carregadeira é a máquina de produtividade no carregamento: move grandes volumes de terra, areia, brita e cascalho em pouco tempo, alimentando caminhões e espalhando material na pista. Na MV Construtora ela trabalha junto com as escavadeiras e os basculantes nas frentes de terraplenagem e infraestrutura viária.",
+      "A pá-carregadeira é a máquina de produtividade no carregamento: move grandes volumes de terra, areia, brita e cascalho em pouco tempo, alimentando caminhões e espalhando material na pista. No Grupo MV Construtora ela trabalha junto com as escavadeiras e os basculantes nas frentes de terraplenagem e infraestrutura viária.",
     aplicacoes: [
       "Carregamento de caminhões com agregados",
       "Movimentação de grandes volumes de material",
@@ -121,7 +121,7 @@ const FROTA_BASE: Maquina[] = [
     categoria: "Nivelamento",
     resumo: "Nivelamento preciso de terrenos, vias e plataformas.",
     intro:
-      "A motoniveladora — conhecida na região como patrol — é a máquina que dá acabamento ao terreno e à estrada. É ela que corta as irregularidades, define o caimento da pista para a água escoar e deixa a plataforma pronta para a compactação. Na MV Construtora, é a máquina central dos serviços de estrada vicinal.",
+      "A motoniveladora — conhecida na região como patrol — é a máquina que dá acabamento ao terreno e à estrada. É ela que corta as irregularidades, define o caimento da pista para a água escoar e deixa a plataforma pronta para a compactação. No Grupo MV Construtora, é a máquina central dos serviços de estrada vicinal.",
     aplicacoes: [
       "Patrolamento de estradas vicinais",
       "Nivelamento e regularização de terrenos",
@@ -218,7 +218,7 @@ const FROTA_BASE: Maquina[] = [
     categoria: "Transporte",
     resumo: "Transporte seguro de máquinas pesadas e equipamentos de grande porte.",
     intro:
-      "Máquina pesada não se desloca sozinha até a obra. O caminhão prancha é o que viabiliza a mobilização: transporta escavadeiras, motoniveladoras, pás-carregadeiras e rolos entre canteiros, com planejamento de rota e equipe para carga e descarga. A MV Construtora tem prancha própria, o que reduz o tempo de mobilização.",
+      "Máquina pesada não se desloca sozinha até a obra. O caminhão prancha é o que viabiliza a mobilização: transporta escavadeiras, motoniveladoras, pás-carregadeiras e rolos entre canteiros, com planejamento de rota e equipe para carga e descarga. O Grupo MV Construtora tem prancha própria, o que reduz o tempo de mobilização.",
     aplicacoes: [
       "Transporte de escavadeiras e motoniveladoras",
       "Mobilização de máquinas para o canteiro",

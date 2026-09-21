@@ -3,7 +3,7 @@ titulo: "Escavadeira, pá-carregadeira ou retroescavadeira: qual alugar?"
 descricao: Entenda a diferença prática entre as três máquinas, em que situação cada uma rende e como evitar alugar a errada.
 publicadoEm: 2026-09-06
 atualizadoEm: 2026-09-06
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: locacao-de-maquinas, terraplanagem, limpeza-de-areas
 ---
 
@@ -49,7 +49,7 @@ Por ser sobre pneus, se desloca com agilidade dentro do canteiro. Detalhes em [p
 
 Rende bem em serviço pequeno e variado — vala curta, reparo pontual, obra urbana com espaço apertado, trabalho que alterna escavar e carregar o tempo todo sem valer a pena mobilizar duas máquinas.
 
-> A MV Construtora não opera retroescavadeira na frota própria. Se o seu serviço é claramente desse porte, vale procurar quem tenha o equipamento — ou conversar conosco para avaliar se uma escavadeira compacta resolve o mesmo problema com melhor rendimento.
+> O Grupo MV Construtora não opera retroescavadeira na frota própria. Se o seu serviço é claramente desse porte, vale procurar quem tenha o equipamento — ou conversar conosco para avaliar se uma escavadeira compacta resolve o mesmo problema com melhor rendimento.
 
 ## Comparando lado a lado
 

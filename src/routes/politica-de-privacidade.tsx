@@ -11,14 +11,14 @@ const ATUALIZADO_EM = "2 de setembro de 2026";
 export const Route = createFileRoute("/politica-de-privacidade")({
   head: () => ({
     meta: [
-      { title: "Política de Privacidade | MV Construtora" },
+      { title: "Política de Privacidade | Grupo MV Construtora" },
       {
         name: "description",
         content:
-          "Como a MV Construtora coleta, usa e protege os dados pessoais enviados pelo formulário de contato do site, conforme a LGPD (Lei 13.709/2018).",
+          "Como o Grupo MV Construtora coleta, usa e protege os dados pessoais enviados pelo formulário de contato do site, conforme a LGPD (Lei 13.709/2018).",
       },
       { name: "robots", content: "index, follow" },
-      { property: "og:title", content: "Política de Privacidade | MV Construtora" },
+      { property: "og:title", content: "Política de Privacidade | Grupo MV Construtora" },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },

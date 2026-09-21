@@ -3,7 +3,7 @@ titulo: "Locação com ou sem operador: o que compensa?"
 descricao: Compare os dois formatos de locação de máquina pesada e entenda qual faz sentido para o seu tipo de obra.
 publicadoEm: 2026-09-11
 atualizadoEm: 2026-09-11
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: locacao-de-maquinas, terraplanagem, transporte-de-maquinas
 ---
 
@@ -76,7 +76,7 @@ Para serviço muito curto em local distante, às vezes vale mais contratar o ser
 
 ## Como trabalhamos
 
-A MV Construtora aluga com frota própria e revisada: escavadeiras hidráulicas, motoniveladoras, pás carregadeiras, rolos compactadores, caminhões-pipa e caminhões basculantes. Os dois formatos existem — com operador treinado ou sem operador, conforme o equipamento e as condições do contrato.
+O Grupo MV Construtora aluga com frota própria e revisada: escavadeiras hidráulicas, motoniveladoras, pás carregadeiras, rolos compactadores, caminhões-pipa e caminhões basculantes. Os dois formatos existem — com operador treinado ou sem operador, conforme o equipamento e as condições do contrato.
 
 Como a frota é própria, a mobilização não depende de terceiros e a manutenção é feita por nós. Isso encurta o tempo entre o fechamento e a máquina no canteiro.
 

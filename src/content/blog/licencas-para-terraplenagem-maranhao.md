@@ -3,7 +3,7 @@ titulo: Preciso de licença para fazer terraplenagem no Maranhão?
 descricao: Quando a movimentação de terra exige licenciamento ambiental, quem responde por isso e o que confirmar antes de mobilizar máquina.
 publicadoEm: 2026-09-08
 atualizadoEm: 2026-09-08
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, limpeza-de-areas, apoio-a-grandes-obras
 ---
 
@@ -71,7 +71,7 @@ Para obra pública, o licenciamento normalmente já está resolvido no processo 
 
 ## Como conduzimos isso
 
-A MV Construtora executa a obra; o licenciamento é do empreendimento. O que fazemos é orientar sobre a documentação que costuma ser exigida e organizar a execução dentro do que foi autorizado.
+O Grupo MV Construtora executa a obra; o licenciamento é do empreendimento. O que fazemos é orientar sobre a documentação que costuma ser exigida e organizar a execução dentro do que foi autorizado.
 
 Na visita técnica, avaliamos o terreno e apontamos os pontos que provavelmente vão demandar autorização — vegetação, proximidade de água, volume, origem do material, destino do excedente. Isso não substitui a consulta ao órgão, mas evita que você descubra a exigência com a máquina já no local.
 

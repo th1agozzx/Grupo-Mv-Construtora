@@ -3,7 +3,7 @@ titulo: "Terraplenagem ou terraplanagem: qual é a grafia correta?"
 descricao: Saiba qual forma usar, por que as duas circulam no setor e o que realmente muda na hora de contratar o serviço.
 publicadoEm: 2026-09-04
 atualizadoEm: 2026-09-04
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: terraplanagem, drenagem, infraestrutura-viaria
 ---
 

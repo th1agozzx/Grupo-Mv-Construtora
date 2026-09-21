@@ -11,7 +11,7 @@ import { POSTS_BLOG } from "@/data/blog";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog de Terraplenagem e Obras no Maranhão | MV Construtora" },
+      { title: "Blog de Terraplenagem e Obras no Maranhão | Grupo MV Construtora" },
       {
         name: "description",
         content:
@@ -52,7 +52,7 @@ function Blog() {
             >
               <img
                 src={post.imagem}
-                alt="Máquinas e equipes da MV Construtora em obra"
+                alt="Máquinas e equipes do Grupo MV Construtora em obra"
                 width={1600}
                 height={1067}
                 loading="lazy"

@@ -3,7 +3,7 @@ titulo: "Como preparar o solo para plantio: guia para o produtor rural"
 descricao: As etapas mecanizadas que antecedem o plantio, do destocamento à drenagem, e o que decidir antes de a máquina entrar na área.
 publicadoEm: 2026-09-09
 atualizadoEm: 2026-09-09
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: servicos-rurais, limpeza-de-areas, terraplanagem
 ---
 

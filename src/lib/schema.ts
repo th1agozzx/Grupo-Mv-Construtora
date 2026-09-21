@@ -6,7 +6,7 @@
 // "MV Construtora" no Brasil, a inferência erra ou não cita ninguém.
 
 import { SERVICOS } from "@/data/servicos";
-import { CIDADES_ATENDIDAS, REGIOES } from "@/data/regioes";
+import { CIDADES_ATENDIDAS, ESTADOS_TEXTO, REGIOES } from "@/data/regioes";
 import { YOUTUBE_CANAL } from "@/data/videos";
 import { EMPRESA } from "@/config/empresa";
 
@@ -16,22 +16,24 @@ export const organizacaoSchema = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
   "@id": `${SITE_URL}/#organizacao`,
-  name: "MV Construtora",
+  name: "Grupo MV Construtora",
   legalName: EMPRESA.razaoSocial,
+  // O nome oficial passou a ser "Grupo MV Construtora", mas muita gente ainda
+  // busca por "MV Construtora". Manter a forma antiga como nome alternativo
+  // preserva essas buscas e liga as menções antigas à mesma entidade.
   alternateName: [
-    "Grupo MV Construtora",
+    "MV Construtora",
+    "Grupo MV",
     "Construtora MV",
-    "MV Construtora Maranhão",
-    "MV Construtora Piauí",
-    "MV Construtora Ceará",
+    ...REGIOES.map((r) => `Grupo MV Construtora ${r.estado}`),
   ],
   url: SITE_URL,
   logo: `${SITE_URL}/assets/logomv.png`,
   image: `${SITE_URL}/og-image.jpg`,
   description:
     "Empresa de terraplenagem, obras civis, infraestrutura viária, drenagem e locação de " +
-    "máquinas pesadas sediada em Pindaré-Mirim, no Maranhão, com atuação em todo o " +
-    "Maranhão, Piauí e Ceará desde 2011 — de pequenas cidades do interior às capitais.",
+    "máquinas pesadas sediada em Pindaré-Mirim, no Maranhão, com atuação no " +
+    `${ESTADOS_TEXTO} desde 2011 — de pequenas cidades do interior às capitais.`,
   taxID: EMPRESA.cnpj,
   vatID: EMPRESA.cnpj,
   foundingDate: EMPRESA.fundacao,
@@ -66,7 +68,7 @@ export const organizacaoSchema = {
       closes: "18:00",
     },
   ],
-  // Os três estados primeiro (sinal amplo), depois cada cidade ancorada no seu
+  // Os estados primeiro (sinal amplo), depois cada cidade ancorada no seu
   // estado. Sem o estado no containedInPlace, cidades homônimas de outras
   // regiões do país confundem a leitura.
   areaServed: [
@@ -80,7 +82,7 @@ export const organizacaoSchema = {
   sameAs: ["https://www.instagram.com/grupoconstrutoramv/", YOUTUBE_CANAL],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Serviços da MV Construtora",
+    name: "Serviços do Grupo MV Construtora",
     itemListElement: SERVICOS.map(({ nome, descricao }) => ({
       "@type": "Offer",
       itemOffered: {
@@ -99,7 +101,7 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
-  name: "MV Construtora",
+  name: "Grupo MV Construtora",
   inLanguage: "pt-BR",
   publisher: { "@id": `${SITE_URL}/#organizacao` },
 };

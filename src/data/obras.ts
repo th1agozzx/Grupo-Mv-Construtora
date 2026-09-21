@@ -66,7 +66,7 @@ export const OBRAS: Obra[] = [
     imagem: fotodaplacatigd,
     alt: "Placa da obra do Terminal Intermodal Gonçalves Dias, no Maranhão",
     resumo: "Registro da obra identificada como Terminal Intermodal Gonçalves Dias, no Maranhão.",
-    // PENDENTE: confirmar o escopo executado pela MV Construtora.
+    // PENDENTE: confirmar o escopo executado pelo Grupo MV Construtora.
     imagens: [fotodaplacatigd],
     servicos: ["obras-civis"],
   },
@@ -76,7 +76,7 @@ export const OBRAS: Obra[] = [
     local: "Vale do Pindaré — MA",
     categoria: "Terraplenagem",
     imagem: fotodaobra,
-    alt: "Obra de terraplenagem em execução pela MV Construtora",
+    alt: "Obra de terraplenagem em execução pelo Grupo MV Construtora",
     resumo: "Registro de movimentação de terra e conformação de plataforma no Vale do Pindaré, MA.",
     escopo: ["Movimentação de terra e conformação de plataforma."],
     imagens: [fotodaobra],
@@ -90,7 +90,7 @@ export const OBRAS: Obra[] = [
     imagem: andamentodaobra,
     alt: "Andamento de obra de movimentação de terra no Maranhão",
     resumo: "Registro de acompanhamento de obra em andamento no Maranhão.",
-    // PENDENTE: confirmar o escopo executado pela MV Construtora.
+    // PENDENTE: confirmar o escopo executado pelo Grupo MV Construtora.
     imagens: [andamentodaobra],
     servicos: ["terraplanagem"],
   },
@@ -100,9 +100,9 @@ export const OBRAS: Obra[] = [
     local: "Maranhão",
     categoria: "Obras civis",
     imagem: placapedrafundamental,
-    alt: "Placa de pedra fundamental de obra executada pela MV Construtora",
+    alt: "Placa de pedra fundamental de obra executada pelo Grupo MV Construtora",
     resumo: "Registro de obra entregue com pedra fundamental, no Maranhão.",
-    // PENDENTE: confirmar o escopo executado pela MV Construtora.
+    // PENDENTE: confirmar o escopo executado pelo Grupo MV Construtora.
     imagens: [placapedrafundamental],
     servicos: ["obras-civis"],
   },
@@ -112,7 +112,7 @@ export const OBRAS: Obra[] = [
     categoria: "Infraestrutura viária",
     imagem: obra1,
     alt: "Frente de obra rodoviária com movimentação de terra",
-    // PENDENTE: confirmar se a imagem representa uma obra da MV antes de publicar como portfólio.
+    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
     imagens: [obra1],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
@@ -123,7 +123,7 @@ export const OBRAS: Obra[] = [
     categoria: "Infraestrutura viária",
     imagem: obra2,
     alt: "Trecho de estrada em execução com base preparada",
-    // PENDENTE: confirmar se a imagem representa uma obra da MV antes de publicar como portfólio.
+    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
     imagens: [obra2],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
@@ -134,7 +134,7 @@ export const OBRAS: Obra[] = [
     categoria: "Infraestrutura viária",
     imagem: obra3,
     alt: "Equipamento de pavimentação aplicando massa asfáltica",
-    // PENDENTE: confirmar se a imagem representa uma obra da MV antes de publicar como portfólio.
+    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
     imagens: [obra3],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
@@ -145,7 +145,7 @@ export const OBRAS: Obra[] = [
     categoria: "Terraplenagem",
     imagem: obra4,
     alt: "Escavação de terreno com máquina em canteiro de obra",
-    // PENDENTE: confirmar se a imagem representa uma obra da MV antes de publicar como portfólio.
+    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
     imagens: [obra4],
     servicos: ["terraplanagem"],
     provisoria: true,

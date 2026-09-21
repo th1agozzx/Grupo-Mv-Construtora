@@ -17,7 +17,7 @@ export function Footer() {
         <div>
           <img
             src={logomv}
-            alt="MV Construtora"
+            alt="Grupo MV Construtora"
             width={320}
             height={100}
             loading="lazy"
@@ -26,7 +26,8 @@ export function Footer() {
           />
           <p className="mt-6 max-w-sm text-sm leading-6">
             Terraplenagem, obras civis, infraestrutura viária, drenagem e locação de máquinas
-            pesadas no Maranhão, no Piauí e no Ceará, com produtividade e confiança desde 2011.
+            pesadas no Maranhão, no Pará, no Piauí e no Ceará, com produtividade e confiança desde
+            2011.
           </p>
         </div>
 
@@ -82,7 +83,7 @@ export function Footer() {
             href={EMPRESA.instagramUrl}
             target="_blank"
             rel="me noopener noreferrer"
-            aria-label={`${EMPRESA.instagramHandle} — Instagram da MV Construtora`}
+            aria-label={`${EMPRESA.instagramHandle} — Instagram do Grupo MV Construtora`}
             className="mb-3 flex items-center gap-2 text-sm hover:text-mv"
           >
             <Instagram size={16} /> {EMPRESA.instagramHandle}
@@ -91,7 +92,7 @@ export function Footer() {
             href={YOUTUBE_CANAL}
             target="_blank"
             rel="me noopener noreferrer"
-            aria-label="YouTube — canal da MV Construtora"
+            aria-label="YouTube — canal do Grupo MV Construtora"
             className="mb-3 flex items-center gap-2 text-sm hover:text-mv"
           >
             <Youtube size={16} /> YouTube
@@ -102,7 +103,7 @@ export function Footer() {
       </div>
 
       <div className="mx-auto flex max-w-7xl flex-col gap-3 border-t border-borda px-5 py-6 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p>© {new Date().getFullYear()} MV Construtora. Todos os direitos reservados.</p>
+        <p>© {new Date().getFullYear()} Grupo MV Construtora. Todos os direitos reservados.</p>
         <Link to="/politica-de-privacidade" className="hover:text-grafite">
           Política de privacidade
         </Link>

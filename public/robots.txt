@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Crawlers de IA liberados propositalmente, para que a MV Construtora possa ser
+# Crawlers de IA liberados propositalmente, para que o Grupo MV Construtora possa ser
 # citada em respostas de IA (Gemini, AI Overviews, ChatGPT, Perplexity).
 # Google-Extended é o token que autoriza o uso do conteúdo no Gemini/AI Overviews.
 User-agent: Google-Extended

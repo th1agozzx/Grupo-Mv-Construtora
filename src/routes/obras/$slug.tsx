@@ -25,14 +25,14 @@ export const Route = createFileRoute("/obras/$slug")({
     const resumo = resumoObra(obra);
     return {
       meta: [
-        { title: `${obra.titulo} | Obras | MV Construtora` },
+        { title: `${obra.titulo} | Obras | Grupo MV Construtora` },
         { name: "description", content: resumo.slice(0, 158) },
-        { property: "og:title", content: `${obra.titulo} | MV Construtora` },
+        { property: "og:title", content: `${obra.titulo} | Grupo MV Construtora` },
         { property: "og:description", content: resumo },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "pt_BR" },
-        { property: "og:site_name", content: "MV Construtora" },
+        { property: "og:site_name", content: "Grupo MV Construtora" },
         { property: "og:image", content: `${SITE_URL}${obra.imagens[0]}` },
       ],
       links: [{ rel: "canonical", href: url }],

@@ -69,25 +69,25 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "MV Construtora | Terraplenagem e Locação de Máquinas — MA, PI e CE",
+        title: "Grupo MV Construtora | Terraplenagem no MA, PA, PI e CE",
       },
       {
         name: "description",
         content:
-          "Terraplenagem, obras civis, drenagem e locação de máquinas pesadas no Maranhão, Piauí e Ceará. Sede em Pindaré-Mirim (MA), atendendo do interior às capitais desde 2011.",
+          "Terraplenagem, obras civis e locação de máquinas pesadas no Maranhão, Pará, Piauí e Ceará. Sede em Pindaré-Mirim (MA), do interior às capitais desde 2011.",
       },
       {
         property: "og:title",
-        content: "MV Construtora | Terraplenagem e Locação de Máquinas — MA, PI e CE",
+        content: "Grupo MV Construtora | Terraplenagem e Locação de Máquinas no MA, PA, PI e CE",
       },
       {
         property: "og:description",
         content:
-          "Terraplenagem, obras civis, infraestrutura viária, drenagem e locação de máquinas pesadas no Maranhão, Piauí e Ceará. Desde 2011 em Pindaré-Mirim.",
+          "Terraplenagem, obras civis, infraestrutura viária, drenagem e locação de máquinas pesadas no Maranhão, Pará, Piauí e Ceará. Desde 2011 em Pindaré-Mirim.",
       },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:site_name", content: "MV Construtora" },
+      { property: "og:site_name", content: "Grupo MV Construtora" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "geo.region", content: "BR-MA" },
       { name: "geo.placename", content: "Pindaré-Mirim" },
@@ -97,7 +97,8 @@ export const Route = createFileRoute("/")({
       { property: "og:image:height", content: "630" },
       {
         property: "og:image:alt",
-        content: "MV Construtora — terraplenagem e locação de máquinas no Maranhão",
+        content:
+          "Grupo MV Construtora — terraplenagem e locação de máquinas no Maranhão, Pará, Piauí e Ceará",
       },
       { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
@@ -114,48 +115,51 @@ export const Route = createFileRoute("/")({
 // 4) adicionar uma nova linha aqui embaixo no formato { src: minhaFoto, alt: "Descrição da foto" }
 // O alt deve descrever a foto de verdade e, quando fizer sentido, citar a cidade.
 const slideshowImages: { src: string; alt: string }[] = [
-  { src: colaboradores, alt: "Equipe da MV Construtora em obra de terraplenagem no Maranhão" },
+  {
+    src: colaboradores,
+    alt: "Equipe do Grupo MV Construtora em obra de terraplenagem no Maranhão",
+  },
   {
     src: operadoreseterceiros,
-    alt: "Gestores, operadores e equipes terceirizadas da MV Construtora em canteiro de obra",
+    alt: "Gestores, operadores e equipes terceirizadas do Grupo MV Construtora em canteiro de obra",
   },
   {
     src: placapedrafundamental,
-    alt: "Placa de pedra fundamental de obra executada pela MV Construtora",
+    alt: "Placa de pedra fundamental de obra executada pelo Grupo MV Construtora",
   },
-  { src: colaboradores1, alt: "Colaboradores da MV Construtora em Pindaré-Mirim, Maranhão" },
+  { src: colaboradores1, alt: "Colaboradores do Grupo MV Construtora em Pindaré-Mirim, Maranhão" },
   {
     src: fotodaplacatigd,
     alt: "Placa da obra do Terminal Intermodal Gonçalves Dias, no Maranhão",
   },
   {
     src: eventoinauguracao,
-    alt: "Evento de inauguração de obra entregue pela MV Construtora",
+    alt: "Evento de inauguração de obra entregue pelo Grupo MV Construtora",
   },
   { src: andamentodaobra, alt: "Andamento de obra de movimentação de terra no Maranhão" },
-  { src: fotodaobra, alt: "Obra de terraplenagem em execução pela MV Construtora" },
+  { src: fotodaobra, alt: "Obra de terraplenagem em execução pelo Grupo MV Construtora" },
   {
     src: fotodosmaquinarios,
-    alt: "Maquinário pesado da frota própria da MV Construtora",
+    alt: "Maquinário pesado da frota própria do Grupo MV Construtora",
   },
   {
     src: fotodas3escavadeiras,
-    alt: "Três escavadeiras hidráulicas da frota da MV Construtora em obra",
+    alt: "Três escavadeiras hidráulicas da frota do Grupo MV Construtora em obra",
   },
 ];
 
-// --- Imagens da seção "Por que escolher a MV" (também em slide, sem limite) ---
+// --- Imagens da seção "Por que escolher o Grupo MV" (também em slide, sem limite) ---
 // Mesma lógica do array acima: importe a foto no topo do arquivo e adicione
 // uma nova linha aqui para ela entrar no slide.
 const diferenciaisImages: { src: string; alt: string }[] = [
-  { src: diferenciais, alt: "Equipe da MV Construtora em obra no Vale do Pindaré, Maranhão" },
-  { src: fotodaplacaalan, alt: "Placa de identificação de obra da MV Construtora" },
+  { src: diferenciais, alt: "Equipe do Grupo MV Construtora em obra no Vale do Pindaré, Maranhão" },
+  { src: fotodaplacaalan, alt: "Placa de identificação de obra do Grupo MV Construtora" },
   {
     src: fotoalanetalita,
-    alt: "Fundadores da MV Construtora em frente à placa de obra",
+    alt: "Fundadores do Grupo MV Construtora em frente à placa de obra",
   },
-  { src: colaboradores1, alt: "Equipe operacional da MV Construtora em campo" },
-  { src: colaboradores, alt: "Equipe da MV Construtora ao lado das máquinas em obra" },
+  { src: colaboradores1, alt: "Equipe operacional do Grupo MV Construtora em campo" },
+  { src: colaboradores, alt: "Equipe do Grupo MV Construtora ao lado das máquinas em obra" },
 ];
 
 // Classes compartilhadas dos campos do formulário.
@@ -176,7 +180,7 @@ const NUMEROS: { valor: number; prefixo?: string; rotulo: string; separador?: bo
   { valor: CIDADES_ATENDIDAS.length, rotulo: "Cidades na área de cobertura" },
 ];
 
-// Pilares da marca, conforme o manual de identidade visual da MV Construtora.
+// Pilares da marca, conforme o manual de identidade visual do Grupo MV Construtora.
 const PILARES: [string, string][] = [
   ["Força", "para realizar"],
   ["Confiança", "em cada entrega"],
@@ -187,11 +191,11 @@ const PILARES: [string, string][] = [
 
 const faqs: [string, string][] = [
   [
-    "Quais cidades a MV Construtora atende?",
-    "A MV Construtora tem sede em Pindaré-Mirim (MA) e atende Maranhão, Piauí e Ceará. No Maranhão, com presença frequente em Santa Inês, Bacabal, Zé Doca, Açailândia, Imperatriz e São Luís; no Piauí, em Teresina, Parnaíba, Picos e Floriano; no Ceará, em Fortaleza, Sobral, Juazeiro do Norte e Crateús. Atendemos de pequenas cidades do interior às capitais, em obras urbanas, rurais, industriais e comerciais.",
+    "Quais cidades o Grupo MV Construtora atende?",
+    "O Grupo MV Construtora tem sede em Pindaré-Mirim (MA) e atende Maranhão, Pará, Piauí e Ceará. No Maranhão, com presença frequente em Santa Inês, Bacabal, Zé Doca, Açailândia, Imperatriz e São Luís; no Pará, em Belém, Marabá, Parauapebas, Paragominas e Dom Eliseu; no Piauí, em Teresina, Parnaíba, Picos e Floriano; no Ceará, em Fortaleza, Sobral, Juazeiro do Norte e Crateús. Atendemos de pequenas cidades do interior às capitais, em obras urbanas, rurais, industriais e comerciais.",
   ],
   [
-    "Quais serviços a MV Construtora executa?",
+    "Quais serviços o Grupo MV Construtora executa?",
     "Terraplenagem (incluindo pavimentação), infraestrutura viária (estradas vicinais, patrolamento e cascalhamento), obras civis, drenagem pluvial, preparação e limpeza de áreas, locação de máquinas pesadas, transporte de equipamentos com caminhão prancha, serviços com caminhão Munck, apoio e gestão de grandes obras e serviços para propriedades rurais.",
   ],
   [
@@ -203,7 +207,7 @@ const faqs: [string, string][] = [
     "Entendemos o escopo, local, prazo e condições do terreno. Com essas informações, enviamos uma proposta transparente e personalizada.",
   ],
   [
-    "A MV Construtora faz a gestão completa da obra?",
+    "O Grupo MV Construtora faz a gestão completa da obra?",
     "Sim. Dentro do serviço de apoio e gestão de grandes obras, assumimos planejamento, equipes, equipamentos, acompanhamento técnico e controle de custos, qualidade e cronograma, conforme a necessidade do projeto.",
   ],
 ];
@@ -587,7 +591,7 @@ function Index() {
     // Monta a mensagem já formatada para a equipe ler no WhatsApp sem precisar
     // perguntar o básico de novo.
     const linhas = [
-      "*Solicitação de orçamento — site MV Construtora*",
+      "*Solicitação de orçamento — site Grupo MV Construtora*",
       "",
       `*Nome:* ${data.nome}`,
       data.email ? `*E-mail:* ${data.email}` : null,
@@ -678,7 +682,7 @@ function Index() {
                 className="max-w-5xl text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-white [text-shadow:0_2px_18px_rgb(0_0_0_/_0.6)] sm:text-5xl lg:text-[clamp(3.25rem,6.5vh,4.25rem)]"
               >
                 Terraplenagem e Locação de Máquinas Pesadas no{" "}
-                <span className="text-white/80">Maranhão, Piauí e Ceará</span>
+                <span className="text-white/80">{ESTADOS_TEXTO}</span>
               </motion.h1>
               <motion.p
                 variants={reveal}
@@ -691,8 +695,8 @@ function Index() {
                 className="mt-3 max-w-2xl text-base leading-7 text-white/90 [text-shadow:0_1px_10px_rgb(0_0_0_/_0.7)] sm:mt-4 sm:text-lg"
               >
                 Terraplenagem, obras civis, infraestrutura viária, drenagem e locação de máquinas
-                pesadas no Maranhão, Piauí e Ceará, com segurança, produtividade e compromisso do
-                primeiro movimento de terra até a entrega.
+                pesadas no {ESTADOS_TEXTO}, com segurança, produtividade e compromisso do primeiro
+                movimento de terra até a entrega.
               </motion.p>
               <motion.div
                 variants={reveal}
@@ -834,7 +838,7 @@ function Index() {
                       <div className="relative aspect-[4/3] overflow-hidden">
                         <img
                           src={item.imgs[0]}
-                          alt={`${item.nome} da frota da MV Construtora em operação`}
+                          alt={`${item.nome} da frota do Grupo MV Construtora em operação`}
                           width={1600}
                           height={1200}
                           loading="lazy"
@@ -879,7 +883,7 @@ function Index() {
             <div className="max-w-md">
               <p className="leading-7 text-concreto">
                 Dez frentes de atuação e um único parceiro para mobilizar máquinas, equipes e gestão
-                em obras públicas e privadas no Maranhão, no Piauí e no Ceará.
+                em obras públicas e privadas no Maranhão, no Pará, no Piauí e no Ceará.
               </p>
               <Link
                 to="/servicos"
@@ -934,7 +938,7 @@ function Index() {
                   a leitura fica em preto no branco e a imagem aparece inteira. */}
               <FotoComParallax
                 src={alaneasmaquinas1}
-                alt="Equipe e máquinas da MV Construtora em obra no Maranhão"
+                alt="Equipe e máquinas do Grupo MV Construtora em obra no Maranhão"
               />
               <div>
                 <SectionTitle
@@ -942,13 +946,14 @@ function Index() {
                   title="Construção que nasce da experiência de campo."
                 />
                 <p className="mt-8 max-w-2xl text-lg leading-8 text-concreto">
-                  De Pindaré-Mirim para obras no Maranhão, no Piauí e no Ceará, a MV Construtora une
-                  experiência de campo, planejamento e relações de confiança.
+                  De Pindaré-Mirim para obras no Maranhão, no Pará, no Piauí e no Ceará, o Grupo MV
+                  Construtora une experiência de campo, planejamento e relações de confiança.
                 </p>
                 <div className="mt-10 max-w-2xl leading-7 text-concreto [&>h3]:mt-9 [&>h3]:text-[13px] [&>h3]:font-semibold [&>h3]:uppercase [&>h3]:tracking-[0.18em] [&>h3]:text-mv-escuro [&>p]:mt-3 [&>p]:text-[15px] [&>ul]:mt-3 [&>ul]:text-[15px]">
                   <h3>Nossa história</h3>
                   <p>
-                    A MV Construtora nasceu do sonho, da determinação e da visão empreendedora de{" "}
+                    O Grupo MV Construtora nasceu do sonho, da determinação e da visão empreendedora
+                    de{" "}
                     <strong className="font-semibold text-grafite">
                       Alan Robson Leite Pereira
                     </strong>
@@ -969,10 +974,10 @@ function Index() {
                     Foi justamente do maior patrimônio de sua vida — sua família — que surgiu o nome
                     da empresa. A união das iniciais de seus filhos,{" "}
                     <strong className="font-semibold text-grafite">M</strong>iguel e{" "}
-                    <strong className="font-semibold text-grafite">V</strong>inícius, deu origem à
-                    MV Construtora, simbolizando que cada obra carrega os mesmos valores cultivados
-                    dentro de casa: responsabilidade, confiança, respeito e compromisso com o
-                    futuro.
+                    <strong className="font-semibold text-grafite">V</strong>inícius, deu origem ao
+                    Grupo MV Construtora, simbolizando que cada obra carrega os mesmos valores
+                    cultivados dentro de casa: responsabilidade, confiança, respeito e compromisso
+                    com o futuro.
                   </p>
 
                   <h3>Nossa trajetória</h3>
@@ -980,12 +985,12 @@ function Index() {
                     Ao longo de sua trajetória, a empresa atuou na construção de edifícios e
                     residências, adquirindo sólida experiência no setor da construção civil. Com o
                     passar dos anos, acompanhando as necessidades do mercado e investindo
-                    continuamente em pessoas, equipamentos e tecnologia, a MV Construtora expandiu
-                    sua atuação e especializou-se em obras de terraplenagem e infraestrutura no
-                    Maranhão.
+                    continuamente em pessoas, equipamentos e tecnologia, o Grupo MV Construtora
+                    expandiu sua atuação e especializou-se em obras de terraplenagem e
+                    infraestrutura no Maranhão.
                   </p>
                   <p>
-                    Mais do que executar obras, a MV Construtora constrói relacionamentos
+                    Mais do que executar obras, o Grupo MV Construtora constrói relacionamentos
                     duradouros, gera desenvolvimento para as comunidades onde atua e contribui para
                     o crescimento da infraestrutura do estado.
                   </p>
@@ -1007,8 +1012,8 @@ function Index() {
                     clientes e parceiros.
                   </p>
                   <p className="font-medium text-grafite">
-                    MV Construtora — movendo a terra, construindo o futuro e deixando um legado de
-                    confiança, excelência e compromisso em cada projeto.
+                    Grupo MV Construtora — movendo a terra, construindo o futuro e deixando um
+                    legado de confiança, excelência e compromisso em cada projeto.
                   </p>
                 </div>
 
@@ -1048,7 +1053,7 @@ function Index() {
           <DiferenciaisSlideshow />
           <div className="lg:pl-12">
             <SectionTitle
-              eyebrow="Por que escolher a MV"
+              eyebrow="Por que escolher o Grupo MV"
               title="Execução confiável, sem improviso."
             />
             <p className="mt-8 max-w-lg leading-7 text-concreto">
@@ -1115,8 +1120,8 @@ function Index() {
               as="blockquote"
               className="text-[26px] font-medium leading-[1.25] tracking-[-0.01em] sm:text-[38px]"
             >
-              “A MV entende a urgência, mobiliza a equipe rapidamente e mantem a obra avançando sem
-              surpresas.”
+              “O Grupo MV entende a urgência, mobiliza a equipe rapidamente e mantem a obra
+              avançando sem surpresas.”
             </Revelar>
             <p className="mt-10 text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85">
               ALAN ROBSON <br />
@@ -1136,9 +1141,9 @@ function Index() {
             title={`Terraplenagem e locação de máquinas no ${ESTADOS_TEXTO}.`}
           />
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
-            Com base em {EMPRESA.cidade}, no Vale do Pindaré, a MV Construtora mobiliza máquinas,
-            equipamentos e equipes para obras urbanas, rurais, industriais e comerciais — de
-            pequenas cidades do interior às capitais, para clientes públicos e privados.
+            Com base em {EMPRESA.cidade}, no Vale do Pindaré, o Grupo MV Construtora mobiliza
+            máquinas, equipamentos e equipes para obras urbanas, rurais, industriais e comerciais —
+            de pequenas cidades do interior às capitais, para clientes públicos e privados.
           </p>
 
           <div className="mt-12 space-y-10">
@@ -1229,7 +1234,7 @@ function Index() {
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
             <div className="relative overflow-hidden border border-borda">
               <iframe
-                title="Mapa da MV Construtora"
+                title="Mapa do Grupo MV Construtora"
                 src={MAPS_EMBED_URL}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -1295,7 +1300,7 @@ function Index() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <CTAButton
                   href={waLink(
-                    "Olá! Gostaria de solicitar um orçamento à MV Construtora e saber mais sobre os serviços.",
+                    "Olá! Gostaria de solicitar um orçamento ao Grupo MV Construtora e saber mais sobre os serviços.",
                   )}
                   target="_blank"
                   rel="noreferrer"

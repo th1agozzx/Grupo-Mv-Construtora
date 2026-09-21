@@ -1,9 +1,9 @@
 ---
 name: novo-post-blog-mv
-description: Cria artigos em Markdown para o blog da MV Construtora, seguindo padrão editorial, SEO e dados verificáveis.
+description: Cria artigos em Markdown para o blog do Grupo MV Construtora, seguindo padrão editorial, SEO e dados verificáveis.
 ---
 
-# Novo post do blog MV Construtora
+# Novo post do blog Grupo MV Construtora
 
 Use esta skill ao criar ou revisar um artigo em `src/content/blog/`.
 
@@ -18,7 +18,7 @@ titulo: Pergunta exata que a pessoa digita no Google
 descricao: Resumo claro do artigo, sem promessas não verificadas.
 publicadoEm: AAAA-MM-DD
 atualizadoEm: AAAA-MM-DD
-autor: MV Construtora
+autor: Grupo MV Construtora
 servicos: slug-de-servico, outro-slug
 ---
 ```

@@ -29,14 +29,14 @@ export const Route = createFileRoute("/servicos/$slug")({
     const url = `${SITE_URL}/servicos/${servico.slug}`;
     return {
       meta: [
-        { title: `${servico.h1} | MV Construtora` },
+        { title: `${servico.h1} | Grupo MV Construtora` },
         { name: "description", content: servico.descricao.slice(0, 158) },
-        { property: "og:title", content: `${servico.h1} | MV Construtora` },
+        { property: "og:title", content: `${servico.h1} | Grupo MV Construtora` },
         { property: "og:description", content: servico.resumo },
         { property: "og:url", content: url },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "pt_BR" },
-        { property: "og:site_name", content: "MV Construtora" },
+        { property: "og:site_name", content: "Grupo MV Construtora" },
         { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
         { name: "geo.region", content: "BR-MA" },
         { name: "geo.placename", content: "Pindaré-Mirim" },
@@ -178,7 +178,7 @@ function PaginaServico() {
                     <div className="aspect-[4/3] overflow-hidden">
                       <img
                         src={maquina.imgs[0]}
-                        alt={`${maquina.nome} usada pela MV Construtora em ${servico.nome.toLowerCase()}`}
+                        alt={`${maquina.nome} usada pelo Grupo MV Construtora em ${servico.nome.toLowerCase()}`}
                         width={1600}
                         height={1200}
                         loading="lazy"
@@ -275,7 +275,7 @@ function PaginaServico() {
         <section className="border-t border-borda bg-areia py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Outros serviços da MV Construtora
+              Outros serviços do Grupo MV Construtora
             </h2>
             <div className="mt-10 grid gap-6 sm:grid-cols-3">
               {relacionados.map((outro) => (

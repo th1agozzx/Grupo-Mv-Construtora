@@ -106,10 +106,7 @@ export function Header() {
 
   const focarPrimeiroItemDoPainel = (painel: Exclude<PainelAberto, null>) => {
     window.setTimeout(() => {
-      document
-        .getElementById(`painel-${painel}`)
-        ?.querySelector<HTMLElement>("a, button")
-        ?.focus();
+      document.getElementById(`painel-${painel}`)?.querySelector<HTMLElement>("a, button")?.focus();
     }, 0);
   };
 
@@ -151,7 +148,8 @@ export function Header() {
     const observador = new IntersectionObserver(
       (entradas) => {
         entradas.forEach((entrada) => {
-          if (entrada.isIntersecting) visiveis.set(entrada.target.id, entrada.intersectionRect.height);
+          if (entrada.isIntersecting)
+            visiveis.set(entrada.target.id, entrada.intersectionRect.height);
           else visiveis.delete(entrada.target.id);
         });
         const [idAtivo] =
@@ -238,12 +236,12 @@ export function Header() {
       >
         <a
           href={naHome ? "#inicio" : SITE_BASE_PATH}
-          aria-label="MV Construtora - início"
+          aria-label="Grupo MV Construtora - início"
           className="flex items-center"
         >
           <img
             src={logomv}
-            alt="MV Construtora"
+            alt="Grupo MV Construtora"
             width={320}
             height={100}
             fetchPriority="high"
@@ -352,46 +350,46 @@ export function Header() {
             transition={reducedMotion ? { duration: 0 } : { duration: 0.18, ease: "easeOut" }}
             className={`absolute inset-x-0 top-full flex overflow-y-auto overscroll-contain border-t border-borda bg-white lg:hidden ${condensado ? "h-[calc(100dvh-64px)]" : "h-[calc(100dvh-80px)]"}`}
           >
-          <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-5 pt-5 sm:px-8">
-            <MenuMobileSecao
-              titulo="Serviços"
-              itens={SERVICOS.map((servico) => ({
-                rotulo: servico.nome,
-                href: `/servicos/${servico.slug}`,
-              }))}
-              onNavegar={() => setMenuOpen(false)}
-            />
-            <MenuMobileSecao
-              titulo="Frota"
-              itens={FROTA.map((maquina) => ({
-                rotulo: maquina.nome,
-                href: `/frota/${maquina.slug}`,
-              }))}
-              onNavegar={() => setMenuOpen(false)}
-            />
-            <MenuMobileSecao
-              titulo="Obras"
-              itens={OBRAS_DO_MENU.map((obra) => ({
-                rotulo: obra.titulo,
-                href: `/obras/${obra.slug}`,
-              }))}
-              onNavegar={() => setMenuOpen(false)}
-            />
-            <MenuMobileSecao
-              titulo="Institucional"
-              itens={ITENS_INSTITUCIONAIS.map((item) => ({ ...item, href: href(item.href) }))}
-              onNavegar={() => setMenuOpen(false)}
-            />
-            <div className="sticky bottom-0 mt-auto border-t border-borda bg-white py-5 [padding-bottom:max(1.25rem,env(safe-area-inset-bottom))]">
-              <CTAButton
-                href={href("#contato")}
-                className="w-full"
-                onClick={() => setMenuOpen(false)}
-              >
-                Solicitar orçamento
-              </CTAButton>
+            <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-5 pt-5 sm:px-8">
+              <MenuMobileSecao
+                titulo="Serviços"
+                itens={SERVICOS.map((servico) => ({
+                  rotulo: servico.nome,
+                  href: `/servicos/${servico.slug}`,
+                }))}
+                onNavegar={() => setMenuOpen(false)}
+              />
+              <MenuMobileSecao
+                titulo="Frota"
+                itens={FROTA.map((maquina) => ({
+                  rotulo: maquina.nome,
+                  href: `/frota/${maquina.slug}`,
+                }))}
+                onNavegar={() => setMenuOpen(false)}
+              />
+              <MenuMobileSecao
+                titulo="Obras"
+                itens={OBRAS_DO_MENU.map((obra) => ({
+                  rotulo: obra.titulo,
+                  href: `/obras/${obra.slug}`,
+                }))}
+                onNavegar={() => setMenuOpen(false)}
+              />
+              <MenuMobileSecao
+                titulo="Institucional"
+                itens={ITENS_INSTITUCIONAIS.map((item) => ({ ...item, href: href(item.href) }))}
+                onNavegar={() => setMenuOpen(false)}
+              />
+              <div className="sticky bottom-0 mt-auto border-t border-borda bg-white py-5 [padding-bottom:max(1.25rem,env(safe-area-inset-bottom))]">
+                <CTAButton
+                  href={href("#contato")}
+                  className="w-full"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Solicitar orçamento
+                </CTAButton>
+              </div>
             </div>
-          </div>
           </motion.nav>
         )}
       </AnimatePresence>
@@ -491,7 +489,9 @@ function PainelObras() {
 function CabecalhoPainel({ titulo, href, link }: { titulo: string; href: string; link: string }) {
   return (
     <div className="mb-4 flex items-baseline justify-between border-b border-borda pb-3">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">{titulo}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
+        {titulo}
+      </p>
       <a
         href={href}
         className="inline-flex items-center gap-1 text-sm font-medium text-grafite hover:text-mv-escuro"

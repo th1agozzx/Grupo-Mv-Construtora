@@ -14,22 +14,22 @@ const URL_PAGINA = `${SITE_URL}/obras`;
 export const Route = createFileRoute("/obras/")({
   head: () => ({
     meta: [
-      { title: "Obras | MV Construtora — MA, PI e CE" },
+      { title: "Obras Realizadas | Grupo MV Construtora — MA, PA, PI e CE" },
       {
         name: "description",
         content:
-          "Conheça os registros de obras da MV Construtora em terraplenagem, infraestrutura viária e obras civis.",
+          "Conheça os registros de obras do Grupo MV Construtora em terraplenagem, infraestrutura viária e obras civis.",
       },
-      { property: "og:title", content: "Obras | MV Construtora" },
+      { property: "og:title", content: "Obras | Grupo MV Construtora" },
       {
         property: "og:description",
         content:
-          "Registros de obras de terraplenagem, infraestrutura viária e obras civis da MV Construtora.",
+          "Registros de obras de terraplenagem, infraestrutura viária e obras civis do Grupo MV Construtora.",
       },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:site_name", content: "MV Construtora" },
+      { property: "og:site_name", content: "Grupo MV Construtora" },
       { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [{ rel: "canonical", href: URL_PAGINA }],
@@ -69,7 +69,7 @@ function ObrasIndex() {
             />
           </div>
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
-            Consulte os registros de terraplenagem, infraestrutura viária e obras civis da MV
+            Consulte os registros de terraplenagem, infraestrutura viária e obras civis do Grupo MV
             Construtora. Em cada página, reunimos a galeria, o escopo informado e os serviços
             relacionados.
           </p>
