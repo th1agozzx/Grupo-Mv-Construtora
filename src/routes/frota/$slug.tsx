@@ -104,7 +104,7 @@ function PaginaMaquina() {
             </div>
 
             <div>
-              <div className="aspect-[4/3] overflow-hidden rounded-sm bg-grafite-alto">
+              <div className="aspect-[4/3] overflow-hidden rounded-sm bg-chumbo">
                 <img
                   src={maquina.imgs[foto]}
                   alt={`${maquina.nome} do Grupo MV Construtora — foto ${foto + 1} de ${maquina.imgs.length}`}

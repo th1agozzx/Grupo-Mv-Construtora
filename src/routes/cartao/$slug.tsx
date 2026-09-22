@@ -42,7 +42,7 @@ export const Route = createFileRoute("/cartao/$slug")({
         { title: titulo },
         { name: "description", content: descricao },
         { name: "robots", content: "noindex, nofollow" },
-        { name: "theme-color", content: "#1a1d21" },
+        { name: "theme-color", content: "#ffffff" },
         { property: "og:title", content: titulo },
         { property: "og:description", content: descricao },
         { property: "og:url", content: `${SITE_URL}/cartao/${cartao.slug}` },
@@ -125,7 +125,7 @@ function PaginaCartao() {
   };
 
   return (
-    <main id="conteudo" className="min-h-screen bg-grafite-alto px-4 py-10 text-white sm:py-16">
+    <main id="conteudo" className="min-h-screen bg-white px-4 py-10 text-grafite sm:py-16">
       <div className="mx-auto flex max-w-[560px] flex-col items-center">
         {/* CARTÃO (frente e verso) */}
         <button
@@ -146,23 +146,23 @@ function PaginaCartao() {
             <Verso cartao={cartao} />
           </div>
         </button>
-        <p className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/45">
+        <p className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-concreto">
           <RotateCw size={13} /> Toque no cartão para virar
         </p>
 
         {/* IDENTIFICAÇÃO — o texto do cartão fica pequeno no celular */}
         <h1 className="mt-10 text-center text-3xl font-semibold tracking-tight">{cartao.nome}</h1>
-        <p className="mt-1 text-center text-white/60">{cartao.cargo} · Grupo MV Construtora</p>
+        <p className="mt-1 text-center text-concreto">{cartao.cargo} · Grupo MV Construtora</p>
 
         <button
           type="button"
           onClick={() => salvarContato(cartao)}
-          className="mt-8 inline-flex w-full items-center justify-center gap-3 bg-mv px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-mv-escuro"
+          className="mt-8 inline-flex w-full items-center justify-center gap-3 bg-mv px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-mv-escuro"
         >
           <Download size={18} /> Salvar contato
         </button>
 
-        <ul className="mt-3 w-full divide-y divide-white/10 border-y border-white/10">
+        <ul className="mt-3 w-full divide-y divide-borda border-y border-borda">
           <Acao
             href={`https://wa.me/${cartao.telefone}`}
             icone={<MessageCircle size={20} />}
@@ -201,13 +201,13 @@ function PaginaCartao() {
         <button
           type="button"
           onClick={compartilhar}
-          className="mt-6 inline-flex items-center gap-2 border border-white/20 px-5 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/80 transition-colors hover:border-white/50 hover:text-white"
+          className="mt-6 inline-flex items-center gap-2 border border-grafite px-5 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-grafite transition-colors hover:bg-grafite hover:text-white"
         >
           {copiado ? <Check size={16} /> : <Share2 size={16} />}
           {copiado ? "Link copiado" : "Compartilhar cartão"}
         </button>
 
-        <p className="mt-12 text-center text-[11px] uppercase tracking-[0.3em] text-white/30">
+        <p className="mt-12 text-center text-[11px] uppercase tracking-[0.3em] text-concreto">
           Infraestrutura que move o Brasil
         </p>
       </div>
@@ -233,13 +233,13 @@ function Acao({
       <a
         href={href}
         {...(externo ? { target: "_blank", rel: "noreferrer" } : {})}
-        className="flex items-center gap-4 px-1 py-4 transition-colors hover:bg-white/5"
+        className="flex items-center gap-4 px-1 py-4 transition-colors hover:bg-areia"
       >
-        <span className="grid h-10 w-10 shrink-0 place-items-center border border-white/15 text-mv-claro">
+        <span className="grid h-10 w-10 shrink-0 place-items-center border border-borda text-mv">
           {icone}
         </span>
         <span className="min-w-0">
-          <span className="block text-[11px] uppercase tracking-[0.18em] text-white/45">
+          <span className="block text-[11px] uppercase tracking-[0.18em] text-concreto">
             {rotulo}
           </span>
           <span className="block text-[15px] [overflow-wrap:anywhere]">{valor}</span>
@@ -252,7 +252,8 @@ function Acao({
 // As medidas do cartão estão em cqw (1% da largura do cartão), tiradas da arte
 // de 1050×600: assim o layout é idêntico ao impresso em qualquer tela.
 
-const face = "absolute inset-0 overflow-hidden shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)]";
+const face =
+  "absolute inset-0 overflow-hidden shadow-[0_24px_50px_-20px_rgba(0,0,0,0.35)] ring-1 ring-borda";
 const semVerso = { backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" } as const;
 
 function Frente() {

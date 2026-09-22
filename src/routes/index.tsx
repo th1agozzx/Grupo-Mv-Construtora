@@ -371,7 +371,7 @@ function VideoSlideshow() {
       </div>
 
       <div className="relative mx-auto mt-12 max-w-7xl px-5 sm:px-8">
-        <div className="relative h-[260px] w-full overflow-hidden rounded-sm bg-grafite-alto sm:h-[420px] lg:h-[460px]">
+        <div className="relative h-[260px] w-full overflow-hidden rounded-sm bg-chumbo sm:h-[420px] lg:h-[460px]">
           <VideoPlayer key={index} video={VIDEOS[index]} ativo />
 
           <button
@@ -637,7 +637,7 @@ function Index() {
         {/* HERO */}
         <section
           id="inicio"
-          className="relative flex min-h-[calc(100svh-5rem)] items-end overflow-hidden bg-grafite"
+          className="relative flex min-h-[calc(100svh-5rem)] items-end overflow-hidden bg-chumbo"
         >
           {/* A imagem ocupa 100% da largura e passa por baixo do header translúcido. */}
           <HeroBackgroundSlideshow />
@@ -652,16 +652,16 @@ function Index() {
           */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-grafite via-grafite/75 to-grafite/25 lg:hidden"
+            className="absolute inset-0 bg-gradient-to-t from-chumbo via-chumbo/75 to-chumbo/25 lg:hidden"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 hidden bg-gradient-to-r from-grafite via-grafite/75 to-grafite/15 lg:block"
+            className="absolute inset-0 hidden bg-gradient-to-r from-chumbo via-chumbo/75 to-chumbo/15 lg:block"
           />
           {/* Fecha a emenda com a faixa escura da seção seguinte. */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-grafite to-transparent lg:block"
+            className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-chumbo to-transparent lg:block"
           />
 
           <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-12 pt-16 sm:px-8 sm:pb-14 sm:pt-20 lg:pb-[clamp(2.5rem,6vh,5rem)] lg:pt-[clamp(4rem,10vh,7rem)]">
@@ -673,7 +673,7 @@ function Index() {
             >
               <motion.div
                 variants={reveal}
-                className="mb-4 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-mv-claro lg:mb-[clamp(1rem,2.5vh,1.75rem)]"
+                className="mb-4 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white [text-shadow:0_1px_8px_rgb(0_0_0_/_0.6)] lg:mb-[clamp(1rem,2.5vh,1.75rem)]"
               >
                 <span className="h-px w-10 bg-mv" /> Pindaré-Mirim · Maranhão · Desde 2011
               </motion.div>
@@ -682,7 +682,7 @@ function Index() {
                 className="max-w-5xl text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] text-white [text-shadow:0_2px_18px_rgb(0_0_0_/_0.6)] sm:text-5xl lg:text-[clamp(3.25rem,6.5vh,4.25rem)]"
               >
                 Terraplenagem e Locação de Máquinas Pesadas no{" "}
-                <span className="text-white/80">{ESTADOS_TEXTO}</span>
+                <span className="text-white/90">{ESTADOS_TEXTO}</span>
               </motion.h1>
               <motion.p
                 variants={reveal}
@@ -847,7 +847,7 @@ function Index() {
                         />
                         <span
                           aria-hidden="true"
-                          className="absolute inset-0 bg-grafite/0 transition-colors duration-300 group-hover:bg-grafite/20"
+                          className="absolute inset-0 bg-chumbo/0 transition-colors duration-300 group-hover:bg-chumbo/20"
                         />
                         {item.imgs.length > 1 && (
                           <span className="absolute right-3 top-3 z-10 bg-black/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-white backdrop-blur">
@@ -1309,7 +1309,7 @@ function Index() {
                 </CTAButton>
                 <a
                   href={telLink}
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap border border-grafite px-8 py-4 text-[13px] font-semibold uppercase leading-none tracking-[0.12em] text-grafite transition-colors hover:bg-grafite hover:text-white"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap border border-grafite px-8 py-4 text-[13px] font-semibold uppercase leading-none tracking-[0.12em] text-grafite transition-colors hover:border-chumbo hover:bg-chumbo hover:text-white"
                 >
                   <Phone size={18} /> {EMPRESA.whatsappExibicao}
                 </a>

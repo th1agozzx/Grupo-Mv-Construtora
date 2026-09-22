@@ -28,9 +28,15 @@
     tom passa de 5:1 mantendo a leitura da marca.
   */
   --color-mv-claro: #ff5a60;
-  /* Grafite — superfícies escuras (header, rodapé, seções de contraste). */
-  --color-grafite: #23262b;
-  --color-grafite-alto: #1a1d21;
+  /*
+    Chumbo — fundos escuros (hero, moldura de vídeo, cabeçalho de tabela, botão
+    escuro, lightbox). Texto branco sobre ele fica em 4,8:1, passa no WCAG AA.
+  */
+  --color-chumbo: #727272;
+  --color-chumbo-escuro: #5e5e5e;
+  /* Grafite — cinza neutro escuro para títulos, texto forte e bordas. */
+  --color-grafite: #3a3a3a;
+  --color-grafite-alto: #2b2b2b;
   /* Cinza concreto — estrutura, suporte. Texto de apoio. */
   --color-concreto: #6f7378;
   /* Fundo alternado entre seções claras. */
@@ -67,19 +73,19 @@
   /* Canto reto em tudo, inclusive nos componentes shadcn. */
   --radius: 0rem;
   --background: #ffffff;
-  --foreground: #23262b;
+  --foreground: #3a3a3a;
   --card: #ffffff;
-  --card-foreground: #23262b;
+  --card-foreground: #3a3a3a;
   --popover: #ffffff;
-  --popover-foreground: #23262b;
+  --popover-foreground: #3a3a3a;
   --primary: #e11b22;
   --primary-foreground: #ffffff;
   --secondary: #f5f5f6;
-  --secondary-foreground: #23262b;
+  --secondary-foreground: #3a3a3a;
   --muted: #f5f5f6;
   --muted-foreground: #6f7378;
   --accent: #f5f5f6;
-  --accent-foreground: #23262b;
+  --accent-foreground: #3a3a3a;
   --destructive: #e11b22;
   --destructive-foreground: #ffffff;
   --border: #e2e4e7;

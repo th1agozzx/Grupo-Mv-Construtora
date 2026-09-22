@@ -78,7 +78,7 @@ export function ConteudoMarkdown({ conteudo }: { conteudo: string }) {
       blocos.push(
         <div key={indice} className="mt-6 overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-grafite text-white">
+            <thead className="bg-chumbo text-white">
               <tr>
                 {cabecalho.map((celula) => (
                   <th key={celula} className="px-4 py-3 font-semibold">

@@ -53,7 +53,7 @@ export function Carrossel({ children, rotulo, className = "", escuro = false }: 
 
   const cor = escuro
     ? "border-white/25 text-white hover:bg-white hover:text-grafite disabled:opacity-30"
-    : "border-borda text-grafite hover:border-grafite hover:bg-grafite hover:text-white disabled:opacity-30";
+    : "border-borda text-grafite hover:border-chumbo hover:bg-chumbo hover:text-white disabled:opacity-30";
 
   return (
     <div role="group" aria-roledescription="carrossel" aria-label={rotulo}>

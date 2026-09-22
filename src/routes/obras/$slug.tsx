@@ -102,7 +102,7 @@ function PaginaObra() {
               <button
                 type="button"
                 onClick={() => setAberta(0)}
-                className="group relative block w-full overflow-hidden bg-grafite-alto text-left"
+                className="group relative block w-full overflow-hidden bg-chumbo text-left"
                 aria-label={`Ampliar imagem de ${obra.titulo}`}
               >
                 <img

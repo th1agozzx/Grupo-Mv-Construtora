@@ -10,13 +10,13 @@ import type { ReactNode } from "react";
  */
 type Variante = "primaria" | "escura" | "clara";
 
-/** Nomes das variantes seguem o manual: vermelho de ação, grafite e contorno claro. */
+/** Nomes das variantes seguem o manual: vermelho de ação, chumbo e contorno claro. */
 
 const VARIANTES: Record<Variante, string> = {
   // Vermelho sobre fundo claro — padrão do site.
   primaria: "border-mv bg-mv text-white hover:border-mv-escuro hover:bg-mv-escuro",
-  // Grafite — sobre o vermelho ou sobre foto clara.
-  escura: "border-grafite bg-grafite text-white hover:border-grafite-alto hover:bg-grafite-alto",
+  // Chumbo — sobre o vermelho ou sobre foto clara.
+  escura: "border-chumbo bg-chumbo text-white hover:border-chumbo-escuro hover:bg-chumbo-escuro",
   // Contorno claro — sobre fundo escuro ou vermelho.
   clara: "border-white bg-transparent text-white hover:bg-white hover:text-grafite",
 };
