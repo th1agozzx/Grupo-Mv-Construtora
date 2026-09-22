@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as CartaoSlugRouteImport } from './routes/cartao/$slug'
 import { Route as FrotaIndexRouteImport } from './routes/frota/index'
 import { Route as FrotaSlugRouteImport } from './routes/frota/$slug'
 import { Route as ObrasIndexRouteImport } from './routes/obras/index'
@@ -38,6 +39,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartaoSlugRoute = CartaoSlugRouteImport.update({
+  id: '/cartao/$slug',
+  path: '/cartao/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrotaIndexRoute = FrotaIndexRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cartao/$slug': typeof CartaoSlugRoute
   '/frota/$slug': typeof FrotaSlugRoute
   '/obras/$slug': typeof ObrasSlugRoute
   '/servicos/$slug': typeof ServicosSlugRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cartao/$slug': typeof CartaoSlugRoute
   '/frota/$slug': typeof FrotaSlugRoute
   '/obras/$slug': typeof ObrasSlugRoute
   '/servicos/$slug': typeof ServicosSlugRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/cartao/$slug': typeof CartaoSlugRoute
   '/frota/$slug': typeof FrotaSlugRoute
   '/obras/$slug': typeof ObrasSlugRoute
   '/servicos/$slug': typeof ServicosSlugRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/politica-de-privacidade'
     | '/blog/$slug'
+    | '/cartao/$slug'
     | '/frota/$slug'
     | '/obras/$slug'
     | '/servicos/$slug'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/politica-de-privacidade'
     | '/blog/$slug'
+    | '/cartao/$slug'
     | '/frota/$slug'
     | '/obras/$slug'
     | '/servicos/$slug'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/politica-de-privacidade'
     | '/blog/$slug'
+    | '/cartao/$slug'
     | '/frota/$slug'
     | '/obras/$slug'
     | '/servicos/$slug'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  CartaoSlugRoute: typeof CartaoSlugRoute
   FrotaSlugRoute: typeof FrotaSlugRoute
   ObrasSlugRoute: typeof ObrasSlugRoute
   ServicosSlugRoute: typeof ServicosSlugRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cartao/$slug': {
+      id: '/cartao/$slug'
+      path: '/cartao/$slug'
+      fullPath: '/cartao/$slug'
+      preLoaderRoute: typeof CartaoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/frota/': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   BlogSlugRoute: BlogSlugRoute,
+  CartaoSlugRoute: CartaoSlugRoute,
   FrotaSlugRoute: FrotaSlugRoute,
   ObrasSlugRoute: ObrasSlugRoute,
   ServicosSlugRoute: ServicosSlugRoute,

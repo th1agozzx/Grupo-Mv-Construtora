@@ -1,3 +1,4 @@
+import { useRouterState } from "@tanstack/react-router";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
 
@@ -12,6 +13,10 @@ import { WhatsAppFloating } from "./WhatsAppFloating";
  */
 export function SiteLayout({ children }: { children: ReactNode }) {
   const reduzirMovimento = useReducedMotion();
+  // Cartões virtuais (/cartao/...) são páginas avulsas, sem a navegação do site.
+  const semMoldura = useRouterState({
+    select: (s) => s.location.pathname.startsWith("/cartao/"),
+  });
 
   // Navegação por âncora tratada à mão, com um listener delegado.
   //
@@ -62,6 +67,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
+
+  if (semMoldura) return <>{children}</>;
 
   // overflow-x-hidden, não overflow-hidden.
   //
