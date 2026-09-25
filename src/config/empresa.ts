@@ -33,7 +33,7 @@ export const EMPRESA = {
   bairro: "Pitombeira",
   cep: "65370-000",
   endereco: "Rod. Pitombeira, s/n, Pitombeira, Pindaré-Mirim - MA, CEP 65370-000",
-  horario: "Seg a Sex · 07h às 18h",
+  horario: "Seg a Sex · 07h às 18h · Sáb · 08h às 12h",
   cidade: "Pindaré-Mirim",
   estado: "MA",
   fundacao: "2011-09-14",

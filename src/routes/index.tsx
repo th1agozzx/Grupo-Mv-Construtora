@@ -1283,7 +1283,7 @@ function Index() {
               </h2>
               <p className="mt-6 max-w-md leading-7 text-concreto">
                 Preencha os campos e a conversa abre já com tudo preenchido — você só aperta enviar.
-                Respondemos de segunda a sexta, das 07h às 18h.
+                Respondemos de segunda a sexta, das 07h às 18h, e aos sábados, das 08h às 12h.
               </p>
 
               <ul className="mt-8 space-y-3 text-sm text-concreto">

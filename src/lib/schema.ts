@@ -67,6 +67,12 @@ export const organizacaoSchema = {
       opens: "07:00",
       closes: "18:00",
     },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday"],
+      opens: "08:00",
+      closes: "12:00",
+    },
   ],
   // Os estados primeiro (sinal amplo), depois cada cidade ancorada no seu
   // estado. Sem o estado no containedInPlace, cidades homônimas de outras
