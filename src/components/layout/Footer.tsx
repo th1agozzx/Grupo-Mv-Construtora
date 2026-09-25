@@ -72,7 +72,7 @@ export function Footer() {
             {EMPRESA.email}
           </a>
           <a
-            href={waLink("Olá! Vim pelo site.")}
+            href={waLink("Olá! Vim pelo site do Grupo MV Construtora e gostaria de mais informações.")}
             target="_blank"
             rel="noreferrer"
             className="mb-3 block text-sm hover:text-mv"

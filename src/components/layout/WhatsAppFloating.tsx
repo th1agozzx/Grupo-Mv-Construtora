@@ -3,7 +3,7 @@ import { waLink } from "@/config/empresa";
 export function WhatsAppFloating() {
   return (
     <a
-      href={waLink("Olá! Gostaria de solicitar um orçamento ao Grupo MV Construtora.")}
+      href={waLink("Olá! Vim pelo site do Grupo MV Construtora e gostaria de solicitar um orçamento.")}
       target="_blank"
       rel="noreferrer"
       aria-label="Entrar em contato com o Grupo MV Construtora no WhatsApp"

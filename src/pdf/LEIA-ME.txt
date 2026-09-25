@@ -1,0 +1,17 @@
+GRUPO MV | ORIENTAÇÕES PARA EDIÇÃO
+====================================
+
+1) Abra index.html no navegador (com internet, para carregar a fonte Montserrat).
+2) Edite textos e fotos no index.html; edite cores, tamanhos e layout em styles.css.
+3) FOTOS: todas as fotos são do acervo do Grupo MV, em ../assets/otimizadas/ (versões .webp leves).
+   Para trocar, altere o src= da imagem no index.html. Logos: ../assets/otimizadas/logomv-cartao.webp
+   (capa, fundo claro) e ../assets/logomv.png (contato, fundo escuro).
+4) O QR Code do WhatsApp está em ../assets/whatsapp-qr.png.
+5) Para obter PDF no Chrome/Edge: Ctrl+P > Salvar como PDF, A4, Retrato,
+   margens Nenhuma, gráficos de segundo plano ativados.
+6) A fonte Montserrat oficial (pesos 300 a 900) é carregada pelo Google Fonts quando há internet,
+   sem redistribuir arquivos de fonte. A marca original foi preservada.
+
+CONTEÚDO DA EMPRESA
+https://www.grupomvconstrutora.com.br/
+https://www.grupomvconstrutora.com.br/servicos

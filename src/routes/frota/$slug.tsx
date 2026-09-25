@@ -93,7 +93,7 @@ function PaginaMaquina() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <CTAButton
                   href={waLink(
-                    `Olá! Gostaria de um orçamento de locação de ${maquina.nome.toLowerCase()} com o Grupo MV Construtora.`,
+                    `Olá! Vim pelo site do Grupo MV Construtora e gostaria de um orçamento de locação de ${maquina.nome.toLowerCase()}.`,
                   )}
                   target="_blank"
                   rel="noreferrer"

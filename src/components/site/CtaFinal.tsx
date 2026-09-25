@@ -10,8 +10,8 @@ import { SITE_BASE_PATH } from "@/config/navegacao";
  */
 export function CtaFinal({ servico }: { servico?: string }) {
   const assunto = servico
-    ? `Olá! Gostaria de um orçamento de ${servico} com o Grupo MV Construtora.`
-    : "Olá! Gostaria de solicitar um orçamento ao Grupo MV Construtora.";
+    ? `Olá! Vim pelo site do Grupo MV Construtora e gostaria de um orçamento de ${servico}.`
+    : "Olá! Vim pelo site do Grupo MV Construtora e gostaria de solicitar um orçamento.";
 
   return (
     <section className="bg-mv py-20 text-white lg:py-24">

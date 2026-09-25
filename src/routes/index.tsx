@@ -591,7 +591,9 @@ function Index() {
     // Monta a mensagem já formatada para a equipe ler no WhatsApp sem precisar
     // perguntar o básico de novo.
     const linhas = [
-      "*Solicitação de orçamento — site Grupo MV Construtora*",
+      "Olá! Vim pelo site do Grupo MV Construtora.",
+      "",
+      "*Solicitação de orçamento pelo site*",
       "",
       `*Nome:* ${data.nome}`,
       data.email ? `*E-mail:* ${data.email}` : null,
@@ -1300,7 +1302,7 @@ function Index() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <CTAButton
                   href={waLink(
-                    "Olá! Gostaria de solicitar um orçamento ao Grupo MV Construtora e saber mais sobre os serviços.",
+                    "Olá! Vim pelo site do Grupo MV Construtora e gostaria de solicitar um orçamento e saber mais sobre os serviços.",
                   )}
                   target="_blank"
                   rel="noreferrer"
