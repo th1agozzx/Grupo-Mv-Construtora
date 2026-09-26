@@ -21,9 +21,10 @@ export const EMPRESA = {
   // ATENÇÃO: o telefone do cartão CNPJ — (98) 9197-2921 — é o de cadastro na
   // Receita, não o WhatsApp comercial. Ele tem 8 dígitos e gera link quebrado
   // (celular no WhatsApp precisa de 55 + DDD + 9 + 8 dígitos = 13).
-  // O número abaixo é o que está cadastrado como Chat no Google Meu Negócio.
-  whatsapp: "5598992368928",
-  whatsappExibicao: "(98) 99236-8928",
+  // Número oficial desde 26/09/2026 (antes era (98) 99236-8928). Precisa ser o
+  // mesmo cadastrado como Chat no Google Meu Negócio.
+  whatsapp: "5598984080872",
+  whatsappExibicao: "(98) 98408-0872",
   telefoneCadastroCnpj: "(98) 9197-2921",
   // E-mail comercial do domínio. O do cartão CNPJ
   // (mvconstrutoraeimobiliaria@outlook.com) é o de cadastro na Receita.

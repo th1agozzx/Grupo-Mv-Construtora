@@ -1,8 +1,8 @@
 // Obras realizadas — vitrine de trabalhos entregues.
 //
-// ⚠️ CONTEÚDO PROVISÓRIO. As quatro últimas entradas usam fotos genéricas de
-// domínio público (src/assets/obras/), baixadas só para o layout não nascer
-// vazio. As demais usam fotos reais da própria empresa que já estavam no repo.
+// ⚠️ CONTEÚDO PROVISÓRIO. Todas as fotos são do acervo real da empresa, mas as
+// quatro últimas entradas usam a foto da máquina mais próxima do serviço, não
+// um registro de uma obra específica — por isso seguem como "Imagem de referência".
 //
 // ANTES DE PUBLICAR: trocar por obras reais, com foto da obra, cidade e ano.
 // Anunciar obra que a empresa não executou é risco jurídico e de reputação —
@@ -12,10 +12,10 @@ import andamentodaobra from "@/assets/otimizadas/andamentodaobra.webp";
 import fotodaobra from "@/assets/otimizadas/fotodaobra.webp";
 import fotodaplacatigd from "@/assets/otimizadas/fotodaplacatigd.webp";
 import placapedrafundamental from "@/assets/otimizadas/placapedrafundamental.webp";
-import obra1 from "@/assets/obras/obra-1.webp";
-import obra2 from "@/assets/obras/obra-2.webp";
-import obra3 from "@/assets/obras/obra-3.webp";
-import obra4 from "@/assets/obras/obra-4.webp";
+import caminhaopipa1 from "@/assets/otimizadas/caminhaopipa1.webp";
+import escavadeira2 from "@/assets/otimizadas/escavadeira2.webp";
+import fotodapatrol from "@/assets/otimizadas/fotodapatrol.webp";
+import rolocompactador from "@/assets/otimizadas/rolocompactador.webp";
 
 export type Obra = {
   slug: string;
@@ -110,10 +110,10 @@ export const OBRAS: Obra[] = [
     slug: "abertura-e-regularizacao-de-pista",
     titulo: "Imagem de referência: abertura e regularização de pista",
     categoria: "Infraestrutura viária",
-    imagem: obra1,
-    alt: "Frente de obra rodoviária com movimentação de terra",
-    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
-    imagens: [obra1],
+    imagem: fotodapatrol,
+    alt: "Motoniveladora do Grupo MV Construtora em frente de obra de terra",
+    // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
+    imagens: [fotodapatrol],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
   },
@@ -121,10 +121,10 @@ export const OBRAS: Obra[] = [
     slug: "reforco-de-base-e-cascalhamento",
     titulo: "Imagem de referência: reforço de base e cascalhamento",
     categoria: "Infraestrutura viária",
-    imagem: obra2,
-    alt: "Trecho de estrada em execução com base preparada",
-    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
-    imagens: [obra2],
+    imagem: caminhaopipa1,
+    alt: "Caminhão-pipa do Grupo MV Construtora umedecendo base de terra em obra",
+    // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
+    imagens: [caminhaopipa1],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
   },
@@ -132,10 +132,10 @@ export const OBRAS: Obra[] = [
     slug: "pavimentacao-de-trecho",
     titulo: "Imagem de referência: pavimentação de trecho",
     categoria: "Infraestrutura viária",
-    imagem: obra3,
-    alt: "Equipamento de pavimentação aplicando massa asfáltica",
-    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
-    imagens: [obra3],
+    imagem: rolocompactador,
+    alt: "Rolo compactador do Grupo MV Construtora em canteiro de obra",
+    // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
+    imagens: [rolocompactador],
     servicos: ["infraestrutura-viaria"],
     provisoria: true,
   },
@@ -143,10 +143,10 @@ export const OBRAS: Obra[] = [
     slug: "escavacao-e-drenagem",
     titulo: "Imagem de referência: escavação e drenagem",
     categoria: "Terraplenagem",
-    imagem: obra4,
-    alt: "Escavação de terreno com máquina em canteiro de obra",
-    // PENDENTE: confirmar se a imagem representa uma obra do Grupo MV antes de publicar como portfólio.
-    imagens: [obra4],
+    imagem: escavadeira2,
+    alt: "Escavadeira Hyundai do Grupo MV Construtora com caçamba carregada de terra",
+    // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
+    imagens: [escavadeira2],
     servicos: ["terraplanagem"],
     provisoria: true,
   },
