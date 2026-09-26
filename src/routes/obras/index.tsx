@@ -18,13 +18,13 @@ export const Route = createFileRoute("/obras/")({
       {
         name: "description",
         content:
-          "Conheça os registros de obras do Grupo MV Construtora em terraplenagem, infraestrutura viária e obras civis.",
+          "Conheça os registros de obras do Grupo MV Construtora em terraplenagem, infraestrutura viária, obras civis e propriedades rurais.",
       },
       { property: "og:title", content: "Obras | Grupo MV Construtora" },
       {
         property: "og:description",
         content:
-          "Registros de obras de terraplenagem, infraestrutura viária e obras civis do Grupo MV Construtora.",
+          "Registros de obras de terraplenagem, infraestrutura viária, obras civis e propriedades rurais do Grupo MV Construtora.",
       },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
@@ -69,7 +69,7 @@ function ObrasIndex() {
             />
           </div>
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
-            Consulte os registros de terraplenagem, infraestrutura viária e obras civis do Grupo MV
+            Consulte os registros de terraplenagem, infraestrutura viária, obras civis e propriedades rurais do Grupo MV
             Construtora. Em cada página, reunimos a galeria, o escopo informado e os serviços
             relacionados.
           </p>

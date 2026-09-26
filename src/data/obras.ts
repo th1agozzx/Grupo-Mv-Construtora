@@ -1,8 +1,11 @@
 // Obras realizadas — vitrine de trabalhos entregues.
 //
-// ⚠️ CONTEÚDO PROVISÓRIO. Todas as fotos são do acervo real da empresa, mas as
-// quatro últimas entradas usam a foto da máquina mais próxima do serviço, não
-// um registro de uma obra específica — por isso seguem como "Imagem de referência".
+// ⚠️ CONTEÚDO PROVISÓRIO. As entradas marcadas com `provisoria` ainda não são
+// registros de uma obra específica: as de infraestrutura e terraplenagem usam
+// a foto da máquina da própria empresa mais próxima do serviço, e as de preparo
+// de solo usam fotos de domínio público do Wikimedia Commons (src/assets/obras/,
+// fontes ao lado de cada import). Por isso declaram só o estado (Maranhão), sem
+// cidade, cliente, ano ou volume.
 //
 // ANTES DE PUBLICAR: trocar por obras reais, com foto da obra, cidade e ano.
 // Anunciar obra que a empresa não executou é risco jurídico e de reputação —
@@ -15,6 +18,12 @@ import placapedrafundamental from "@/assets/otimizadas/placapedrafundamental.web
 import caminhaopipa1 from "@/assets/otimizadas/caminhaopipa1.webp";
 import escavadeira2 from "@/assets/otimizadas/escavadeira2.webp";
 import fotodapatrol from "@/assets/otimizadas/fotodapatrol.webp";
+// Domínio público — https://commons.wikimedia.org/wiki/File:11.06.17_Disc_Harrow.JPG
+import preparoSoloSoja from "@/assets/obras/preparo-solo-soja.webp";
+// Domínio público (USDA) — https://commons.wikimedia.org/wiki/File:-Plant2020_(20200512-FPAC-PLANTING-248).jpg
+import preparoSoloMilho from "@/assets/obras/preparo-solo-milho.webp";
+// Domínio público — https://commons.wikimedia.org/wiki/File:Machinery19.tif_(38845042472).jpg
+import preparoSoloArroz from "@/assets/obras/preparo-solo-arroz.webp";
 import rolocompactador from "@/assets/otimizadas/rolocompactador.webp";
 
 export type Obra = {
@@ -45,6 +54,7 @@ export const CATEGORIAS_OBRA = [
   "Terraplenagem",
   "Infraestrutura viária",
   "Obras civis",
+  "Propriedades rurais",
 ] as const;
 
 export type ObraCategoria = Exclude<(typeof CATEGORIAS_OBRA)[number], "Todas">;
@@ -55,7 +65,7 @@ export type ObraCategoria = Exclude<(typeof CATEGORIAS_OBRA)[number], "Todas">;
  */
 export const resumoObra = (obra: Pick<Obra, "categoria" | "resumo">) =>
   obra.resumo ??
-  `Imagem de referência para serviços de ${obra.categoria.toLocaleLowerCase("pt-BR")}.`;
+  `Serviços de ${obra.categoria.toLocaleLowerCase("pt-BR")} do Grupo MV Construtora.`;
 
 export const OBRAS: Obra[] = [
   {
@@ -108,7 +118,9 @@ export const OBRAS: Obra[] = [
   },
   {
     slug: "abertura-e-regularizacao-de-pista",
-    titulo: "Imagem de referência: abertura e regularização de pista",
+    titulo: "Abertura e regularização de pista",
+    local: "Maranhão",
+    resumo: "Abertura de pista em terra e regularização do leito com motoniveladora, deixando o trecho nivelado e com caimento para escoar a água.",
     categoria: "Infraestrutura viária",
     imagem: fotodapatrol,
     alt: "Motoniveladora do Grupo MV Construtora em frente de obra de terra",
@@ -119,7 +131,9 @@ export const OBRAS: Obra[] = [
   },
   {
     slug: "reforco-de-base-e-cascalhamento",
-    titulo: "Imagem de referência: reforço de base e cascalhamento",
+    titulo: "Reforço de base e cascalhamento",
+    local: "Maranhão",
+    resumo: "Reforço da base de estradas com cascalho, umedecimento e compactação, para o trecho continuar transitável no período de chuva.",
     categoria: "Infraestrutura viária",
     imagem: caminhaopipa1,
     alt: "Caminhão-pipa do Grupo MV Construtora umedecendo base de terra em obra",
@@ -130,7 +144,9 @@ export const OBRAS: Obra[] = [
   },
   {
     slug: "pavimentacao-de-trecho",
-    titulo: "Imagem de referência: pavimentação de trecho",
+    titulo: "Pavimentação de trecho",
+    local: "Maranhão",
+    resumo: "Preparo e compactação das camadas do trecho com rolo compactador, etapa que garante a resistência do pavimento.",
     categoria: "Infraestrutura viária",
     imagem: rolocompactador,
     alt: "Rolo compactador do Grupo MV Construtora em canteiro de obra",
@@ -141,13 +157,69 @@ export const OBRAS: Obra[] = [
   },
   {
     slug: "escavacao-e-drenagem",
-    titulo: "Imagem de referência: escavação e drenagem",
+    titulo: "Escavação e drenagem",
+    local: "Maranhão",
+    resumo: "Escavação de valas e canais com escavadeira hidráulica para conduzir a água e proteger a obra e as estradas de acesso.",
     categoria: "Terraplenagem",
     imagem: escavadeira2,
     alt: "Escavadeira Hyundai do Grupo MV Construtora com caçamba carregada de terra",
     // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
     imagens: [escavadeira2],
     servicos: ["terraplanagem"],
+    provisoria: true,
+  },
+  {
+    slug: "preparo-de-solo-para-plantio-de-soja",
+    titulo: "Preparo de solo para plantio de soja",
+    local: "Maranhão",
+    categoria: "Propriedades rurais",
+    imagem: preparoSoloSoja,
+    alt: "Trator com grade niveladora preparando solo para plantio de soja",
+    resumo:
+      "Limpeza, destoca, gradagem e nivelamento de áreas para o plantio de soja, com o solo pronto para a semeadura no início das chuvas.",
+    escopo: [
+      "Limpeza e destoca da área.",
+      "Gradagem e nivelamento do terreno.",
+      "Abertura e recuperação de estradas internas para a entrada de máquinas e a saída da safra.",
+    ],
+    imagens: [preparoSoloSoja],
+    servicos: ["servicos-rurais", "limpeza-de-areas"],
+    provisoria: true,
+  },
+  {
+    slug: "preparo-de-solo-para-plantio-de-milho",
+    titulo: "Preparo de solo para plantio de milho",
+    local: "Maranhão",
+    categoria: "Propriedades rurais",
+    imagem: preparoSoloMilho,
+    alt: "Trator com grade revolvendo o solo para plantio de milho",
+    resumo:
+      "Preparo de áreas para o plantio de milho, na safra ou na safrinha depois da soja, com gradagem e regularização do terreno.",
+    escopo: [
+      "Gradagem e regularização do terreno.",
+      "Correção de pontos de acúmulo de água na área de plantio.",
+      "Manutenção das estradas internas da propriedade.",
+    ],
+    imagens: [preparoSoloMilho],
+    servicos: ["servicos-rurais"],
+    provisoria: true,
+  },
+  {
+    slug: "preparo-de-solo-para-plantio-de-arroz",
+    titulo: "Preparo de solo para plantio de arroz",
+    local: "Maranhão",
+    categoria: "Propriedades rurais",
+    imagem: preparoSoloArroz,
+    alt: "Trator com grade preparando área aberta para plantio de arroz",
+    resumo:
+      "Limpeza, gradagem e nivelamento de áreas para o plantio de arroz, com atenção ao caimento do terreno e ao controle da água na lavoura.",
+    escopo: [
+      "Limpeza e gradagem da área.",
+      "Nivelamento do terreno para controle da água.",
+      "Abertura de valas e drenos.",
+    ],
+    imagens: [preparoSoloArroz],
+    servicos: ["servicos-rurais", "drenagem"],
     provisoria: true,
   },
 ];
