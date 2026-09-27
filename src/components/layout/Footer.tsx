@@ -3,6 +3,7 @@ import { Instagram, Youtube } from "lucide-react";
 
 import logomv from "@/assets/otimizadas/logomv.webp";
 import { EMPRESA, waLink } from "@/config/empresa";
+import { trackWhatsAppConversion } from "@/lib/google-ads";
 import { MENU_COMPLETO, hrefAbsoluto } from "@/config/navegacao";
 import { SERVICOS } from "@/data/servicos";
 import { YOUTUBE_CANAL } from "@/data/videos";
@@ -75,6 +76,7 @@ export function Footer() {
             href={waLink("Olá! Vim pelo site do Grupo MV Construtora e gostaria de mais informações.")}
             target="_blank"
             rel="noreferrer"
+            onClick={trackWhatsAppConversion}
             className="mb-3 block text-sm hover:text-mv"
           >
             WhatsApp: {EMPRESA.whatsappExibicao}

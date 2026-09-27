@@ -1,4 +1,5 @@
 import { waLink } from "@/config/empresa";
+import { trackWhatsAppConversion } from "@/lib/google-ads";
 
 export function WhatsAppFloating() {
   return (
@@ -6,6 +7,7 @@ export function WhatsAppFloating() {
       href={waLink("Olá! Vim pelo site do Grupo MV Construtora e gostaria de solicitar um orçamento.")}
       target="_blank"
       rel="noreferrer"
+      onClick={trackWhatsAppConversion}
       aria-label="Entrar em contato com o Grupo MV Construtora no WhatsApp"
       className="group fixed bottom-6 right-6 z-[60] flex items-center gap-3 rounded-full bg-[#25D366] py-3 pl-4 pr-5 font-bold text-white shadow-2xl shadow-black/30 ring-4 ring-[#25D366]/25 transition-all hover:scale-[1.03] hover:bg-[#20BA5A]"
     >

@@ -54,7 +54,7 @@ export function CTAButton({
 
   if (href) {
     return (
-      <a href={href} target={target} rel={rel} className={classes}>
+      <a href={href} target={target} rel={rel} onClick={onClick} className={classes}>
         {children}
       </a>
     );

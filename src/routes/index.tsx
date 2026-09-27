@@ -16,6 +16,7 @@ import { Carrossel } from "@/components/site/Carrossel";
 import { Lightbox } from "@/components/site/Lightbox";
 import { useAnimacaoEntrada, useReveal } from "@/hooks/use-reduced-motion";
 import { EMPRESA, MAPS_EMBED_URL, MAPS_OPEN_URL, telLink, waLink } from "@/config/empresa";
+import { trackWhatsAppConversion } from "@/lib/google-ads";
 import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -606,6 +607,7 @@ function Index() {
       // filter(Boolean) removeria também as linhas em branco propositais
     ].filter((linha) => linha !== null);
 
+    trackWhatsAppConversion();
     window.open(waLink(linhas.join("\n")), "_blank", "noopener,noreferrer");
 
     setSent(true);
@@ -1306,6 +1308,7 @@ function Index() {
                   )}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={trackWhatsAppConversion}
                 >
                   <MessageCircle size={18} /> Chamar direto no WhatsApp
                 </CTAButton>

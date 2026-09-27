@@ -2,6 +2,7 @@ import { MessageCircle } from "lucide-react";
 
 import { CTAButton } from "@/components/site/CTAButton";
 import { EMPRESA, waLink } from "@/config/empresa";
+import { trackWhatsAppConversion } from "@/lib/google-ads";
 import { SITE_BASE_PATH } from "@/config/navegacao";
 
 /**
@@ -26,7 +27,13 @@ export function CtaFinal({ servico }: { servico?: string }) {
           transparente para a sua obra.
         </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <CTAButton href={waLink(assunto)} target="_blank" rel="noreferrer" variante="escura">
+          <CTAButton
+            href={waLink(assunto)}
+            target="_blank"
+            rel="noreferrer"
+            onClick={trackWhatsAppConversion}
+            variante="escura"
+          >
             <MessageCircle size={18} /> Chamar no WhatsApp
           </CTAButton>
           <CTAButton href={`${SITE_BASE_PATH}#contato`} variante="clara">
