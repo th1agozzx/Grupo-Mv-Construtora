@@ -20,11 +20,11 @@ import escavadeira2 from "@/assets/otimizadas/escavadeira2.webp";
 import fotodapatrol from "@/assets/otimizadas/fotodapatrol.webp";
 // Domínio público — https://commons.wikimedia.org/wiki/File:11.06.17_Disc_Harrow.JPG
 import preparoSoloSoja from "@/assets/obras/preparo-solo-soja.webp";
-// Domínio público (USDA) — https://commons.wikimedia.org/wiki/File:-Plant2020_(20200512-FPAC-PLANTING-248).jpg
-import preparoSoloMilho from "@/assets/obras/preparo-solo-milho.webp";
-// Domínio público — https://commons.wikimedia.org/wiki/File:Machinery19.tif_(38845042472).jpg
-import preparoSoloArroz from "@/assets/obras/preparo-solo-arroz.webp";
+// Foto enviada pelo cliente — obra de recuperação da BR-316 em Pio XII (MA).
+import recuperacaoBr316 from "@/assets/obras/recuperacao-br-316.webp";
 import rolocompactador from "@/assets/otimizadas/rolocompactador.webp";
+import tresescavadeiras1 from "@/assets/otimizadas/tresescavadeiras1.webp";
+import pacarregadeira from "@/assets/otimizadas/pacarregadeira.webp";
 
 export type Obra = {
   slug: string;
@@ -68,6 +68,19 @@ export const resumoObra = (obra: Pick<Obra, "categoria" | "resumo">) =>
   `Serviços de ${obra.categoria.toLocaleLowerCase("pt-BR")} do Grupo MV Construtora.`;
 
 export const OBRAS: Obra[] = [
+  {
+    slug: "recuperacao-da-br-316",
+    titulo: "Recuperação da BR-316",
+    local: "Pio XII — MA",
+    categoria: "Terraplenagem",
+    imagem: recuperacaoBr316,
+    alt: "Vista aérea da BR-316 em recuperação, com aterro da plataforma e contenção em pedra ao lado da pista",
+    resumo:
+      "Terraplenagem na obra de recuperação da BR-316, no povoado Arataui, em Pio XII (MA), trecho de cerca de 2 km com contenção do aterro da plataforma da pista.",
+    escopo: ["Serviços de terraplenagem na recuperação do aterro da plataforma da pista."],
+    imagens: [recuperacaoBr316],
+    servicos: ["terraplanagem"],
+  },
   {
     slug: "terminal-intermodal-goncalves-dias",
     titulo: "Terminal Intermodal Gonçalves Dias",
@@ -169,14 +182,34 @@ export const OBRAS: Obra[] = [
     provisoria: true,
   },
   {
-    slug: "preparo-de-solo-para-plantio-de-soja",
-    titulo: "Preparo de solo para plantio de soja",
+    slug: "corte-e-aterro-de-grande-area",
+    titulo: "Corte e aterro de grande área",
+    local: "Maranhão",
+    resumo:
+      "Corte, aterro e regularização de uma área extensa com frente de escavadeiras, carregamento em caminhões caçamba e conformação dos taludes.",
+    categoria: "Terraplenagem",
+    imagem: tresescavadeiras1,
+    alt: "Três escavadeiras hidráulicas do Grupo MV Construtora em área de terraplenagem com talude de corte ao fundo",
+    escopo: [
+      "Escavação e corte do terreno com escavadeiras hidráulicas.",
+      "Carregamento e transporte do material com pá carregadeira e caminhões caçamba.",
+      "Aterro e regularização da plataforma.",
+      "Conformação dos taludes de corte.",
+    ],
+    // PENDENTE: trocar por foto e dados de uma obra real desse serviço quando o cliente enviar.
+    imagens: [tresescavadeiras1, pacarregadeira],
+    servicos: ["terraplanagem", "locacao-de-maquinas"],
+    provisoria: true,
+  },
+  {
+    slug: "preparo-de-solo-para-plantio-de-soja-e-milho",
+    titulo: "Preparo de solo para plantio de soja e milho",
     local: "Maranhão",
     categoria: "Propriedades rurais",
     imagem: preparoSoloSoja,
-    alt: "Trator com grade niveladora preparando solo para plantio de soja",
+    alt: "Trator com grade niveladora preparando solo para plantio de soja e milho",
     resumo:
-      "Limpeza, destoca, gradagem e nivelamento de áreas para o plantio de soja, com o solo pronto para a semeadura no início das chuvas.",
+      "Limpeza, destoca, gradagem e nivelamento de áreas para o plantio de soja e milho, com o solo pronto para a semeadura no início das chuvas.",
     escopo: [
       "Limpeza e destoca da área.",
       "Gradagem e nivelamento do terreno.",
@@ -184,42 +217,6 @@ export const OBRAS: Obra[] = [
     ],
     imagens: [preparoSoloSoja],
     servicos: ["servicos-rurais", "limpeza-de-areas"],
-    provisoria: true,
-  },
-  {
-    slug: "preparo-de-solo-para-plantio-de-milho",
-    titulo: "Preparo de solo para plantio de milho",
-    local: "Maranhão",
-    categoria: "Propriedades rurais",
-    imagem: preparoSoloMilho,
-    alt: "Trator com grade revolvendo o solo para plantio de milho",
-    resumo:
-      "Preparo de áreas para o plantio de milho, na safra ou na safrinha depois da soja, com gradagem e regularização do terreno.",
-    escopo: [
-      "Gradagem e regularização do terreno.",
-      "Correção de pontos de acúmulo de água na área de plantio.",
-      "Manutenção das estradas internas da propriedade.",
-    ],
-    imagens: [preparoSoloMilho],
-    servicos: ["servicos-rurais"],
-    provisoria: true,
-  },
-  {
-    slug: "preparo-de-solo-para-plantio-de-arroz",
-    titulo: "Preparo de solo para plantio de arroz",
-    local: "Maranhão",
-    categoria: "Propriedades rurais",
-    imagem: preparoSoloArroz,
-    alt: "Trator com grade preparando área aberta para plantio de arroz",
-    resumo:
-      "Limpeza, gradagem e nivelamento de áreas para o plantio de arroz, com atenção ao caimento do terreno e ao controle da água na lavoura.",
-    escopo: [
-      "Limpeza e gradagem da área.",
-      "Nivelamento do terreno para controle da água.",
-      "Abertura de valas e drenos.",
-    ],
-    imagens: [preparoSoloArroz],
-    servicos: ["servicos-rurais", "drenagem"],
     provisoria: true,
   },
 ];
