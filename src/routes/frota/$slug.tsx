@@ -2,6 +2,7 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, ChevronDown, MessageCircle } from "lucide-react";
 import { useState } from "react";
 
+import { AnteriorProxima, vizinhos } from "@/components/site/AnteriorProxima";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CTAButton } from "@/components/site/CTAButton";
 import { CtaFinal } from "@/components/site/CtaFinal";
@@ -48,6 +49,7 @@ function PaginaMaquina() {
   const [aberta, setAberta] = useState(0);
 
   if (!maquina) return null;
+  const { anterior: anteriorItem, proxima: proximoItem } = vizinhos(FROTA, FROTA.indexOf(maquina));
 
   // Vínculo máquina -> serviços, a partir dos slugs declarados em src/data/frota.ts
   const servicos = SERVICOS.filter((s) => maquina.servicos.includes(s.slug));
@@ -253,6 +255,15 @@ function PaginaMaquina() {
             Ver a frota completa <ArrowRight size={16} />
           </Link>
         </section>
+
+        <AnteriorProxima
+          tipo="equipamento"
+          anterior={
+            anteriorItem && { rotulo: anteriorItem.nome, href: `/frota/${anteriorItem.slug}` }
+          }
+          proxima={proximoItem && { rotulo: proximoItem.nome, href: `/frota/${proximoItem.slug}` }}
+          lista={{ rotulo: "Toda a frota", href: "/frota" }}
+        />
 
         <CtaFinal servico={`locação de ${maquina.nome.toLowerCase()}`} />
       </main>

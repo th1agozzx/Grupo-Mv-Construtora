@@ -1,30 +1,45 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CtaFinal } from "@/components/site/CtaFinal";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { SITE_URL } from "@/config/empresa";
-import { CATEGORIAS_OBRA, OBRAS, resumoObra } from "@/data/obras";
+import {
+  CATEGORIAS_VISIVEIS,
+  OBRAS,
+  categoriaDoSlug,
+  contarObras,
+  resumoObra,
+  slugCategoria,
+} from "@/data/obras";
 import { breadcrumbSchema } from "@/lib/schema";
 
 const URL_PAGINA = `${SITE_URL}/obras`;
 
 export const Route = createFileRoute("/obras/")({
+  // O filtro vive no endereço: sobrevive ao "voltar" de uma obra e pode ser
+  // compartilhado já filtrado. Valor desconhecido cai em "Todas".
+  validateSearch: (search: Record<string, unknown>): { categoria?: string } => ({
+    categoria:
+      typeof search.categoria === "string" && categoriaDoSlug(search.categoria)
+        ? search.categoria
+        : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Obras Realizadas | Grupo MV Construtora — MA, PA, PI e CE" },
       {
         name: "description",
         content:
-          "Conheça os registros de obras do Grupo MV Construtora em terraplenagem, infraestrutura viária, obras civis e propriedades rurais.",
+          "Conheça os registros de obras do Grupo MV Construtora em terraplenagem, infraestrutura viária, apoio operacional e propriedades rurais.",
       },
       { property: "og:title", content: "Obras | Grupo MV Construtora" },
       {
         property: "og:description",
         content:
-          "Registros de obras de terraplenagem, infraestrutura viária, obras civis e propriedades rurais do Grupo MV Construtora.",
+          "Registros de obras de terraplenagem, infraestrutura viária, apoio operacional e propriedades rurais do Grupo MV Construtora.",
       },
       { property: "og:url", content: URL_PAGINA },
       { property: "og:type", content: "website" },
@@ -38,7 +53,8 @@ export const Route = createFileRoute("/obras/")({
 });
 
 function ObrasIndex() {
-  const [ativa, setAtiva] = useState<(typeof CATEGORIAS_OBRA)[number]>("Todas");
+  const { categoria } = Route.useSearch();
+  const ativa = categoriaDoSlug(categoria) ?? "Todas";
   const obras = useMemo(
     () => (ativa === "Todas" ? OBRAS : OBRAS.filter((obra) => obra.categoria === ativa)),
     [ativa],
@@ -69,36 +85,48 @@ function ObrasIndex() {
             />
           </div>
           <p className="mt-8 max-w-2xl leading-7 text-concreto">
-            Consulte os registros de terraplenagem, infraestrutura viária, obras civis e propriedades rurais do Grupo MV
-            Construtora. Em cada página, reunimos a galeria, o escopo informado e os serviços
-            relacionados.
+            Consulte os registros de terraplenagem, infraestrutura viária, apoio operacional e
+            propriedades rurais do Grupo MV Construtora. Em cada página, reunimos a galeria, o
+            escopo informado e os serviços relacionados.
           </p>
         </section>
 
         <section className="border-y border-borda bg-areia py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIAS_OBRA.map((categoria) => {
-                const selecionada = ativa === categoria;
+            <nav aria-label="Filtrar obras por categoria" className="flex flex-wrap gap-2">
+              {CATEGORIAS_VISIVEIS.map((opcao) => {
+                const selecionada = ativa === opcao;
                 return (
-                  <button
-                    key={categoria}
-                    type="button"
-                    onClick={() => setAtiva(categoria)}
-                    aria-pressed={selecionada}
-                    className={`border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                  <Link
+                    key={opcao}
+                    to="/obras"
+                    search={opcao === "Todas" ? {} : { categoria: slugCategoria(opcao) }}
+                    replace
+                    resetScroll={false}
+                    aria-current={selecionada ? "true" : undefined}
+                    className={`inline-flex items-center gap-2 border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                       selecionada
                         ? "border-mv bg-mv text-white"
                         : "border-borda bg-white text-concreto hover:border-grafite hover:text-grafite"
                     }`}
                   >
-                    {categoria}
-                  </button>
+                    {opcao}
+                    <span
+                      className={`font-mono text-[11px] ${selecionada ? "text-white/80" : "text-concreto/70"}`}
+                    >
+                      {contarObras(opcao)}
+                    </span>
+                  </Link>
                 );
               })}
-            </div>
+            </nav>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <p className="mt-6 text-sm text-concreto" aria-live="polite">
+              {obras.length === 1 ? "1 obra" : `${obras.length} obras`}
+              {ativa !== "Todas" && ` em ${ativa.toLocaleLowerCase("pt-BR")}`}
+            </p>
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {obras.map((obra) => (
                 <Link
                   key={obra.slug}

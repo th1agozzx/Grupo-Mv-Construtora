@@ -4,7 +4,7 @@ import { SERVICOS, DESTAQUES } from "@/data/servicos";
 import { REGIOES, ESTADOS_TEXTO, CIDADES_ATENDIDAS, cidadesDoEstado } from "@/data/regioes";
 import { VIDEOS } from "@/data/videos";
 import { CATEGORIAS_FROTA, FROTA } from "@/data/frota";
-import { CATEGORIAS_OBRA, OBRAS } from "@/data/obras";
+import { CATEGORIAS_OBRA, CATEGORIAS_VISIVEIS, OBRAS, contarObras, slugCategoria } from "@/data/obras";
 import { organizacaoSchema, websiteSchema, faqSchema, videosSchema, SITE_URL } from "@/lib/schema";
 import { CTAButton } from "@/components/site/CTAButton";
 import { SectionTitle } from "@/components/site/SectionTitle";
@@ -273,24 +273,40 @@ function ObrasRealizadas() {
               Terraplenagem, estradas e obras civis executadas com frota própria e equipe da casa,
               do primeiro movimento de terra até a entrega da área.
             </p>
+            <Link
+              to="/obras"
+              search={categoria === "Todas" ? {} : { categoria: slugCategoria(categoria) }}
+              className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
+            >
+              {categoria === "Todas"
+                ? `Ver todas as ${OBRAS.length} obras`
+                : `Ver obras de ${categoria.toLocaleLowerCase("pt-BR")}`}{" "}
+              <MoveUpRight size={16} />
+            </Link>
           </Revelar>
         </div>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {CATEGORIAS_OBRA.map((item) => {
+          {CATEGORIAS_VISIVEIS.map((item) => {
             const ativa = categoria === item;
             return (
               <button
                 key={item}
+                type="button"
                 onClick={() => setCategoria(item)}
                 aria-pressed={ativa}
-                className={`border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                className={`inline-flex items-center gap-2 border px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
                   ativa
                     ? "border-mv bg-mv text-white"
                     : "border-borda bg-white text-concreto hover:border-grafite hover:text-grafite"
                 }`}
               >
                 {item}
+                <span
+                  className={`font-mono text-[11px] ${ativa ? "text-white/80" : "text-concreto/70"}`}
+                >
+                  {contarObras(item)}
+                </span>
               </button>
             );
           })}

@@ -1,13 +1,14 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { ArrowRight, BadgeCheck, ChevronDown, Maximize2 } from "lucide-react";
+import { ArrowRight, BadgeCheck, ChevronDown, MapPin, Maximize2, Tag } from "lucide-react";
 import { useState } from "react";
 
+import { AnteriorProxima, vizinhos } from "@/components/site/AnteriorProxima";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CtaFinal } from "@/components/site/CtaFinal";
 import { Lightbox } from "@/components/site/Lightbox";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { SITE_URL } from "@/config/empresa";
-import { OBRAS, resumoObra } from "@/data/obras";
+import { OBRAS, resumoObra, slugCategoria } from "@/data/obras";
 import { SERVICOS } from "@/data/servicos";
 import { breadcrumbSchema, faqSchema, obraSchema } from "@/lib/schema";
 
@@ -57,6 +58,10 @@ function PaginaObra() {
   ].flatMap(([rotulo, valor]) => (valor ? [{ rotulo, valor }] : []));
   const resumo = resumoObra(obra);
   const servicos = SERVICOS.filter((servico) => obra.servicos.includes(servico.slug));
+  const { anterior, proxima } = vizinhos(OBRAS, OBRAS.indexOf(obra));
+  const mesmaCategoria = OBRAS.filter(
+    (outra) => outra.categoria === obra.categoria && outra.slug !== obra.slug,
+  ).slice(0, 3);
   const fotos = obra.imagens.map((src) => ({ src, alt: obra.alt, legenda: obra.titulo }));
 
   return (
@@ -96,7 +101,24 @@ function PaginaObra() {
           <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:items-start">
             <div>
               <SectionTitle as="h1" eyebrow={obra.categoria} title={obra.titulo} />
-              <p className="mt-7 text-lg leading-8 text-concreto">{resumo}</p>
+              <div className="mt-6 flex flex-wrap gap-2 text-sm">
+                <Link
+                  to="/obras"
+                  search={{ categoria: slugCategoria(obra.categoria) }}
+                  className="inline-flex min-h-9 items-center gap-2 border border-borda bg-white px-3 text-grafite transition-colors hover:border-mv hover:text-mv-escuro"
+                  title={`Ver todas as obras de ${obra.categoria.toLocaleLowerCase("pt-BR")}`}
+                >
+                  <Tag size={14} aria-hidden="true" className="text-mv" />
+                  {obra.categoria}
+                </Link>
+                {obra.local && (
+                  <span className="inline-flex min-h-9 items-center gap-2 border border-borda bg-white px-3 text-concreto">
+                    <MapPin size={14} aria-hidden="true" className="text-mv" />
+                    {obra.local}
+                  </span>
+                )}
+              </div>
+              <p className="mt-6 text-lg leading-8 text-concreto">{resumo}</p>
               {import.meta.env.DEV && obra.provisoria && (
                 <p className="mt-6 border-l-4 border-mv bg-areia px-4 py-3 text-sm leading-6 text-grafite">
                   Ambiente de desenvolvimento: esta foto é genérica e deve ser substituída por uma
@@ -282,6 +304,57 @@ function PaginaObra() {
             </div>
           </div>
         </section>
+
+        {mesmaCategoria.length > 0 && (
+          <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="text-2xl font-semibold tracking-tight text-grafite sm:text-3xl">
+                Mais obras de {obra.categoria.toLocaleLowerCase("pt-BR")}
+              </h2>
+              <Link
+                to="/obras"
+                search={{ categoria: slugCategoria(obra.categoria) }}
+                className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
+              >
+                Ver todas <ArrowRight size={16} />
+              </Link>
+            </div>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {mesmaCategoria.map((outra) => (
+                <Link
+                  key={outra.slug}
+                  to="/obras/$slug"
+                  params={{ slug: outra.slug }}
+                  className="group border border-borda bg-white transition-colors hover:border-mv"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={outra.imagem}
+                      alt={outra.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold text-grafite group-hover:text-mv-escuro">
+                      {outra.titulo}
+                    </h3>
+                    {outra.local && <p className="mt-1 text-sm text-concreto">{outra.local}</p>}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <AnteriorProxima
+          tipo="obra"
+          feminino
+          anterior={anterior && { rotulo: anterior.titulo, href: `/obras/${anterior.slug}` }}
+          proxima={proxima && { rotulo: proxima.titulo, href: `/obras/${proxima.slug}` }}
+          lista={{ rotulo: "Todas as obras", href: "/obras" }}
+        />
 
         <CtaFinal />
       </main>

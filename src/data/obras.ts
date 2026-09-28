@@ -75,6 +75,19 @@ export const CATEGORIAS_OBRA = [
 
 export type ObraCategoria = Exclude<(typeof CATEGORIAS_OBRA)[number], "Todas">;
 
+/** "Infraestrutura viária" -> "infraestrutura-viaria", para usar no endereço (?categoria=). */
+export const slugCategoria = (categoria: string) =>
+  categoria.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, "-");
+
+export const categoriaDoSlug = (slug?: string) =>
+  CATEGORIAS_OBRA.find((categoria) => slugCategoria(categoria) === slug);
+
+/** Quantas obras cada filtro mostra. Filtro sem obra fica fora da interface. */
+export const contarObras = (categoria: (typeof CATEGORIAS_OBRA)[number]) =>
+  categoria === "Todas"
+    ? OBRAS.length
+    : OBRAS.filter((obra) => obra.categoria === categoria).length;
+
 /**
  * Evita que a falta de resumo vaze para SEO ou para a interface como texto de controle.
  * A descrição de referência não atribui cliente, local, prazo ou volume à obra.
@@ -103,10 +116,22 @@ export const OBRAS: Obra[] = [
       "Para esse tipo de obra, o Grupo MV Construtora mobiliza frota própria de escavadeiras, caminhões caçamba, motoniveladoras, rolos compactadores e caminhões-pipa, com equipe de campo dedicada para manter o ritmo da obra e o controle de cada etapa.",
     ],
     etapas: [
-      ["Limpeza e raspagem", "Retirada da vegetação e da camada orgânica do terreno, que não serve como base de apoio."],
-      ["Cortes e aterros", "Movimentação do solo até as cotas do projeto, aproveitando o material de corte nos aterros sempre que possível."],
-      ["Compactação em camadas", "Espalhamento, umectação e compactação de cada camada até atingir a densidade especificada."],
-      ["Acabamento da plataforma", "Regularização final com motoniveladora e conformação do caimento para o escoamento da água."],
+      [
+        "Limpeza e raspagem",
+        "Retirada da vegetação e da camada orgânica do terreno, que não serve como base de apoio.",
+      ],
+      [
+        "Cortes e aterros",
+        "Movimentação do solo até as cotas do projeto, aproveitando o material de corte nos aterros sempre que possível.",
+      ],
+      [
+        "Compactação em camadas",
+        "Espalhamento, umectação e compactação de cada camada até atingir a densidade especificada.",
+      ],
+      [
+        "Acabamento da plataforma",
+        "Regularização final com motoniveladora e conformação do caimento para o escoamento da água.",
+      ],
     ],
     faqs: [
       [
@@ -142,9 +167,18 @@ export const OBRAS: Obra[] = [
     ],
     etapas: [
       ["Remoção do material instável", "Retirada do solo saturado ou erodido das saias do aterro."],
-      ["Recomposição do aterro", "Lançamento de solo selecionado em camadas, na geometria definida no projeto."],
-      ["Compactação", "Umectação e compactação de cada camada para devolver a capacidade de suporte ao aterro."],
-      ["Conformação dos taludes", "Acabamento das saias do aterro para receber a contenção e a proteção contra erosão."],
+      [
+        "Recomposição do aterro",
+        "Lançamento de solo selecionado em camadas, na geometria definida no projeto.",
+      ],
+      [
+        "Compactação",
+        "Umectação e compactação de cada camada para devolver a capacidade de suporte ao aterro.",
+      ],
+      [
+        "Conformação dos taludes",
+        "Acabamento das saias do aterro para receber a contenção e a proteção contra erosão.",
+      ],
     ],
     faqs: [
       [
@@ -216,9 +250,15 @@ export const OBRAS: Obra[] = [
       "Esse acompanhamento reduz retrabalho, evita máquina parada e dá ao contratante uma visão clara do andamento, da medição e dos próximos passos.",
     ],
     etapas: [
-      ["Planejamento das frentes", "Distribuição de máquinas e equipes conforme as prioridades da obra."],
+      [
+        "Planejamento das frentes",
+        "Distribuição de máquinas e equipes conforme as prioridades da obra.",
+      ],
       ["Controle diário", "Registro da produção, das horas de máquina e das condições do terreno."],
-      ["Ajustes de campo", "Correção do plano de trabalho diante de chuva, solo ou mudanças de projeto."],
+      [
+        "Ajustes de campo",
+        "Correção do plano de trabalho diante de chuva, solo ou mudanças de projeto.",
+      ],
       ["Medição e entrega", "Conferência do que foi executado e liberação das áreas concluídas."],
     ],
     faqs: [
@@ -258,10 +298,19 @@ export const OBRAS: Obra[] = [
       "O Grupo MV Construtora opera com frota própria de escavadeiras hidráulicas e caminhões caçamba, o que dá agilidade para montar frentes de trabalho simultâneas em obras de maior volume.",
     ],
     etapas: [
-      ["Planejamento da frente", "Definição dos pontos de corte, dos acessos e do trajeto dos caminhões."],
-      ["Escavação", "Corte do terreno com escavadeiras hidráulicas, respeitando as cotas do projeto."],
+      [
+        "Planejamento da frente",
+        "Definição dos pontos de corte, dos acessos e do trajeto dos caminhões.",
+      ],
+      [
+        "Escavação",
+        "Corte do terreno com escavadeiras hidráulicas, respeitando as cotas do projeto.",
+      ],
       ["Carga", "Carregamento dos caminhões caçamba direto na frente de serviço."],
-      ["Transporte e descarga", "Destinação do material para aterro, estoque ou bota-fora licenciado."],
+      [
+        "Transporte e descarga",
+        "Destinação do material para aterro, estoque ou bota-fora licenciado.",
+      ],
     ],
     faqs: [
       [
@@ -303,8 +352,14 @@ export const OBRAS: Obra[] = [
     etapas: [
       ["Limpeza da faixa", "Remoção da vegetação e do material solto ao longo do traçado."],
       ["Abertura e alargamento", "Corte e aterro para definir a largura e o traçado da via."],
-      ["Regularização", "Passagem da motoniveladora para corrigir o perfil e formar o abaulamento."],
-      ["Compactação e saídas d'água", "Compactação do leito e abertura de saídas laterais para a água."],
+      [
+        "Regularização",
+        "Passagem da motoniveladora para corrigir o perfil e formar o abaulamento.",
+      ],
+      [
+        "Compactação e saídas d'água",
+        "Compactação do leito e abertura de saídas laterais para a água.",
+      ],
     ],
     faqs: [
       [
@@ -389,10 +444,19 @@ export const OBRAS: Obra[] = [
       "Em regiões de chuvas concentradas como o Maranhão, uma drenagem bem feita é o que mantém a obra trabalhando e as estradas transitáveis no inverno.",
     ],
     etapas: [
-      ["Marcação e declividade", "Definição do traçado do canal e do caimento necessário para o escoamento."],
+      [
+        "Marcação e declividade",
+        "Definição do traçado do canal e do caimento necessário para o escoamento.",
+      ],
       ["Escavação", "Abertura do canal ou da vala com escavadeira hidráulica."],
-      ["Conformação dos taludes", "Acabamento das paredes com a inclinação que garante a estabilidade."],
-      ["Destinação do material", "Aproveitamento do solo escavado em aterros ou transporte para bota-fora."],
+      [
+        "Conformação dos taludes",
+        "Acabamento das paredes com a inclinação que garante a estabilidade.",
+      ],
+      [
+        "Destinação do material",
+        "Aproveitamento do solo escavado em aterros ou transporte para bota-fora.",
+      ],
     ],
     faqs: [
       [
@@ -433,7 +497,10 @@ export const OBRAS: Obra[] = [
     ],
     etapas: [
       ["Abastecimento", "Carregamento do caminhão-pipa em ponto de captação autorizado."],
-      ["Aplicação na camada", "Distribuição uniforme da água com barra espargidora antes da compactação."],
+      [
+        "Aplicação na camada",
+        "Distribuição uniforme da água com barra espargidora antes da compactação.",
+      ],
       ["Controle de umidade", "Ajuste da quantidade de água conforme o tipo de solo e o clima."],
       ["Controle de poeira", "Umectação periódica dos acessos e das frentes de serviço."],
     ],
@@ -522,7 +589,10 @@ export const OBRAS: Obra[] = [
       ["Limpeza e destoca", "Retirada da vegetação, dos tocos e das raízes da área de plantio."],
       ["Gradagem", "Revolvimento e destorroamento do solo com grade pesada."],
       ["Nivelamento", "Correção de desníveis e de pontos de acúmulo de água."],
-      ["Estradas internas", "Abertura e recuperação dos acessos para máquinas e escoamento da safra."],
+      [
+        "Estradas internas",
+        "Abertura e recuperação dos acessos para máquinas e escoamento da safra.",
+      ],
     ],
     faqs: [
       [
@@ -542,3 +612,8 @@ export const OBRAS: Obra[] = [
     provisoria: true,
   },
 ];
+
+/** Filtros exibidos nas vitrines: só as categorias que têm pelo menos uma obra. */
+export const CATEGORIAS_VISIVEIS = CATEGORIAS_OBRA.filter(
+  (categoria) => contarObras(categoria) > 0,
+);

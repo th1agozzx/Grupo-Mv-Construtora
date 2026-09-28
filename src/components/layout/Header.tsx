@@ -18,20 +18,30 @@ import { SERVICOS } from "@/data/servicos";
 
 const SECOES_HOME = ["servicos", "obras", "frota", "quem-somos", "contato"] as const;
 
-const ROTAS_POR_SECAO: Record<string, string> = {
-  "#servicos": "/servicos",
-  "#obras": "/obras",
-  "#frota": "/frota",
-  "/blog": "/blog",
+// Serviços, Obras e Frota têm página própria, mas também seção na home. Na home,
+// o item acende quando a seção correspondente está na tela.
+const SECAO_DA_ROTA: Record<string, string> = {
+  "/servicos": "servicos",
+  "/obras": "obras",
+  "/frota": "frota",
 };
 
 const PAINEIS = ["servicos", "frota", "obras"] as const;
 type PainelAberto = (typeof PAINEIS)[number] | null;
+type ItemComPainel = "/servicos" | "/frota" | "/obras";
 
 const ITENS_INSTITUCIONAIS = MENU_COMPLETO.filter(
-  (item) => !["#servicos", "#frota", "/obras", "#contato"].includes(item.href),
+  (item) => !["/servicos", "/frota", "/obras", "#contato"].includes(item.href),
 );
 const OBRAS_DO_MENU = OBRAS.filter((obra) => !obra.provisoria).slice(0, 4);
+
+/** Atalhos do topo do menu mobile: as páginas que listam tudo, a um toque. */
+const ATALHOS_MOBILE = [
+  { rotulo: "Serviços", detalhe: `${SERVICOS.length} frentes`, href: "/servicos" },
+  { rotulo: "Obras", detalhe: `${OBRAS.length} registros`, href: "/obras" },
+  { rotulo: "Frota", detalhe: `${FROTA.length} equipamentos`, href: "/frota" },
+  { rotulo: "Blog", detalhe: "Artigos e guias", href: "/blog" },
+];
 
 export function Header() {
   const [condensado, setCondensado] = useState(false);
@@ -42,7 +52,7 @@ export function Header() {
   const reducedMotion = useReducedMotion();
   const headerRef = useRef<HTMLElement>(null);
   const navegacaoRef = useRef<HTMLElement>(null);
-  const gatilhosRef = useRef<Record<Exclude<PainelAberto, null>, HTMLButtonElement | null>>({
+  const gatilhosRef = useRef<Record<Exclude<PainelAberto, null>, HTMLAnchorElement | null>>({
     servicos: null,
     frota: null,
     obras: null,
@@ -55,9 +65,13 @@ export function Header() {
 
   const href = (h: string) => hrefAbsoluto(h, naHome);
   const itemAtivo = (hrefItem: string) => {
-    if (naHome) return hrefItem === `#${secaoAtiva ?? hash.replace(/^#/, "")}`;
-    const rota = ROTAS_POR_SECAO[hrefItem];
-    return rota !== undefined && (pathname === rota || pathname.startsWith(`${rota}/`));
+    if (naHome) {
+      const secao = hrefItem.startsWith("#") ? hrefItem.slice(1) : SECAO_DA_ROTA[hrefItem];
+      return secao !== undefined && secao === (secaoAtiva ?? hash.replace(/^#/, ""));
+    }
+    return (
+      hrefItem.startsWith("/") && (pathname === hrefItem || pathname.startsWith(`${hrefItem}/`))
+    );
   };
   const marcarAncoraClicada = (hrefItem: string) => {
     if (naHome && hrefItem.startsWith("#")) setSecaoAtiva(hrefItem.slice(1));
@@ -215,10 +229,10 @@ export function Header() {
     }
   };
 
-  const temPainel = (hrefItem: string): hrefItem is "#servicos" | "#frota" | "/obras" =>
-    ["#servicos", "#frota", "/obras"].includes(hrefItem);
-  const painelDoItem = (hrefItem: "#servicos" | "#frota" | "/obras") =>
-    hrefItem === "#servicos" ? "servicos" : hrefItem === "#frota" ? "frota" : "obras";
+  const temPainel = (hrefItem: string): hrefItem is ItemComPainel =>
+    ["/servicos", "/frota", "/obras"].includes(hrefItem);
+  const painelDoItem = (hrefItem: ItemComPainel) =>
+    hrefItem === "/servicos" ? "servicos" : hrefItem === "/frota" ? "frota" : "obras";
 
   return (
     <header
@@ -259,19 +273,22 @@ export function Header() {
             if (temPainel(item.href)) {
               const painel = painelDoItem(item.href);
               const aberto = painelAberto === painel;
+              // Link de verdade: o clique leva à página que lista tudo, e o painel
+              // abre no hover, no foco ou com a seta para baixo.
               return (
-                <button
+                <a
                   key={item.href}
                   ref={(elemento) => {
                     gatilhosRef.current[painel] = elemento;
                   }}
-                  type="button"
+                  href={href(item.href)}
                   data-item-navegacao
                   aria-expanded={aberto}
                   aria-controls={`painel-${painel}`}
+                  aria-current={ativo && !naHome ? "page" : undefined}
                   onMouseEnter={() => abrirPainel(painel)}
                   onFocus={() => abrirPainel(painel, true)}
-                  onClick={() => (aberto ? fecharPainel() : abrirPainel(painel, true))}
+                  onClick={() => fecharPainel()}
                   onKeyDown={(evento) => handleTeclaTopo(evento, painel)}
                   className={`relative flex h-full items-center gap-1 px-3 text-[14px] font-medium tracking-[-0.01em] transition-colors motion-reduce:transition-none ${ativo || aberto ? "text-grafite" : "text-concreto hover:text-grafite"}`}
                 >
@@ -282,7 +299,7 @@ export function Header() {
                     className={`transition-transform duration-200 motion-reduce:transition-none ${aberto ? "rotate-180" : ""}`}
                   />
                   {(ativo || aberto) && <Indicador reducedMotion={reducedMotion} />}
-                </button>
+                </a>
               );
             }
             return (
@@ -351,8 +368,30 @@ export function Header() {
             className={`absolute inset-x-0 top-full flex overflow-y-auto overscroll-contain border-t border-borda bg-white lg:hidden ${condensado ? "h-[calc(100dvh-64px)]" : "h-[calc(100dvh-80px)]"}`}
           >
             <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col px-5 pt-5 sm:px-8">
+              <div className="grid grid-cols-2 gap-2 pb-5">
+                {ATALHOS_MOBILE.map((atalho) => (
+                  <a
+                    key={atalho.href}
+                    href={href(atalho.href)}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={itemAtivo(atalho.href) && !naHome ? "page" : undefined}
+                    className={`group flex min-h-[72px] flex-col justify-between border p-3 transition-colors active:bg-areia ${
+                      itemAtivo(atalho.href) && !naHome
+                        ? "border-mv bg-areia"
+                        : "border-borda hover:border-grafite"
+                    }`}
+                  >
+                    <span className="flex items-center justify-between text-[15px] font-semibold text-grafite">
+                      {atalho.rotulo}
+                      <ArrowRight aria-hidden="true" size={16} className="text-mv" />
+                    </span>
+                    <span className="text-xs text-concreto">{atalho.detalhe}</span>
+                  </a>
+                ))}
+              </div>
               <MenuMobileSecao
                 titulo="Serviços"
+                verTodos={{ rotulo: "Ver todos", href: href("/servicos") }}
                 itens={SERVICOS.map((servico) => ({
                   rotulo: servico.nome,
                   href: `/servicos/${servico.slug}`,
@@ -360,18 +399,20 @@ export function Header() {
                 onNavegar={() => setMenuOpen(false)}
               />
               <MenuMobileSecao
-                titulo="Frota"
-                itens={FROTA.map((maquina) => ({
-                  rotulo: maquina.nome,
-                  href: `/frota/${maquina.slug}`,
+                titulo="Obras em destaque"
+                verTodos={{ rotulo: `Ver as ${OBRAS.length}`, href: href("/obras") }}
+                itens={OBRAS_DO_MENU.map((obra) => ({
+                  rotulo: obra.titulo,
+                  href: `/obras/${obra.slug}`,
                 }))}
                 onNavegar={() => setMenuOpen(false)}
               />
               <MenuMobileSecao
-                titulo="Obras"
-                itens={OBRAS_DO_MENU.map((obra) => ({
-                  rotulo: obra.titulo,
-                  href: `/obras/${obra.slug}`,
+                titulo="Frota"
+                verTodos={{ rotulo: "Ver toda a frota", href: href("/frota") }}
+                itens={FROTA.map((maquina) => ({
+                  rotulo: maquina.nome,
+                  href: `/frota/${maquina.slug}`,
                 }))}
                 onNavegar={() => setMenuOpen(false)}
               />
@@ -410,7 +451,11 @@ function Indicador({ reducedMotion }: { reducedMotion: boolean | null }) {
 function PainelServicos() {
   return (
     <div>
-      <CabecalhoPainel titulo="Serviços" href="/servicos" link="Ver todos os serviços" />
+      <CabecalhoPainel
+        titulo="Serviços"
+        href="/servicos"
+        link={`Ver todos os ${SERVICOS.length} serviços`}
+      />
       <div className="grid grid-cols-3 gap-x-7 gap-y-1">
         {SERVICOS.map((servico) => {
           const Icone = servico.icon;
@@ -468,7 +513,11 @@ function PainelFrota() {
 function PainelObras() {
   return (
     <div>
-      <CabecalhoPainel titulo="Obras" href="/obras" link="Ver todas as obras" />
+      <CabecalhoPainel
+        titulo="Obras em destaque"
+        href="/obras"
+        link={`Ver todas as ${OBRAS.length} obras`}
+      />
       <div className="grid grid-cols-4 gap-4">
         {OBRAS_DO_MENU.map((obra) => (
           <a key={obra.slug} href={`/obras/${obra.slug}`} className="group min-w-0">
@@ -505,18 +554,31 @@ function CabecalhoPainel({ titulo, href, link }: { titulo: string; href: string;
 function MenuMobileSecao({
   titulo,
   itens,
+  verTodos,
   onNavegar,
 }: {
   titulo: string;
   itens: { rotulo: string; href: string }[];
+  verTodos?: { rotulo: string; href: string };
   onNavegar: () => void;
 }) {
   const reducedMotion = useReducedMotion();
   return (
-    <section className="border-t border-borda py-4 first:border-t-0 first:pt-0">
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
-        {titulo}
-      </p>
+    <section className="border-t border-borda py-4">
+      <div className="mb-2 flex items-center justify-between gap-4">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-mv-escuro">
+          {titulo}
+        </p>
+        {verTodos && (
+          <a
+            href={verTodos.href}
+            onClick={onNavegar}
+            className="inline-flex min-h-11 items-center gap-1 text-[13px] font-semibold text-grafite underline decoration-mv decoration-2 underline-offset-4"
+          >
+            {verTodos.rotulo} <ArrowRight aria-hidden="true" size={14} />
+          </a>
+        )}
+      </div>
       <div>
         {itens.map((item, indice) => (
           <motion.a

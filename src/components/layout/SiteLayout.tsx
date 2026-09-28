@@ -4,6 +4,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { VoltarAoTopo } from "./VoltarAoTopo";
 import { WhatsAppFloating } from "./WhatsAppFloating";
 
 /**
@@ -93,6 +94,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <Header />
       {children}
       <Footer />
+      <VoltarAoTopo />
       <WhatsAppFloating />
     </div>
   );

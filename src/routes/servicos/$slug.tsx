@@ -2,12 +2,14 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
+import { AnteriorProxima, vizinhos } from "@/components/site/AnteriorProxima";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CtaFinal } from "@/components/site/CtaFinal";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { SITE_URL } from "@/config/empresa";
 import { SITE_BASE_PATH } from "@/config/navegacao";
 import { maquinasDoServico } from "@/data/frota";
+import { OBRAS } from "@/data/obras";
 import { SERVICOS } from "@/data/servicos";
 import { REGIOES, ESTADOS_TEXTO, cidadesDoEstado } from "@/data/regioes";
 import { breadcrumbSchema, faqSchema, servicoSchema } from "@/lib/schema";
@@ -55,6 +57,11 @@ function PaginaServico() {
   const [aberta, setAberta] = useState(0);
 
   if (!servico) return null;
+  const { anterior: anteriorItem, proxima: proximoItem } = vizinhos(
+    SERVICOS,
+    SERVICOS.indexOf(servico),
+  );
+  const obrasDoServico = OBRAS.filter((obra) => obra.servicos.includes(servico.slug)).slice(0, 3);
 
   const relacionados = SERVICOS.filter((s) => s.slug !== slug).slice(0, 3);
   // Vínculo serviço -> máquinas. A lista sai de src/data/frota.ts, onde cada
@@ -301,6 +308,60 @@ function PaginaServico() {
             </Link>
           </div>
         </section>
+
+        {obrasDoServico.length > 0 && (
+          <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                Obras com {servico.nome.toLowerCase()}
+              </h2>
+              <Link
+                to="/obras"
+                className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.12em] text-mv-escuro transition-colors hover:text-grafite"
+              >
+                Ver todas as obras <ArrowRight size={16} />
+              </Link>
+            </div>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {obrasDoServico.map((obra) => (
+                <Link
+                  key={obra.slug}
+                  to="/obras/$slug"
+                  params={{ slug: obra.slug }}
+                  className="group border border-borda bg-white transition-colors hover:border-mv"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={obra.imagem}
+                      alt={obra.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-mv-escuro">
+                      {obra.categoria}
+                    </span>
+                    <h3 className="mt-2 font-semibold group-hover:text-mv-escuro">{obra.titulo}</h3>
+                    {obra.local && <p className="mt-1 text-sm text-concreto">{obra.local}</p>}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <AnteriorProxima
+          tipo="serviço"
+          anterior={
+            anteriorItem && { rotulo: anteriorItem.nome, href: `/servicos/${anteriorItem.slug}` }
+          }
+          proxima={
+            proximoItem && { rotulo: proximoItem.nome, href: `/servicos/${proximoItem.slug}` }
+          }
+          lista={{ rotulo: "Todos os serviços", href: "/servicos" }}
+        />
 
         <CtaFinal servico={servico.nome} />
       </main>

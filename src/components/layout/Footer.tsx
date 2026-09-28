@@ -46,18 +46,18 @@ export function Footer() {
               {servico.nome}
             </Link>
           ))}
+          <Link
+            to="/servicos"
+            className="mt-2 inline-block text-sm font-semibold text-grafite underline decoration-mv decoration-2 underline-offset-4 hover:text-mv"
+          >
+            Ver todos os serviços
+          </Link>
         </div>
 
         <div>
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-grafite">
             Navegação
           </p>
-          <Link to="/servicos" className="mb-3 block text-sm hover:text-mv">
-            Todos os serviços
-          </Link>
-          <Link to="/frota" className="mb-3 block text-sm hover:text-mv">
-            Frota completa
-          </Link>
           {MENU_COMPLETO.map((item) => (
             <a key={item.href} href={href(item.href)} className="mb-3 block text-sm hover:text-mv">
               {item.rotulo}
@@ -73,7 +73,9 @@ export function Footer() {
             {EMPRESA.email}
           </a>
           <a
-            href={waLink("Olá! Vim pelo site do Grupo MV Construtora e gostaria de mais informações.")}
+            href={waLink(
+              "Olá! Vim pelo site do Grupo MV Construtora e gostaria de mais informações.",
+            )}
             target="_blank"
             rel="noreferrer"
             onClick={trackWhatsAppConversion}
